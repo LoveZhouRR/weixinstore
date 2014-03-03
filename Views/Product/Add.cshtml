@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@using System.Collections.ObjectModel
+@using System.ComponentModel
+@using DBC.WeChat.Models.Sales
+@model DBC.WeChat.Models.Sales.Product
+@section Css{
+    <link rel="stylesheet" href="~/Content/css/add_pro.css">
+}
+<script type="text/javascript" src="~/Content/Libraries/jQuery/jquery.form.min.js"></script>
+<script type="text/javascript" src="~/Content/Scripts/Product/Specification.js"></script>
+<script type="text/javascript" src="~/Content/Scripts/Product/PicUpload.js"></script>
+<div class="pg_cu">
+    @Html.ActionLink("商品列表", "Index", "Product", null, new { id = "ProductListTab" })
+    <a href="javascript:;" class="cur">添加商品</a>
+</div>
+@using (Html.BeginForm("Upload", "Product", FormMethod.Post, new { id = "filePostForm", enctype = "multipart/form-data" }))
+{
+    <div class="ap_upload">
+        <select id="pics" name="pics">
+        </select>
+        <span>
+            <input type="file" name="picFile" id="picFile">
+            <i class="icon">图片上传</i>
+        </span>
+        <em>(上传图片仅支持JPG、GIF、PNG、BMP格式，大小不能超过5M.）</em>
+    </div>
+}
+
+@using (Ajax.BeginForm("Add", "Product", new AjaxOptions()
+{
+    UpdateTargetId = "MainForm",
+    HttpMethod = "Post",
+    OnSuccess = "",
+}))
+{
+    <div class="add_pro">
+        <div class="ap_detail">
+            <div style="display: none">
+                <table id="hidPic">
+                </table>
+            </div>
+            <div class="ap_dl">
+                <a id="picAddDelete"
+                    href="javascript:;" class="icon ap_delete"></a>
+                <a id="setFirst" href="javascript:;" class="icon ap_setindex"></a>
+                <img id="picPreView" src="~/Content/images/pic/400X400.png" />
+            </div>
+            <div class="ap_dr">
+                <div class="ap_rt">
+                    <span>商品名称</span> @Html.TextBoxFor(m => m.Name)
+                </div>
+                <div class="ap_rt">
+                    <span>商品重量</span> @Html.TextBoxFor(m => m.Weight)<span>g</span>
+                </div>
+                <!--添加规格-->
+                <table class="ap_single ap_table">
+                    <thead>
+                        <tr>
+                            <th class="ap_norms"><a href="javascript:;" id="AddSpecification">+ 添加规格</a></th>
+                            <th class="ap_price">价格</th>
+                            <th class="ap_invent">库存</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="hide">
+                                <input type="text" name="id0" value="0" />
+                            </td>
+                            <td class="ap_norms"></td>
+                            <td class="ap_price">
+                                <input type="text" name="price0" /></td>
+                            <td class="ap_invent">
+                                <input type="text" name="stock0" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="ap_addnorms" style="display: none">
+                    <table class="ap_single ap_table">
+                        <thead>
+                            <tr>
+                                <th class="ap_operate">是否展示</th>
+                                <th class="ap_norms">商品规格</th>
+                                <th class="ap_price">价格</th>
+                                <th class="ap_invent">库存</th>
+                            </tr>
+                        </thead>
+                        <tbody id="SpecificationBody">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ap_description">
+                    <p>商品描述</p>
+                    @Html.TextAreaFor(m => m.Description)
+                    <em>建议不超过120个字  </em>
+                </div>
+                <div style="display: none">
+                    <input id="picCount" name="picCount" value="0" />
+                    <input id="RowsCount" name="RowsCount" value="0" />
+                </div>
+                <div class="ap_sub" id="submit">
+                    <a href="javascript:;" onclick='SumbitData();'>保 存</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+   
+}

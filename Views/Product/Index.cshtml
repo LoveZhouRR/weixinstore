@@ -1,0 +1,162 @@
+﻿@{
+    ViewBag.Title = "商品信息管理";
+    Layout = "~/Views/Shared/_Master.cshtml";
+    ViewBag.CurrentMenu = "ProductMenu";
+}
+@using DBC.WeChat.Models.Sales
+@model ICollection<DBC.WeChat.Models.Sales.Product>
+@section Css
+{
+    <link rel="stylesheet" href="~/Content/css/pro_list.css">
+}
+
+  <script type="text/javascript" 
+        src="~/Content/Libraries/jQuery/jquery.unobtrusive-ajax.min.js" ></script>
+@section Script{
+
+    <script type="text/javascript">
+
+        function shelve(shelveOrNot) {
+            var list = $('#productBody input[type=checkbox]');
+            if (list == null || !list.length) return;
+            var ids = [];
+            for (var index = 0; index < list.length; index++) {
+                var v = list[index].value.split('_');
+                if (list[index].checked) {
+                    ids.push(parseInt(v[0]));
+                }
+            }
+            if (ids.length) {
+                doShelve(shelveOrNot, ids);
+            } else {
+                alert("请至少选择一个商品");
+            }
+        }
+
+        function doShelve(shelveOrNot, ids) {
+            if (ids == null || !ids.length) return;
+            $.ajax({
+                url: '/Product/Shelve',
+                type: 'post',
+                dataType: "json",
+                data: { ids: ids, doShelve: shelveOrNot },
+                success: function (responseText) {
+                    var responseIds = responseText.IDs;
+                    var isShelved = responseText.IsShelve;
+                    var text = isShelved ? "下架" : "上架";
+                    for (var j = 0; j < ids.length; j++) {
+                        $("#doShelve" + ids[j]).attr("href", "javascript:doShelve("
+                            + !isShelved + ",[" + responseIds[j] + "])").text(text);
+                    }
+                }
+            });
+        }
+
+
+        function setTop(topOrNot, ids) {
+            if (ids == null || !ids.length) return;
+            $.ajax({
+                url: '/Product/SetTop',
+                type: 'post',
+                dataType: "json",
+                data: { ids: ids, isTop: topOrNot },
+                success: function (responseText) {
+                    var responseIds = responseText.IDs;
+                    var isTop = responseText.IsTop;
+                    var text = isTop ? "取消置顶" : "置顶";
+                    for (var j = 0; j < ids.length; j++) {
+                        $("#setTop" + ids[j]).attr("href", "javascript:setTop("
+                            + !isTop + ",[" + responseIds[j] + "])").text(text);
+                    }
+                }
+            });
+        }
+
+        //排序事件
+        var SortEventHandler;
+
+        SortEventHandler = function () {
+            var _OrderDirection = $("#OrderDirection").val();
+            var _OrderField = $("#OrderField").val();
+
+            var fields = $('[action=Sort]');
+
+            //遍历集合根据需要变更箭头方向
+            $.each(fields, function () {
+                if (_OrderDirection == "Asc") {
+                    if (_OrderField == $(this).attr('orderField')) {
+                        $(this).css("background-position", "-122px 0");
+                        return false;//跳出循环
+                    }
+                } else {
+                    return false;//跳出循环
+                }
+            })
+
+            //触发点击排序
+            fields.bind('click', function (event) {
+                var field = $(event.target);
+                $("#OrderField").val(field.attr('orderField'));
+                if (_OrderDirection == "Asc") {
+                    $("input[name=OrderDirection]").attr("value", "Desc");
+                } else {
+                    $("input[name=OrderDirection]").attr("value", "Asc");
+                }
+
+                //排序后需回到列表首页
+                $("input[name=Skip]").attr("value", 0);
+                PartlyQuery();
+            });
+        }
+
+        function QuerySuccess() {
+            $("#CheckAll").attr("checked", false);
+            SortEventHandler();
+        }
+
+        $(document).ready(function () {
+            $('#CheckAll').bind('click', function () {
+                var list = $('#productBody input[type=checkbox]');
+                for (var i = 0; i < list.length; i++) {
+                    list[i].checked = $('#CheckAll')[0].checked;
+                }
+            });
+            $('#NamePattern').bind('keypress', function (e) {
+                var key = window.event ? e.keyCode : e.which;
+                if (key == "13") {
+                    $("#queryForm").submit();
+                }
+            });
+
+            SortEventHandler();
+        });
+
+
+    </script>
+}
+<div class="pg_cu">
+    <a href="javascript:void(0);" id="ProductListTab" class="cur">商品列表</a>
+    @Html.ActionLink("添加商品", "Add", "Product", null, new { id = "ProductAddTab" })
+</div>
+@using (Ajax.BeginForm("AjaxQuery", "Product", null, new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "productList",
+        OnSuccess = "QuerySuccess",
+    }, new { ID = "queryForm" }))
+{
+    <div class="pg_mu">
+        <label>
+            <input type="checkbox" id="CheckAll" />全选</label>
+        <a href="javascript:shelve(true);" class="pg_mu_a">批量上架</a>
+        <a href="javascript:shelve(false);" class="pg_mu_a">批量下架</a>
+        @Html.Partial("Product/ProductQuery", new ProductQuery())
+    </div>
+
+    <div class="pg_mm">
+        <div id="productList">
+            @Html.Partial("Product/ProductList", Model)
+        </div>
+    </div>
+}

@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@model IEnumerable<DBC.WeChat.Models.Conversation.Rule>
+<script type="text/javascript">
+    $(function () {
+        $("#AddRuleButton").click(function () {
+            $("#AddRule").css("display", "");
+        });
+    })
+</script>
+<div>
+    <a id="AddRuleButton">添加规则</a>
+    <div id="AddRule" style="display: none">
+        @using (Html.BeginForm("AddRule", "Conversation", FormMethod.Post, new { ID = "AddRuleForm" }))
+        {
+            @Html.Label("规则名称")
+            <input type="text" name="KeyWordGroupName" />
+            @Html.Label("规则类型")
+            <input type="text" name="Type" />
+            <a id="Add"></a>
+            <a onclick="javascript:$('#AddRuleForm').submit();">保存</a>
+    }
+    </div>
+</div>
+<div class="set_antistop">
+    @foreach (var rule in Model)
+    {
+
+        @Html.Partial("Conversation/RuleEdit", rule)
+        
+        using (Ajax.BeginForm("GetReply", "Conversation", null, new AjaxOptions()
+        {
+            HttpMethod = "POST",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "EditReply",
+        }, new { ID = "EditReplyForm" + rule.ID }))
+        {
+        <input type="text" name="RuleID" value=@rule.ID />
+        <a onclick="javascript:$('#EditReplyForm@(rule.ID)').submit();">编辑回复</a>
+         }
+         <hr />
+    }
+</div>
+<div id="EditReply">
+</div>

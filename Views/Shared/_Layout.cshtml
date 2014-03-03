@@ -1,0 +1,28 @@
+﻿@using DBC.Ors.UI.Web.Mvc
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="UTF-8">
+
+    <link type="text/css" rel="Stylesheet" href="~/Content/css/g.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/sw/sw.min.css" />
+    @RenderSection("Css", false)
+    <script type="text/javascript" src="@Url.Library("jQuery/jquery-1.10.2.min.js")"></script>
+    <script type="text/javascript" src="~/Content/Scripts/common.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var targetWidth = window.screen.availWidth - 17;
+            if (targetWidth < 1349) {
+                targetWidth = 1349;
+            }
+            $(document.body).css('width', targetWidth + 'px');
+        });
+    </script>
+    
+</head>
+<body>
+    @RenderBody()
+    @RenderSection("Scripts", false)
+</body>
+</html>

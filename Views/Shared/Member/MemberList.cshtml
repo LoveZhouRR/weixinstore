@@ -1,0 +1,61 @@
+﻿@using DBC.WeChat.UI.Components
+@model ICollection<DBC.WeChat.UI.Store.Models.MemberMasterVM>
+@{
+    var pagination = ViewData["Pagination"] as Pagination;
+}
+
+<div class="info_list" style="margin-top: 0px;">
+    <table class="il_tab">
+        <thead>
+            <tr>
+                <th class="il_mid">会员系统ID</th>
+                <th class="il_lname">绑定登录名</th>
+                <th class="il_if">会员积分</th>
+                <th class="il_num">消费次数</th>
+                <th class="il_inte">绑定状态</th>
+                <th class="il_oper">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td class="il_oid">@item.DisplayID</td>
+                    <td class="il_mid">
+                        @if (item.CustomerCode != null && item.CustomerCode.Any())
+                        {
+                            foreach (var nameItem in item.CustomerCode)
+                            {
+                            @nameItem
+                            <br />
+                            }
+                        }
+                    </td>
+                    <td class="il_if">@item.WebCreadit</td>
+                    <td class="il_num">
+                        @(item.WebOrderCount + item.WeChatOrderCount)
+                    </td>
+                    <td class="il_inte">
+                        @if (item.CustomerCode.FirstOrDefault() != "--")
+                        {
+                            <p>已绑定</p> 
+                        }
+                        else
+                        {
+                            <p>未绑定</p>
+                        }
+                    </td>
+                    <td class="il_oper">
+                        @Html.ActionLink("查看", "MemberDetail", "Member", new { id = item.WeChatMember.ID }, new { })
+                    </td>
+                </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div id="pagination">
+    @Html.Partial("Pagination", pagination)
+</div>

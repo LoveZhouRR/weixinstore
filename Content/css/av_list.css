@@ -1,0 +1,92 @@
+@charset "utf-8";
+/* CSS Document */
+.av_list {
+    overflow: auto;
+    border: #cdcdcd solid 1px;
+    border-bottom: none;
+    background: #fff;
+    height: 660px;
+}
+
+.av_list_tab {
+    width: 100%;
+    font-family: \5b8b\4f53;
+}
+
+.av_list_tab th {
+    border-right: #dcdcdc solid 1px;
+    border-bottom: #dcdcdc solid 1px;
+    height: 34px;
+    background: url(../images/i/bg_pr_list_tab_th.png) repeat-x;
+}
+
+.av_list_tab td {
+    border-bottom: #dcdcdc solid 1px;
+    padding: 15px 0;
+}
+
+.av_list_tab th.avlt_time {
+    border-right: none;
+}
+
+.av_list_tab th i, .av_list_tab th em {
+    float: left;
+    display: inline-block;
+}
+
+.av_list_tab th i {
+    width: 7px;
+    height: 8px;
+    background-position: -114px 0;
+    margin-left: 8px;
+    margin-top: 5px;
+    cursor: pointer
+}
+
+.av_list_tab th i.cur {
+    background-position: -122px 0;
+}
+
+/*.avlt_inms {
+	width:25%;
+}
+.avlt_name,.avlt_phon,.avlt_nums,.avlt_accu,.avlt_time {
+	width:15%;
+}*/
+.avlt_chec {
+    width: 4%;
+}
+
+.avlt_addr {
+    width: 21%;
+    overflow: hidden;
+}
+
+.avlt_addr b {
+    height: 20px;
+    line-height: 20px;
+    width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.avlt_name, .avlt_phon, .avlt_nums, .avlt_accu, .avlt_time {
+    width: 15%;
+}
+
+.av_list_tab th.avlt_inms {
+    width: 25%;
+}
+
+.av_list_tab th em {
+    padding-left: 22%;
+}
+
+.av_list_tab th.avlt_phon, .av_list_tab td.avlt_chec, .av_list_tab td.avlt_name, .av_list_tab td.avlt_phon, .av_list_tab td.avlt_nums, .av_list_tab td.avlt_accu, .av_list_tab td.avlt_time {
+    text-align: center;
+}
+
+.av_list_tab td b, .av_list_tab td em {
+    float: left;
+    display: inline-block;
+}

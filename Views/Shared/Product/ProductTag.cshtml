@@ -1,0 +1,55 @@
+﻿<script type="text/javascript">
+    function DeleteTag(productID,tagID) {
+  
+    }
+
+    function AddProductTag(productID, content) {
+        $.ajax({
+            url: "Product/AddProductTag",
+            type: "post",
+            dataType: "json",
+            data: { ProductID: productID, TagContent: content },
+            success: function (responstext) {
+                var tagname = $("<input></input>").attr("type", "text").attr("value", content);
+                var deletetag = $("<a></a>").html("删除").click(DeleteTag(productID, responstext.TagID));
+                var li=$("<>")
+                $("#AddTag").before
+            }
+        });
+    }
+
+    $(function() {
+        var productID = parseInt($("#ProductID").val());
+
+        $("#AddContent").change(function() {
+            var content = $(this).val();
+            if (content.length > 5) {
+                alert("标签长度不能超过5");
+            }
+            if (content != "") {
+                AddProductTag(productID, content);
+            }
+        });
+    });
+
+</script>
+
+@model IEnumerable<DBC.WeChat.Models.Sales.Tag>
+<div id="TagList">
+    <ul>
+        @foreach (var tag in Model)
+        {
+            <li>
+                <input type="text" value=@tag.Name />
+                <a  onclick="javascript:DeleteTag(@ViewBag.ProductID,@tag.ID);">删除</a>
+            </li>
+        }
+        <li id="AddTag">
+            <input type="text" id="AddContent" value=""/>
+        </li>
+    </ul>
+</div>
+<div class="hide">
+    <input type="text" id="ProductID" value=@ViewBag.ProductID />
+    <input type="text" id="TagCount" value=0 />
+</div>

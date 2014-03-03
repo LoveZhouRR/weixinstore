@@ -1,0 +1,112 @@
+﻿@*引用该部分页面自行在目标页面上建立目标html标签修改id='targetDis'
+razor创建事例：@html.TextBoxFor(m=>m.AreaID,new {id='targetDis'})*@
+<script type="text/javascript">
+    (function ($) {
+        $.fn.BindSource = function (parentID, async) {
+            $(this).empty();
+            var me = $(this);
+            $.ajax({
+                url: '/Area/GetItems',
+                type: 'post',
+                dataType: "json",
+                async: async,
+                data: { parentID: parentID },
+                success: function (responseText) {
+                    var items = responseText.AreaViews;
+                    if (items == null) return;
+                    var defaultview = $("<option></option>").attr("value", "-1").
+                            attr("parent", "-1").text("");
+                    me.append(defaultview);
+                    for (var i = 0; i < items.length; i++) {
+                        var option = $("<option></option>").attr("value", items[i].ID).
+                            attr("parent", items[i].Parent).text(items[i].Name);
+                        me.append(option);
+                    }
+                }
+            });
+        };
+    })(jQuery);
+
+    function BindTarget(me) {
+        var $depth = parseInt(me.attr("depth"));
+        $depth = me.val() != -1 ? $depth : $depth - 1;
+        var $target=$depth!=0?$('select[depth='+$depth+']').val():0;
+        $('#targetDis').attr("value", $target);
+    }
+
+    $(function () {
+        var selectchange = function (ID, target, me, async) {
+            $("#" + target).BindSource(ID, async);
+            $("input[name='" + me + "']").attr("value", ID);
+        };
+        
+        $("#province").BindSource(0, false);
+        var $target = $('#targetDis').val();
+        if ($target != 0) {
+            $.ajax({
+                url: '/Area/GetAreaTrees',
+                type: 'post',
+                dataType: "json",
+                data: { ID: $target },
+                success: function (responseText) {
+                    var success = responseText.Success;
+                    if (success == null || !success)
+                        return;
+                    var City = responseText.City;
+                    var Province = responseText.Province;
+                    if (Province == null) {
+                        $("input[name='district']").attr("value", -1);
+                        selectchange($target, "city", "province", true);
+                        $("#province").find("option[value='" + $target + "']").attr("selected", true);
+                    } else if (City == null) {
+                        $("input[name='district']").attr("value", -1);
+                        selectchange(Province, "city", "province", false);
+                        selectchange($target, "district", "city", true);
+                        $("#province").find("option[value='" + Province + "']").attr("selected", true);
+                        $("#city").find("option[value='" + $target + "']").attr("selected", true);
+                    } else {
+                        $("input[name='district']").attr("value", $target);
+                        selectchange(Province, "city", "province", false);
+                        selectchange(City, "district", "city", false);
+                        $("#province").find("option[value='" + Province + "']").attr("selected", true);
+                        $("#city").find("option[value='" + City + "']").attr("selected", true);
+                        $("#district").find("option[value='" + $target + "']").attr("selected", true);
+                    }
+                }
+            });
+        }
+
+
+        $("#province").change(function () {
+            selectchange($(this).val(), "city", "province", true);
+            BindTarget($(this));
+        });
+
+        $("#city").change(function () {
+            selectchange($(this).val(), "district", "city", true);
+            BindTarget($(this));
+        });
+
+        $("#district").change(function () {
+            $("input[name='district']").attr("value", $(this).val());
+            BindTarget($(this));
+        });
+
+        if ($("#isParent").val()) {
+            $("#district").css("display", "none");
+        }
+    }
+    );
+</script>
+<select id="province" class="area" depth="1">
+</select>
+<select id="city" class="area" depth="2">
+</select>
+<select id="district" class="area" depth="3">
+</select>
+<div class="hide">
+        <input name="province" />
+        <input name="city" />
+        <input name="district" />
+    <input id="isParent" value="@ViewBag.IsParent"/>
+</div>

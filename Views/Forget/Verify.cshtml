@@ -1,0 +1,135 @@
+﻿@{
+    ViewBag.Title = "设置新密码";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Css
+{
+    <link rel="stylesheet" href="~/Content/css/login.css" />
+    <link rel="stylesheet" href="~/Content/css/pass.css">
+}
+
+@section Scripts
+{
+    <script type="text/javascript" src="~/Content/Libraries/jQuery/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/jquery-validator-extend.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('form').validate({
+                rules: {
+                    NewPwd: {
+                        required: true,
+                        rangelength: [6, 30]
+                    },
+                    ConfirmPwd: {
+                        required: true,
+                        equalTo: '#NewPwd'
+                    }
+                },
+                messages: {
+                    NewPwd: {
+                        required: '<i class="icon"></i>请输入密码',
+                        rangelength: '<i class="icon"></i>密码长度6到30位'
+                    },
+                    ConfirmPwd: {
+                        required: '<i class="icon"></i>请确认密码',
+                        equalTo:'<i class="icon"></i>两次输入不一致'
+                    }
+                },
+                highlight: function (element) {
+                    $(element).addClass('ipt_err');
+                },
+                unhighlight: function (element) {
+                    $(element).removeClass('ipt_err');
+                },
+                errorElement: 'div',
+                errorClass: 'rtpwd_err',
+                errorPlacement: function (error, element) {
+                    error.insertAfter(element.parent());
+                },
+                submitHandler: function () {
+                    $.ajax({
+                        type: 'POST',
+                        data: { NewPwd: $('#NewPwd').val() },
+                        success: function(result) {
+                            if (result.success) {
+                                window.location.href = "/forget/success";
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
+<div class="page">
+    <div class="lr_header">
+        <div class="layout">
+            <h1 class="logo"><a href="javascript:;">
+                <img src="~/Content/images/i/lr_logo.jpg" /></a></h1>
+        </div>
+    </div>
+    <div class="lr_content">
+        <div class="lr_bgimg">
+            <div class="lr_ul">
+                <ul>
+                    <li>
+                        <img src="~/Content/images/i/lr_li_e.jpg" /></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="lr_layout">
+            <div class="rg_main">
+                <span class="rg_bgmain lr_bgmain"></span>
+
+            </div>
+        </div>
+
+        <div class="lr_bottom">
+            <span><i class="lr_bt_l"></i><i class="lr_bt_r"></i></span>
+        </div>
+    </div>
+
+    <div class="lr_footer">
+        <div class="layout">
+            Copyright 2006-2012 DBC Software , All Right Reserved. 沪ICP备 12020318 号
+        </div>
+    </div>
+</div>
+
+<div class="retrieve_password">
+    <div class="rp_content">
+        <div class="sp_flow">
+            <p><b>1</b><i>填写注册号</i></p>
+            <p><b>2</b><i>选择验证方式</i></p>
+            <p class="cur"><b>3</b><i>设置新密码</i></p>
+            <p><b>4</b><i>成功</i></p>
+        </div>
+        @if (Session["_TenantID"] == null)
+        {
+
+            <div style="margin: 0 auto; width: 300px;">
+                <div class="lg_sm">
+                    <span><i class="icon rt"></i>该连接已失效！</span>
+                </div>
+            </div>
+        }
+        else
+        {
+            <form>
+                <div class="al_tmain">
+                    <div class="al_m al_email">
+                        <span>输入新密码：</span>
+                        <input type="password" id="NewPwd" name="NewPwd" placeholder="请填写您的新密码并牢记" class="altxt">
+                    </div>
+                    <div class="al_m al_email">
+                        <span>确认新密码：</span>
+                        <input type="password" placeholder="再次输入新密码" id="ConfirmPwd" name="ConfirmPwd" class="altxt">
+                    </div>
+                    <div class="al_m al_sub"><a onclick="javascript:$('form').submit();" class="bgbrown">提  交</a></div>
+                </div>
+            </form>
+        }
+    </div>
+</div>

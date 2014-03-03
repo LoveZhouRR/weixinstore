@@ -1,0 +1,262 @@
+﻿@using System.Text
+@using DBC.WeChat.Models.Infrastructures
+@{
+    ViewBag.Title = "选择验证方式";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var account = Session["Account"].ToString();
+    var mask = account.Substring(0, 3) + "****" + account.Substring(7, 4);
+}
+
+@section Css
+{
+    <link rel="stylesheet" href="~/Content/css/login.css" />
+    <link rel="stylesheet" href="~/Content/css/pass.css">
+    <link rel="stylesheet" href="~/Content/css/bootstrap-part.min.css" />
+
+}
+
+@section Scripts
+{
+    <script type="text/javascript" src="~/Content/Libraries/jQuery/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/jquery-validator-extend.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/bootstrap-part.min.js"></script>
+    <script type="text/javascript">
+        function send() {
+            $("#emailModal").modal();
+            $.ajax({
+                url: '/forget/send',
+                type: 'POST',
+                success: function (msg) {
+
+                }
+            });
+        }
+        function mobileSend() {
+            $('#mobileModal').modal();
+            sendMobileCode();
+        }
+        function time(o) {
+            if (o <= 0) {
+                $('#Resend').attr('onclick', 'javascript:sendMobileCode();');
+                $('#TimerSpan').html('');
+            } else {
+                o = o - 1;
+                $('#TimerSpan').html(o + '秒后');
+                setTimeout('time(' + o + ')', 1000);
+            }
+        }
+        function sendMobileCode() {
+            var totalSeconds = 10;
+            $('#TimerSpan').html(totalSeconds);
+            $('#Resend').attr('onclick', 'javascript:void(0);');
+            $.ajax({
+                type: 'POST',
+                url: '/forget/SendSMS',
+            });
+            time(totalSeconds);
+        }
+        $(document).ready(function () {
+            $('form').validate({
+                rules: {
+                    Code: {
+                        required: true,
+                        rangelength: [6, 6]
+                    },
+                    NewPwd: {
+                        required: true,
+                        rangelength: [6, 30]
+                    },
+                    ConfirmPwd: {
+                        required: true,
+                        equalTo: '#NewPwd'
+                    }
+                },
+                messages: {
+                    Code: {
+                        required: '<i class="icon"></i>请输入验证码',
+                        rangelength: '<i class="icon"></i>密码长度6到30位'
+                    },
+                    NewPwd: {
+                        required: '<i class="icon"></i>请输入密码',
+                        rangelength: '<i class="icon"></i>密码长度6到30位'
+                    },
+                    ConfirmPwd: {
+                        required: '<i class="icon"></i>请确认密码',
+                        equalTo: '<i class="icon"></i>两次输入不一致'
+                    }
+                },
+                highlight: function (element) {
+                    $(element).addClass('ipt_err');
+                },
+                unhighlight: function (element) {
+                    $(element).removeClass('ipt_err');
+                },
+                errorElement: 'div',
+                errorClass: 'rtpwd_err',
+                errorPlacement: function (error, element) {
+                    error.insertAfter(element.parent());
+                },
+                submitHandler: function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/forget/mobileverify',
+                        data: { NewPwd: $('#NewPwd').val(), Code:$('#Code').val() },
+                        success: function (result) {
+                            if (result.success) {
+                                window.location.href = "/forget/success";
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
+<div class="page">
+    <div class="lr_header">
+        <div class="layout">
+            <h1 class="logo"><a href="javascript:;">
+                <img src="~/Content/images/i/lr_logo.jpg" /></a></h1>
+
+        </div>
+    </div>
+    <div class="lr_content">
+        <div class="lr_bgimg">
+            <div class="lr_ul">
+                <ul>
+                    <li>
+                        <img src="~/Content/images/i/lr_li_e.jpg" /></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="lr_layout">
+            <div class="rg_main">
+                <span class="rg_bgmain lr_bgmain"></span>
+            </div>
+        </div>
+
+        <div class="lr_bottom">
+            <span><i class="lr_bt_l"></i><i class="lr_bt_r"></i></span>
+        </div>
+    </div>
+
+    <div class="lr_footer">
+        <div class="layout">
+            Copyright 2006-2012 DBC Software , All Right Reserved. 沪ICP备 12020318 号
+        </div>
+    </div>
+
+</div>
+<div class="retrieve_password">
+    <div class="rp_content">
+        <div class="sp_flow">
+            <p><b>1</b><i>填写注册号</i></p>
+            <p class="cur"><b>2</b><i>选择验证方式</i></p>
+            <p><b>3</b><i>设置新密码</i></p>
+            <p><b>4</b><i>成功</i></p>
+        </div>
+        <div class="alter_main">
+            <div class="mem_main">
+                <p class="ms_title"><a onclick="javascript:void(0);"><b>尊敬的用户</b></a>您好！您可以通过以下方式找回密码。</p>
+                <div class="mem_click">
+                    @if ((int?)Session["Type"] == (int)TenantAccountType.Email)
+                    {
+                        <div class="mc_email mem me_cur">
+                            <div class="ei_img me_email"><i class="icon"></i></div>
+                            <div class="ei_verify"><span>您的验证邮箱：</span><b>@Session["Account"]</b></div>
+                            <div class="ei_txt">点击"发送重置密码邮件"按钮，系统将发送邮件至您的验证邮箱，点击邮件中的密码重置链接进行重置！密码重置链接24小时有效。</div>
+                            <div class="ei_sub"><a onclick="javascript:send();">发送重置密码邮件</a></div>
+                        </div>
+                        <div class="mem_iphone mem">
+                            <div class="ei_img me_iphone"><i class="icon"></i></div>
+                            <div class="ei_verify"><span>您的验证手机：</span><b></b></div>
+                            <div class="ei_txt">点击"发送验证码"按钮，系统将发送验证码至您的手机上，回填该校验码即可重置密码。</div>
+                            <div class="ei_sub"><a onclick=" javascript:void(0); ">发送验证码</a></div>
+                        </div>
+                    }
+                    else
+                    {
+                        
+                        <div class="mc_email mem ">
+                            <div class="ei_img me_email"><i class="icon"></i></div>
+                            <div class="ei_verify"><span>您的验证邮箱：</span><b></b></div>
+                            <div class="ei_txt">点击"发送重置密码邮件"按钮，系统将发送邮件至您的验证邮箱，点击邮件中的密码重置链接进行重置！密码重置链接24小时有效。</div>
+                            <div class="ei_sub"><a onclick="javascript:;">发送重置密码邮件</a></div>
+                        </div>
+                        <div class="mem_iphone mem me_cur">
+                            <div class="ei_img me_iphone"><i class="icon"></i></div>
+                            <div class="ei_verify"><span>您的验证手机：</span><b>@mask</b></div>
+                            <div class="ei_txt">点击"发送验证码"按钮，系统将发送验证码至您的手机上，回填该校验码即可重置密码。</div>
+                            <div class="ei_sub"><a onclick=" javascript:mobileSend(); ">发送验证码</a></div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if ((int?)Session["Type"] == (int)TenantAccountType.Email)
+{
+    <!-- Modal -->
+    <div class="modal fade" id="emailModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <span>
+                        <p>密码重置邮件发送成功！</p>
+                        <p>请登录您的邮箱，点击链接继续</p>
+                    </span>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+}
+
+else
+{
+    
+    
+    <!-- Modal -->
+    <div class="modal fade" id="mobileModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">重置密码</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div>
+                            <p>验证码已发送到 @mask 。
+                                
+                                <span>未收到？</span><span id="TimerSpan">60秒后  </span><a id="Resend" style="text-decoration: underline;color: rgb(255,171,20);">重新发送</a>
+                            </p>
+                                
+                        </div>
+                        <div class="al_m al_email">
+                            <span>输入验证码：</span>
+                            <input type="text" id="Code" name="Code" placeholder="验证码" class="altxt">
+                        </div>
+                        <div class="al_m al_email">
+                            <span>输入新密码：</span>
+                            <input type="password" id="NewPwd" name="NewPwd" placeholder="请填写您的新密码并牢记" class="altxt">
+                        </div>
+                        <div class="al_m al_email">
+                            <span>确认新密码：</span>
+                            <input type="password" placeholder="再次输入新密码" id="ConfirmPwd" name="ConfirmPwd" class="altxt">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="MobileBtn" onclick="javascript:$('form').submit();" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+}

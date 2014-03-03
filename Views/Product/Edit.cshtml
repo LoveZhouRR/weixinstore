@@ -1,0 +1,267 @@
+﻿@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@using System.Configuration
+@using DBC.WeChat.Models.Sales
+@using NPOI.SS.Formula.Functions
+@model DBC.WeChat.Models.Sales.Product
+@section Css{
+    <link rel="stylesheet" href="~/Content/css/add_pro.css">
+    <link rel="stylesheet" href="~/Content/css/bootstrap-part.min.css" />
+}
+<script type="text/javascript" src="~/Content/Scripts/bootstrap-part.min.js"></script>
+<script type="text/javascript" src="~/Content/Libraries/jQuery/jquery.form.min.js"></script>
+<script type="text/javascript" src="~/Content/Scripts/Product/Specification.js"></script>
+<script type="text/javascript" src="~/Content/Scripts/Product/PicUpload.js"></script>
+<script type="text/javascript" src="~/Content/Scripts/Product/Tag.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        if ($("#cansave").val() == "True") {
+            $("#picDelete").css({ "display": "none" });
+            $("#setFirst").css({ "display": "none" });
+            $("#upDivSpan").css({ "display": "none" });
+            $("#submit").attr("onclick", "").css({ background: "gray" });;
+        }
+    })
+</script>
+
+
+@{
+    var Default = Model.Specifications.FirstOrDefault(p => p.IsDefault != null && p.IsDefault.Value);
+    var Specs = Model.Specifications.Where(p => p.IsDefault != null && !p.IsDefault.Value).ToList();
+}
+<div class="pg_cu">
+    @Html.ActionLink("商品列表", "Index", "Product", null, new { id = "ProductListTab" })
+    @Html.ActionLink("添加商品", "Add", "Product", null, new { id = "ProductAddTab" })
+    <a href="javascript:;" class="cur">修改商品</a>
+</div>
+@{
+    var firstPic = Model.ProductPictures.FirstOrDefault(p => (p.IsFirst != null && p.IsFirst.Value));
+    if (firstPic == null)
+    {
+        firstPic = Model.ProductPictures.FirstOrDefault();
+    }
+    string firstPath = "/Content/images/pic/400X400.png";
+    long firstID = 0;
+    var MallNames = ViewData["MallNames"] as Dictionary<long, string>;
+    string ftp = ConfigurationManager.AppSettings["ftp"];
+    if (firstPic != null)
+    {
+        string firstMallName = MallNames[firstPic.ID.Value];
+        firstPath = System.IO.Path.Combine(ftp, firstPic.Path, firstMallName);
+        firstID = firstPic.ID.Value;
+    }
+}
+@using (Html.BeginForm("Upload", "Product", FormMethod.Post, new { id = "filePostForm", enctype = "multipart/form-data" }))
+{
+    <div style="display: none">
+        <input name="productID" value=@Model.ID />
+    </div>
+    <div class="ap_upload">
+        <select id="pics" name="pics">
+            @{
+                
+    for (int i = 0; i < Model.ProductPictures.Count(); i++)
+    {
+        var pic = Model.ProductPictures[i];
+        var path = System.IO.Path.Combine(ftp, pic.Path, MallNames[pic.ID.Value]);
+                <option value=@pic.ID path=@path index="@i">@pic.OriginName</option>
+    }
+            }
+        </select>
+        <div id="upDivSpan">
+            <span>
+                <input type="file" name="picFile" id="picFile">
+                <i class="icon">图片上传</i>
+            </span>
+            <em>(上传图片仅支持JPG、GIF、PNG、BMP格式，大小不能超过5M.）</em>
+        </div>
+    </div>
+}
+
+@using (Ajax.BeginForm("Edit", "Product", new AjaxOptions()
+{
+    UpdateTargetId = "MainForm",
+    HttpMethod = "Post",
+    OnSuccess = "",
+}))
+{
+    <div>
+    </div>
+    <div class="add_pro">
+        <div class="ap_detail">
+            <div style="display: none">
+                <table id="hidPic">
+                    @for (int j = 0; j < Model.ProductPictures.Count; j++)
+                    {
+                        var pic = Model.ProductPictures[j];
+                        <tr id="tr@(j)">
+                            <td>
+                                <input name='picID@(j)' value = @pic.ID />
+                                <input name='picName@(j)' value = @pic.OriginName />
+                                <input name='picPath@(j)' value = @pic.Path />
+                                <input name='picIsFirst@(j)' value = @pic.IsFirst classname="isfirst"/>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="ap_dl">
+                <a id="picDelete"  productID=@Model.ID picID=@firstID  href="javascript:;" class="icon ap_delete"></a>
+                <a id="setFirst" href="javascript:;" productID=@Model.ID picID=@firstID class="icon ap_setindex" ></a>
+                <img src="@firstPath"  id="picPreView"/>
+            </div>
+            <div class="ap_dr">
+                <div class="ap_rt">
+                    <span>商品名称</span>@Html.TextBoxFor(m => m.Name)
+                </div>
+                <div class="ap_rt">
+                    <span>商品重量</span> @Html.TextBoxFor(m => m.Weight)<span>g</span>
+                </div>
+                <!--添加规格-->
+                <div class="ap_addnorms">
+                    <table class="ap_single ap_table">
+                        <thead>
+                            <tr>
+                                <th class="ap_operate">是否展示</th>
+                                <th class="ap_norms">商品规格</th>
+                                <th class="ap_price">价格</th>
+                                <th class="ap_invent">库存</th>
+                            </tr>
+                        </thead>
+                        <tbody id="SpecificationBody">
+                            @for (int i = 0; i < Specs.Count; i++)
+                            {
+                                <tr id='specificationRow@(i + 1)'>
+                                    <td style="display: none">
+                                        <input type="text" name="id@(i + 1)" value=@Specs[i].ID />
+                                    </td>
+                                    <td class='ap_operate'>
+                                        <input type='checkbox' id='isShow@(i + 1)' index='@(i + 1)'
+                                               checked=@Specs[i].IsShow />
+                                        <input name='isShow@(i + 1)'  type='hidden' 
+                                               value = @Specs[i].IsShow >
+                                    </td>
+                                    <td class="ap_norms">
+                                        <input type="text" name="name@(i + 1)" value='@Specs[i].Name' /></td>
+                                    <td class="ap_price">
+                                        <input type="text" name="price@(i + 1)" value=@Specs[i].Price /></td>
+                                    <td class="ap_invent">
+                                        <input type="text" name="stock@(i + 1)" value=@Specs[i].Stock /></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <p class="ap_add_norms"><a href="javascript:;" id="AddSpecification">+ 添加规格</a></p>
+                </div>
+                <!--删完所有规格-->
+
+                <table class="ap_single ap_table">
+                    @if (Default != null && Specs.Count == 0)
+                    {
+                        <thead>
+                            <tr>
+                                <th class="ap_price">价格</th>
+                                <th class="ap_invent">库存</th>
+                            </tr>
+                        </thead>
+                    }
+                    <tbody>
+
+                        <tr>
+                            <td style="display: none">
+                                <input type="text" name="id0" value=@Default.ID />
+                            </td>
+                            <td class="ap_price">
+                                <input type="text" name="price0" value=@Default.Price /></td>
+                            <td class="ap_invent">
+                                <input type="text" name="stock0" value=@Default.Stock /></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <div class="ap_label">
+                    <p class="ap_label_t">商品标签</p>
+                    <div class="ap_label_m" id="TagList">
+                        @{
+                    var tags = ViewBag.Tags as Tag[];
+
+                    foreach (var tag in tags)
+                    {
+                            <a id="Tag@(tag.ID)"><em>@tag.Name</em><i onclick="javascriptId:DeleteTag(@Model.ID,@tag.ID);">x</i></a>
+                    }
+                        }
+                    </div>
+                    <dl class="ap_label_dl">
+                        <dt>
+                            <span>
+                                <input name="TagName" productID=@Model.ID type="text"/><a id="PasteTag">贴上</a></span>
+                        </dt>
+                    </dl>
+                </div>
+                <div class="ap_description">
+                    <p>商品描述</p>
+                    @Html.TextAreaFor(m => m.Description)
+                    <em>建议不超过120个字 </em>
+                </div>
+                <div class="ap_sub">
+                   @* <a id="productScene" index="@(Model.ID)" >生成二维码</a>*@
+                    <a id="submit" href="javascript:;" onclick='SumbitData();'>保 存</a>
+                </div>
+            </div>
+        </div>
+        <div class="hide">
+            <input id="picCount" name="picCount" value="@Model.ProductPictures.Count"/>
+            <input id="RowsCount" name="RowsCount" value="@Specs.Count" />
+        </div>
+        <div class="hide">
+            @Html.TextBoxFor(m => m.OwnerID)
+            @Html.TextBoxFor(m => m.Code)
+            @Html.TextBoxFor(m => m.Shelved)
+            <input id="cansave" value=@Model.Shelved.ToString() />
+        </div>
+
+    </div>
+
+}
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+    data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="cm_hd sc_hd">
+                    <a class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                </div>
+            </div>
+            <div class="modal-body" id="Content">
+                <img id="ScenePic" />
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#productScene').on('click', function () {
+            var $productid = $('#productScene').attr("index");
+            $.ajax({
+                type: 'post',
+                url: '/Product/ScenePic',
+                data: { id: $productid },
+                success: function (responsetext) {
+                    if (responsetext.success) {
+                        $("#ScenePic").attr("src", responsetext.path);
+                    }
+                }
+            });
+            $("#myModal").modal().css({
+                width: "auto"
+            });
+        });
+    });
+</script>

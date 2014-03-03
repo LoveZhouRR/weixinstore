@@ -1,0 +1,465 @@
+﻿@using DBC.WeChat.UI.Store.Properties;
+@{
+    ViewBag.Title = Resources.UI_Register;
+    Layout = "~/Views/Shared/_GateMaster.cshtml";
+}
+
+@section Css
+{
+    <link rel="stylesheet" href="~/Content/css/bootstrap-part.min.css" />
+
+}
+
+@section Scripts
+{
+    <script type="text/javascript" src="~/Content/Scripts/bootstrap-part.min.js"></script>
+    <script type="text/javascript" src="~/Content/Libraries/jQuery/jquery.validate.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/jquery-validator-extend.js"></script>
+     <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+        var currentType = "email";
+
+        function SwitchType(regType) {
+            if (regType === currentType) return;
+            currentType = regType;
+            $('.lg_title_t').toggleClass('lg_title_cur_t');
+            $('.lg_input').toggle();
+            if (regType === "email") {
+
+            } else if (regType === "mobile") {
+
+            }
+            ajustHeight();
+        }
+
+        function validateCode() {
+            $('#validateImg').attr('src', '/validatecode');
+        }
+
+        var accountRemoteTocken = false;
+        var logging = false;
+
+        function submitFn() {
+            $("#AccountLabel").hide();
+            $('#EmailForm .lg_label_email').hide();
+            $('#errMsg').hide();
+            if (logging) return;
+
+            $('#EmailForm').submit();
+        }
+
+        function mobileSubmit() {
+            $("#M_errMsg").hide();
+            if (logging) return;
+            $('#MobileForm').submit();
+        }
+
+        function ajustHeight() {
+            //$('.lg_bgmain').css('height', $('.lg_register').height() + 46);
+        }
+
+        function toggleSubmit(disable) {
+            logging = disable;
+            var selector = '';
+            if (currentType === 'email') {
+                selector = '#EmailForm';
+            } else {
+                selector = '#MobileForm';
+            }
+            selector = selector + ' .rg_isr';
+            btnSetDisabled(selector, disable);
+        }
+
+        
+        $(document).ready(function() {
+            $('#Account').focus();
+            $('#EmailForm input').bind('keypress', function(e) {
+                var key = window.event ? e.keyCode : e.which;
+                if (key == "13") {
+                    submitFn();
+                }
+            });
+            $('#MobileForm input').bind('keypress', function(e) {
+                var key = window.event ? e.keyCode : e.which;
+                if (key == '13') {
+                    mobileSubmit();
+                }
+            });
+
+            var validateObj = {
+                rules: {
+                    Account: {
+                        required: true,
+                        maxlength: 50,
+                        email: true
+                    },
+                    Password: {
+                        required: true,
+                        rangelength: [6, 30]
+                    },
+                    Confirm_Password: {
+                        required: true,
+                        equalTo: '#Password'
+                    },
+                    ValidateCode: {
+                        required: true,
+                        rangelength: [4, 4]
+                    }
+                },
+                messages: {
+                    Account: {
+                        required: '请输入帐号',
+                        email: '请输入正确的Email帐号'
+                    },
+                    Password: {
+                        required: "请输入密码",
+                        rangelength: "请输入长度{0}到{1}的密码"
+                    },
+                    Confirm_Password: {
+                        required: "请再次输入密码",
+                        equalTo: '两次密码输入不一致'
+                    },
+                    ValidateCode: {
+                        required: "请输入验证码",
+                        rangelength: "验证码长度为4，不区分大小写"
+                    }
+                },
+                highlight: function(element) {
+                    $('#EmailForm .lg_label_email').hide();
+                    $('#AccountLabel').hide();
+                    if ($(element).attr('id') == 'Account') {
+                        accountRemoteTocken = false;
+                    }
+                    $(element).addClass('ipt_err');
+                    ajustHeight();
+                },
+                unhighlight: function(element) {
+                    $('#EmailForm .lg_label_email').hide();
+                    $('#AccountLabel').hide();
+                    $(element).removeClass('ipt_err');
+                },
+                errorElement: 'div',
+                errorClass: 'lg_label_rw',
+                errorPlacement: function(error, element) {
+                    error.insertAfter(element.parent());
+                },
+                submitHandler: function() {
+                    toggleSubmit(true);
+                    var obj = toJson($('#EmailForm').serializeArray());
+                    $.ajax({
+                        url: '/register',
+                        data: obj,
+                        type: 'POST',
+                        success: function(message) {
+                            toggleSubmit(false);
+                            if (message.success) {
+                                window.location.href = '/register/confirm';
+                            } else {
+                                $('#errMsg').html('<span class="wrong">' + message.msg + '</span>');
+                                $('#errMsg').show();
+                                validateCode();
+                                ajustHeight();
+                            }
+                        }
+                    });
+                },
+                success: function(label, element) {
+                    if ($(element).attr('id') == 'Account') {
+                        accountRemoteTocken = true;
+                    }
+                    ajustHeight();
+                }
+            };
+            $.each(validateObj.messages, function(obj) {
+                $.each(validateObj.messages[obj], function(txt) {
+                    if (typeof(validateObj.messages[obj][txt]) == "string") {
+                        validateObj.messages[obj][txt] = "<span class='wrong'><i class='icon'></i>" + validateObj.messages[obj][txt] + "<span>";
+                    }
+                });
+            });
+            var emailValidate = {
+                rules: {
+                    M_Account: {
+                        required: true,
+                        maxlength: 50,
+                        mobile: true
+                    },
+                    M_Password: {
+                        required: true,
+                        rangelength: [6, 30]
+                    },
+                    M_Confirm: {
+                        required: true,
+                        equalTo: '#M_Password'
+                    },
+                    M_Code: {
+                        required: true,
+                        rangelength: [6, 6],
+                        number:true
+                    }
+                },
+                messages: {
+                    M_Account: {
+                        required: '请输入帐号',
+                        mobile: '请输入正确的手机号'
+                    },
+                    M_Password: {
+                        required: "请输入密码",
+                        rangelength: "请输入长度{0}到{1}的密码"
+                    },
+                    M_Confirm: {
+                        required: "请再次输入密码",
+                        equalTo: '两次密码输入不一致'
+                    },
+                    M_Code: {
+                        required: "请输入验证码",
+                        rangelength: "验证码长度为6位数字"
+                    }
+                },
+                highlight: function(element) {
+                    $('#MobileForm .lg_label_email').hide();
+                    if ($(element).attr('id') == 'M_Account') {
+                        accountRemoteTocken = false;
+                    }
+                    $(element).addClass('ipt_err');
+                    ajustHeight();
+                },
+                unhighlight: function(element) {
+                    $('#MobileForm .lg_label_email').hide();
+                    $(element).removeClass('ipt_err');
+                },
+                errorElement: 'div',
+                errorClass: 'lg_label_rw',
+                errorPlacement: function(error, element) {
+                    error.insertAfter(element.parent());
+                },
+                submitHandler: function() {
+                    toggleSubmit(true);
+                    var obj = toJson($('#MobileForm').serializeArray());
+                    $.ajax({
+                        url: '/register/mobileregister',
+                        data: obj,
+                        type: 'POST',
+                        success: function (message) {
+                            toggleSubmit(false);
+                            if (message.success) {
+                                window.location.href = '/register/success';
+                            } else {
+                                $('#M_errMsg').html('<span class="wrong">' + message.msg + '</span>');
+                                $("#M_errMsg").show();
+                            }
+                        }
+                    });
+                },
+                success: function(label, element) {
+                    if ($(element).attr('id') == 'Account') {
+                        accountRemoteTocken = true;
+                    }
+                    ajustHeight();
+                }
+            };
+            $.each(emailValidate.messages, function(obj) {
+                $.each(emailValidate.messages[obj], function(txt) {
+                    if (typeof(emailValidate.messages[obj][txt]) == "string") {
+                        emailValidate.messages[obj][txt] = "<span class='wrong'><i class='icon'></i>" + emailValidate.messages[obj][txt] + "<span>";
+                    }
+                });
+            });
+            $('#EmailForm').validate(validateObj);
+            $('#MobileForm').validate(emailValidate);
+            $('#Account').on('blur', function(e) {
+                if (!accountRemoteTocken) return;
+                accountRemoteTocken = false;
+                $.ajax({
+                    type: 'POST',
+                    url: '/register/check',
+                    dataType: 'json',
+                    data: { account: $(this).val() },
+                    success: function(result) {
+                        if (result.success) {
+                            $('#EmailForm .lg_label_email').hide();
+                            $('#AccountLabel').show();
+                        } else {
+                            validateCode();
+                            $('#EmailForm .lg_label_email').show();
+                            $('#AccountLabel').hide();
+                        }
+                        ajustHeight();
+                    }
+                });
+            });
+            //勾选checkbox时修改注册按钮
+            $('#EmailForm input[type=checkbox]').bind('change', function() {
+                if (this.checked) {
+                    $('#EmailForm .rg_isr').removeAttr('disabled');
+                } else {
+                    $('#EmailForm .rg_isr').attr('disabled', 'disabled');
+                }
+            });
+            $('#MobileForm input[type=checkbox]').bind('change', function() {
+                if (this.checked) {
+                    $('#MobileForm .rg_isr').removeAttr('disabled');
+                } else {
+                    $('#MobileForm .rg_isr').attr('disabled', 'disabled');
+                }
+            });
+
+
+            $('#M_Account').bind('keyup', function(e) {
+                var val = $(e.target).val();
+                var mobileTest = /^(13[0-9]|15[012356789]|18[0123456789]|14[57])[0-9]{8}$/i;
+                if (!mobileTest.test(val)) {
+                    $('#M_SendCode').attr('onclick', 'javascript:void(0);');
+                    $('#M_SendCode').addClass('lg_label_pcode_disabled');
+                } else {
+                    $('#M_SendCode').attr('onclick', 'javascript:SendMobileCode();');
+                    $('#M_SendCode').removeClass('lg_label_pcode_disabled');
+                }
+            });
+            validateCode();
+            ajustHeight();
+        });
+
+        function setAfter(timeLeft) {
+            if (timeLeft <= 0) {
+                var val = $('#M_Account').val();
+                var mobileTest = /^(13[0-9]|15[012356789]|18[0123456789]|14[57])[0-9]{8}$/i;
+                if (mobileTest.test(val)) {
+                    $('#M_SendCode').attr('onclick', 'javascript:SendMobileCode();');
+                    $('#M_SendCode').removeClass('lg_label_pcode_disabled');
+                }
+                $('#M_SendCode').html('免费获取验证码');
+                return;
+            }
+            timeLeft = timeLeft - 1;
+            $('#M_SendCode').html(timeLeft + '秒后重新发送');
+            setTimeout('setAfter(' + timeLeft + ')', 1000);
+        }
+
+        function SendMobileCode() {
+            $('#M_SendCode').attr('onclick', 'javascript:void(0);');
+            $('#M_SendCode').addClass('lg_label_pcode_disabled');
+            var totalSeconds = 60;
+            $.ajax({
+                type: 'POST',
+                url: '/register/sendmobilecode',
+                dataType: 'json',
+                data: { mobile: $('#M_Account').val() },
+                success: function(result) {
+                    if (result.success) {
+
+                    } else {
+                        $('#M_errMsg').html('<span class="wrong">' + result.msg + '</span>');
+                        $("#M_errMsg").show();
+                    }
+                }
+            });
+            setAfter(totalSeconds);
+        }
+    </script>
+}
+
+<div class="lr_layout">
+    <div class="lg_main">
+        <span class="lg_bgmain lr_bgmain"></span>
+        <div class="lg_register">
+            <div class="lg_title_t lg_title_cur_t"><a onclick="javascript:SwitchType('email');">邮箱号注册</a></div>
+            <div class="lg_title_t"><a onclick="javascript:SwitchType('mobile');">手机号注册</a></div>
+            <div class="lg_input">
+                <form id="EmailForm">
+                    <div class="lg_im">
+                        <span>邮箱地址</span><input type="text" spellcheck="" autocomplete="off" name="Account" id="Account" tabindex="1" class="lg_it" maxlength="100" />
+                    </div>
+                    <div class="lg_label_email" style="display: none;">
+                        <dl>
+                            <dt><i class="icon"></i>此邮件地址已被注册</dt>
+                            <dd>请您选择其他的邮箱地址</dd>
+                        </dl>
+                    </div>
+                    <div class="lg_label_rw" id="AccountLabel" style="display: none;">
+                        <span class='right'><i class='icon'></i>恭喜，该帐号可用</span>
+                    </div>
+                    <div class="lg_im">
+                        <span>密 码</span><input name="Password" id="Password" tabindex="2" type="password" class="lg_it" />
+                    </div>
+                    <div class="lg_im">
+                        <span>确认密码</span><input type="password" name="Confirm_Password" id="Confirm_Password" tabindex="3" class="lg_it" />
+                    </div>
+
+                    <div class="lg_im">
+                        <span>验证码</span><input type="text" name="ValidateCode" id="ValidateCode" tabindex="4" autocomplete="off" class="lg_ia" /><a onclick="javascript:validateCode();"><img id="validateImg" title="看不清？点击更换" /></a>
+                    </div>
+                    <div class="lg_ic">
+                        <label>
+                            <input type="checkbox" tabindex="5" checked="checked" />已阅读并同意</label><a onclick="javascript:$('#myModal').modal();" class="emp">《服务协议》</a>
+                    </div>
+                    <div class="lg_label_rw" style="display: none;" id="errMsg">
+                    </div>
+                    <div class="lg_is">
+                        <button onclick="javascript:submitFn();" type="submit" tabindex="6" class="rg_isr" data-loading-text="提交中...">立即注册</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="lg_input" style="display: none;">
+                <form id="MobileForm">
+                    <div class="lg_im">
+                        <span>手机号码</span><input type="text" name="M_Account" id="M_Account"class="lg_it cur" />
+                    </div>
+                    <div class="lg_label_email" style="display: none;">
+                        <dl>
+                            <dt><i class="icon"></i>此手机号码已被注册</dt>
+                            <dd>请您选择其他的手机号码进行注册</dd>
+                        </dl>
+                    </div>
+                    <div class="lg_label_pcode">
+                        <a onclick="javascript:void(0);"class="lg_label_pcode_disabled" id="M_SendCode">免费获取验证码</a>
+                    </div>
+                    <div class="lg_im">
+                        <span>验证码</span><input type="text" name="M_Code" id="M_Code"class="lg_it" />
+                    </div>
+                    <div class="lg_im">
+                        <span>密码</span><input type="password" name="M_Password" id="M_Password" class="lg_it" />
+                    </div>
+                    <div class="lg_im">
+                        <span>确认密码</span><input type="password" name="M_Confirm" id="M_Confirm"class="lg_it" />
+                    </div>
+                    <div class="lg_ic">
+                        <label>
+                            <input type="checkbox" checked="checked" />已阅读并同意</label><a onclick="javascript:$('#myModal').modal();" class="emp">《服务协议》</a>
+                    </div>
+                    <div class="lg_label_rw" style="display: none;" id="M_errMsg"></div>
+                    <div class="lg_is">
+                        <button onclick="javascript:mobileSubmit();;" type="button" class="rg_isr" data-loading-text="提交中...">立即注册</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">DBC SOFT 用户使用协议</h4>
+            </div>
+            <div class="modal-body">
+                <span>
+                    @Html.Partial("_Statement")
+                </span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+

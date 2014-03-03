@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "错误页";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@model DBC.WeChat.UI.Store.Models.ErrorView
+
+<h2>Error</h2>
+<p>
+    @Html.DisplayTextFor(m=>m.message)
+</p>
+<p>
+    Oops! 发生了一些错误
+</p>

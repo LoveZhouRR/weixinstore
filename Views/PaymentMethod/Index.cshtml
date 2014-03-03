@@ -1,0 +1,131 @@
+﻿@model DBC.WeChat.Models.Infrastructures.PaymentMethodConfig
+
+@{
+    ViewBag.Title = "支付方式设置";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@section Css
+{
+    <link rel="stylesheet" href="~/Content/css/support.css">
+    <link rel="stylesheet" href="~/Content/css/bootstrap-part.css" />
+}
+@section Script{
+    <script type="text/javascript" src="~/Content/Libraries/jQuery/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/jquery-validator-extend.js"></script>
+    <script type="text/javascript">
+        function doSubmit() {
+            $('form').submit();
+        }
+
+        $(document).ready(function () {
+            $(document).click(function (e) {
+                if ($(e.target).attr('id') != "msgDiv") {
+                    $('#msgDiv').slideUp(1500);
+                }
+            });
+            $('form').validate({
+                rules: {
+                    CompanyID: {
+                        required: true,
+                        maxlength: 100,
+                        validString: true
+                    },
+                    CompanyKey: {
+                        required: true,
+                        maxlength: 100,
+                        validString: true
+                    }
+                },
+                messages: {
+                    CompanyID: {
+                        required: "请输入正确的值",
+                        maxlength: 100,
+                        validString: "含有非法字符"
+                    },
+                    CompanyKey: {
+                        required: "请输入正确的Key",
+                        maxlength: 100,
+                        validString: "含有非法字符"
+                    }
+                },
+                highlight: function (element) {
+                    $(element).addClass('ipt_err');
+                },
+                unhighlight: function (element) {
+                    $(element).removeClass('ipt_err');
+                },
+                errorElement: 'div',
+                errorClass: 'pw_error',
+                submitHandler: function () {
+                    $.ajax({
+                        url: '/paymentmethod',
+                        type: 'POST',
+                        data: toJson($('form').serializeArray()),
+                        success: function (msg) {
+                            $('#msgDiv').removeClass('alert-info');
+                            $('#msgDiv').removeClass('alert-danger');
+                            if (msg.success) {
+                                $('#msgDiv').html('保存成功！');
+                                $('#msgDiv').addClass('alert-info');
+                            } else {
+                                $('#msgDiv').html(msg.msg);
+                                $('#msgDiv').addClass('alert-danger');
+                            }
+                            $('#msgDiv').slideDown(1000);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
+<form>
+
+    <div class="pay_way">
+        <div id="msgDiv" class="alert" style="display: none;">
+            dfadfasdfadfafadsfasdfasfasdf
+        </div>
+        @*<div class="pw_intro">
+            <p>
+                <img src="~/Content/images/i/zhifubao.jpg" />支付宝网站（www.alipay.com）是国内先进的网上支付平台。
+            </p>
+            <p style="font-weight: bold; color: #000">DBC联合支付宝推出优惠套餐：无预付/年费，单笔费率低于0.7%-1.2%，无流量限制。</p>
+            <p style="padding-left: 350px;">
+                <a href="javascript:;">
+                    <img src="~/Content/images/i/online_apply.jpg" /></a>
+            </p>
+            <p>如果您已经和支付宝签约了其他套餐，同样可以点击上面的申请按钮重新签约，即可享受新的套餐。</p>
+            <p>如果不需要更换套餐，请将签约合作者身份ID等信息在下面填写即可，<a href="javascript:;">点击这里查看使用帮助</a></p>
+        </div>*@
+        <div class="pw_api">
+            <div class="pw_am">
+                <span>支付方式名称</span><input type="text" value="支付宝" readonly="readonly" />
+            </div>
+            <div class="pw_am">
+                <span>合作者身份(parterID)</span><input type="text" maxlength="100" id="CompanyID"name="CompanyID" value="@Model.CompanyID"/>
+            </div>
+            <div class="pw_am">
+                <span>交易安全校验码(key)</span><input type="text" maxlength="100" id="CompanyKey" name="CompanyKey" value="@Model.CompanyKey"/>
+            </div>
+            <div class="pw_am">
+                <span>支持币种</span><b>人民币</b>
+            </div>
+            <div class="pw_am">
+                <span>选择接口类型</span>
+                <select>
+                    <option>使用担保交易接口</option>
+                </select>
+            </div>
+            <div class="pw_ai">
+                <span>是否开启此支付方式</span>
+
+                <label>
+                    @Html.RadioButton("Enabled", true, Model.Enabled == true)是</label>
+                <label>
+                    @Html.RadioButton("Enabled", false, Model.Enabled != true)否</label>
+            </div>
+        </div>
+        <div class="pw_sub"><a onclick="javascript:doSubmit();">保 存</a></div>
+    </div>
+
+</form>

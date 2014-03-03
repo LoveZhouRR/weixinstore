@@ -1,0 +1,66 @@
+﻿@model DBC.WeChat.UI.Store.Models.MemberSaleOrderVMQuery
+<style>
+    .orderSource {
+        height: 27px;
+        margin-top: 10px;
+        margin-bottom: -10px;
+    }
+
+        .orderSource .cur {
+            color: #1C86EE;
+            border: #1C86EE solid 1px;
+            background-color: #fff;
+        }
+
+        .orderSource a {
+            height: 27px;
+            line-height: 27px;
+            text-align: center;
+            font-size: 14px;
+            padding: 5px;
+            background-color: #8A8A8A;
+            color: #fff;
+            border: #fff solid 1px;
+        }
+
+            .orderSource a:hover {
+                background-color: #1C86EE;
+                color: #fff;
+                border: #fff solid 1px;
+            }
+</style>
+<script type="text/javascript">
+    var lastSource = "wechat";
+
+    function Query(sourceName) {
+        $("input[name=OrderSource]").val(sourceName);
+        if (lastSource != sourceName)
+            $("input[name=Skip]").attr("value", 0);
+        if (sourceName == "web") {
+            lastSource = "web";
+            $("#orderWechat").removeClass("cur");
+            $("#orderWeb").addClass("cur");
+        } else {
+            lastSource = "wechat";
+            $("#orderWeb").removeClass("cur");
+            $("#orderWechat").addClass("cur");
+        }
+        $('#queryForm').submit();
+    }
+    function PartlyQuery() {
+        $("#queryForm").submit();
+    }
+</script>
+@{
+    var _fanid = ViewData["CId"];
+}
+<div class="orderSource">
+    <a href="javascript:;" id="orderWechat" onclick="Query('wechat')" class="cur">微信订单</a>
+    <a href="javascript:;" id="orderWeb" onclick="Query('web')">线上订单</a>
+</div>
+<div class="hide">
+    @Html.TextBoxFor(m => m.Skip)
+    <input id="FanId" type="hidden" value="@_fanid" name="FanId" />
+    <input id="OrderSource" type="hidden" value="wechat" name="OrderSource" />
+</div>
+

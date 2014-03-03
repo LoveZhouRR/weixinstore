@@ -1,0 +1,23 @@
+﻿<report>
+  <xml>
+    <row>
+      <Quantity>1</Quantity>
+      <SpecName>11</SpecName>
+      <ProductName>111</ProductName>
+      <Price>11</Price>
+      <ProductTotal>11</ProductTotal>
+    </row>
+  </xml>
+  <_grparam>
+    <code>1_7VY</code>
+    <CreatedAt>2014/1/7 10:41:45</CreatedAt>
+    <State>已完成</State>
+    <Receiver>11</Receiver>
+    <Mobile>111</Mobile>
+    <Address>中国上海  1</Address>
+    <DeliveryMethod>EMS</DeliveryMethod>
+    <DeliveryFee>0.00</DeliveryFee>
+    <TotalNumber>1</TotalNumber>
+    <Total>100.00</Total>
+  </_grparam>
+</report>

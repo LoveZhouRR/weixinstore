@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "订单管理";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+@using DBC.WeChat.Models.Sales
+@model ICollection<DBC.WeChat.Models.Sales.SaleOrder>
+
+@section Css{
+    <link rel="stylesheet" href="~/Content/css/order.css">
+<link type="text/css" rel="stylesheet" href="~/Content/css/datePicker.css" />
+<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+}
+<script src="~/Content/Scripts/SaleOrder/SaleOrder.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+  <script type="text/javascript" 
+        src="~/Content/Libraries/jQuery/jquery.unobtrusive-ajax.min.js" ></script>
+
+@using (Ajax.BeginForm("AjaxQuery", "SaleOrder", null, new AjaxOptions()
+      {
+          HttpMethod = "POST",
+          InsertionMode = InsertionMode.Replace,
+          UpdateTargetId = "orderList",
+          OnSuccess = "QuerySuccess",
+      }, new { ID = "queryForm", name = "queryForm" }))
+{
+    @Html.Partial("SaleOrder/OrderQuery",new SaleOrderQuery())
+    <div class="pg_mm">
+        <div id="orderList">
+            @Html.Partial("SaleOrder/OrderList", Model)
+        </div>
+    </div>
+}

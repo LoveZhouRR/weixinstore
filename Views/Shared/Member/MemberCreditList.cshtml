@@ -1,0 +1,38 @@
+﻿@using DBC.WeChat.UI.Components
+@using DBC.WeChat.UI.Store.Models;
+@model ICollection<MemberCredit>
+@{
+    var pagination = ViewData["Pagination"] as Pagination;
+}
+<script type="text/javascript">
+    
+</script>
+<div class="info_list">
+    <table class="modify_integral">
+        <thead>
+            <tr>
+                <th class="mi_cause">积分变动原因</th>
+                <th class="mi_time">积分变动时间</th>
+                <th class="mi_num">积分值变动</th>
+                <th class="mi_result">变动结果</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                { 
+                <tr>
+                    <td class="mi_cause"><b>@item.CreditReason</b></td>
+                    <td class="mi_time"><b>@item.CreateTime</b></td>
+                    <td class="mi_num"><b>@item.CreditAmount</b></td>
+                    <td class="mi_result"><b>@item.RemainAmount</b></td>
+                </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div id="pagination">
+    @Html.Partial("Pagination", pagination)
+</div>

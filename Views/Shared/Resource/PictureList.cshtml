@@ -1,0 +1,40 @@
+﻿@using System.Configuration
+@using DBC.WeChat.UI.Components
+@model List<DBC.WeChat.Models.Conversation.PictureResource>
+
+@{
+    var pagination = ViewData["Pagination"] as Pagination;
+}
+<div class="pic_list">
+    <table id="picTable">
+        @{
+            string ftp = ConfigurationManager.AppSettings["ftp"];
+        }
+        @foreach (var item in Model)
+        {
+            var path = System.IO.Path.Combine(ftp, item.Path, item.Name);
+            var encodePath = HttpUtility.UrlEncode(path);
+            const string type = "image/jpeg";
+            <tr id="tr@(item.ID)">
+                <td class="pl_title">
+                    <b>@item.OriginName</b>
+                    <img src="@path"/>
+                </td>
+                <td class="pl_size">
+                    @item.Size KB
+                </td>
+                <td class="pl_opera">
+                    <span class="ps_opera">
+                        <i class="ps_up" onclick="javascript:Download('@encodePath','@type','@item.OriginName');" ></i>
+                        <i class="ps_xg"></i>
+                        <i class="ps_sc" onclick="javascript:deleteMe(@item.ID);"></i>
+                    </span>
+
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div id="pagination" class="rl_page">
+    @Html.Partial("Pagination", pagination)
+</div>

@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "用户信息管理";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@model DBC.WeChat.UI.Store.Models.MemberPersonalVM
+
+<link rel="stylesheet" href="~/Content/css/g.css">
+<link rel="stylesheet" href="~/Content/sw/sw.css">
+<link rel="stylesheet" href="~/Content/css/mucenter.css">
+
+<div class="pg_cu">
+    @Html.ActionLink("信息列表", "Index", "Member", null, null)
+    <a href="javascript:;" class="cur">个人信息</a>
+    @Html.ActionLink("会员订单", "MemberOrder", "Member", new { id = Model.WeChatMember.ID }, new { })
+    @Html.ActionLink("会员积分", "MemberCredit", "Member", new { id = Model.WeChatMember.ID }, new { })
+</div>
+<div class="member_ucenter">
+    <div class="personal_information">
+        <dl>
+            <dt>微信相关</dt>
+            <dd>
+                <span><b>OpenId：</b><em>@Model.WeChatMember.Code</em></span>
+                <span><b>状态：</b><i>已关注</i></span>
+                <span><b>昵称：</b><em>@Model.WeChatExtra.NickName</em></span>
+                <span><b>性别：</b><em>@Model.WeChatExtra.GenderName</em></span>
+                <span><b>国家：</b><em>@Model.WeChatExtra.Country</em></span>
+                <span><b>省份：</b><em>@Model.WeChatExtra.Province</em></span>
+                <span><b>城市：</b><em>@Model.WeChatExtra.City</em></span>
+                <span><b>关注日期：</b><em>@Model.WeChatExtra.FollowDate</em></span>
+            </dd>
+        </dl>
+        @{
+            var CustomerId = "";
+            var CustomerCredit = 0;
+            var CustomerRank = "";
+            var CustomerEmail = "";
+            var EmailVerified = "";
+            var CustomerMobile = "";
+            var MobileVerified = "";
+            var DisplayStyle = "block";
+            if (Model.WebExtra != null)
+            {
+                if (Model.WebExtra.CustomerId != null && Model.WebExtra.CustomerId.Any())
+                {
+                    foreach (var itemName in Model.WebExtra.CustomerId)
+                    {
+                        CustomerId += @itemName;
+                        CustomerId += ";";
+                    }
+                }
+                else
+                {
+                    CustomerId = "";
+                }
+
+                CustomerCredit = Model.WebExtra.CustomerCredit ?? 0;
+                CustomerRank = Model.WebExtra.CustomerRank;
+                CustomerEmail = Model.WebExtra.CustomerEmail;
+                if (CustomerEmail != "")
+                {
+                    EmailVerified = "已激活";
+                }
+                CustomerMobile = Model.WebExtra.CustomerMobile;
+                if (CustomerMobile != "")
+                {
+                    MobileVerified = "已激活";
+                }
+            }
+            else
+            {
+                DisplayStyle = "none";
+            }
+        }
+        <dl style="display:@DisplayStyle">
+            <dt>线上会员相关</dt>
+            <dd>
+                <span class="pi_s"><b>会员ID：</b><em>@CustomerId</em></span>
+                <span><b>积分余额：</b><em>@CustomerCredit</em></span>
+                <span><b>会员等级：</b><em>@CustomerRank</em></span>
+                <span><b>会员邮箱：</b><em>@CustomerEmail</em><i>@EmailVerified</i></span>
+                <span><b>会员手机：</b><em>@CustomerMobile</em><i>@MobileVerified</i></span>
+            </dd>
+        </dl>
+    </div>
+</div>

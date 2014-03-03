@@ -1,0 +1,74 @@
+﻿@using DBC.WeChat.Models.Conversation
+@using DBC.WeChat.Services.Components
+@using DBC.WeChat.UI.Components
+@model IEnumerable<DBC.WeChat.Models.Conversation.Award>
+@{
+    var pagination = ViewData["Pagination"] as Pagination;
+}
+<table class="prize_send">
+    <thead>
+        <tr>
+            <th class="ps_num">奖品单号</th>
+            <th class="ps_address">奖品商品名称</th>
+            <th class="ps_user">收件人</th>
+            <th class="ps_name">地址</th>
+            <th class="ps_phone">联系方式</th>
+            <th class="ps_time">中奖时间</th>
+            <th class="ps_stat">状态</th>
+            <th class="ps_opea">操作</th>
+        </tr>
+    </thead>
+    @if (Model!=null&&Model.Any())
+    {
+        foreach (var award in Model)
+        {
+        <tr>
+            <td class="ps_num">
+                @award.Code
+            </td>
+            <td class="ps_address">
+                @award.AwardType.Name
+            </td>
+            <td class="ps_user">
+                @award.OwnerName
+            </td>
+            <td class="ps_name">
+                @award.Address
+            </td>
+            <td class="ps_phone">
+                @award.Mobile
+            </td>
+            <td class="ps_time">
+                @award.AwardTime
+            </td>
+            <td class="ps_stat">
+                <span id="State@(award.ID)">@(((AwardState)award.State).GetDescription())</span>
+            </td>
+            <td class="ps_opea">
+                @if (award.State == (int) AwardState.Init)
+                {
+                    <a id="Send@(award.ID)" onclick="javascript:ChangeState(@award.ID,@((int)AwardState.Sended));">发货</a>
+                }
+            </td>
+        </tr>
+        }
+    }
+</table>
+<div>
+    @Html.Partial("Pagination", pagination)
+</div>
+
+<script type="text/javascript">
+    function ChangeState(id,state) {
+        $.ajax({
+            url: '/Award/ChangeState',
+            type: 'post',
+            data: { id: id, state: state },
+            success:function() {
+                $("#State" + id).html("已发奖");
+                $("#Send" + id).remove();
+            }
+        });
+    }
+
+</script>

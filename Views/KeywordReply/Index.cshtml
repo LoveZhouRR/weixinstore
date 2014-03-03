@@ -1,0 +1,55 @@
+﻿@model IEnumerable<DBC.WeChat.UI.Store.Models.KeywordReplyVM>
+
+@{
+    ViewBag.Title = "关键词自动回复";
+    Layout = "~/Views/Shared/_Master.cshtml";
+    var jsonStr = ViewData["Json"];
+}
+
+@section Css
+{
+    <link rel="stylesheet" href="~/Content/css/response.css" />
+    <link rel="stylesheet" href="~/Content/css/bootstrap-part.css"/>
+    <link rel="stylesheet" href="~/Content/Libraries/font-awesome/css/font-awesome.min.css"/>
+}
+@section Script
+{
+    <script type="text/javascript" src="~/Content/Scripts/bootstrap-part.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/keyword.js"></script>
+    <script type="text/javascript">
+        var models = @Html.Raw(jsonStr);
+        $(document).ready(function() {
+            var createObj = $('#Content').addRule();
+            if (models.length) {
+                createObj.toggle();
+            }
+            
+            $('.ar_label a[target=add]').click(function() {
+                createObj.toggle();
+            });
+            
+            $.each(models, function(i, t) {
+                $('#Content').addRule({ model: t });
+            })
+        })
+    </script>
+}
+<div class="pg_cu">
+    @*<a href="javascript:;">被添加自动回复</a>
+    <a href="javascript:;">消息自动回复</a>*@
+    <a href="javascript:void(0);" class="cur">关键词自动回复</a>
+</div>
+<div class="pg_mm">
+    <div class="auto_response">
+
+        <div class="ar_content">
+            <div class="ar_lb">
+                <p class="ar_label">
+                    <a target="add" href="javascript:void(0)"><span>+ 添加规则</span></a>消息自动回复<a href="javascript:void(0);">微信商城后台如何设置消息自动回复？</a>
+                </p>
+            </div>
+            <div id="Content">
+            </div>
+        </div>
+    </div>
+</div>

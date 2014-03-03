@@ -1,0 +1,63 @@
+﻿@model DBC.WeChat.Models.Infrastructures.FanCreditsQuery
+<style>
+    .modifyCredit {
+        margin-top: 15px;
+        margin-bottom: -10px;
+        height: 30px;
+        line-height: 30px;
+    }
+
+        .modifyCredit a {
+            height: 27px;
+            line-height: 27px;
+            text-align: center;
+            font-size: 14px;
+            padding: 5px;
+            color: #1C86EE;
+            border: #1C86EE solid 1px;
+            background-color: #fff;
+        }
+
+            .modifyCredit a:hover {
+                background-color: #1C86EE;
+                color: #fff;
+                border: #fff solid 1px;
+            }
+
+    #modifyCredits {
+        height: 27px;
+        line-height: 27px;
+        width: 150px;
+        margin-right: 10px;
+    }
+</style>
+
+<script type="text/javascript">
+    function CreateQuery() {
+        var _credit = $("#modifyCredits").val();
+        var intRule = /^(\+|-)?\d+$/;
+        if (!intRule.test(_credit)) {
+            alert("修改积分必须为整数");
+            return false;
+        } else {
+            $("#queryForm").submit();
+            $("#modifyCredits").val('');
+            alert("调整成功");
+        }
+    }
+
+    function query() {
+        $("#modifyCredits").val('');
+        $("#queryForm").submit();
+    }
+</script>
+@{
+    var _fanid = ViewData["CId"];
+}
+<div class="modifyCredit">
+    <input type="text" id="modifyCredits" name="modifyCredits" value="" placeholder="需要手动变更的积分" /><a href="javascript:;" onclick="CreateQuery();">修改积分</a>
+</div>
+<div class="hide">
+    @Html.TextBoxFor(m => m.Skip)
+    <input id="FanId" type="hidden" value="@_fanid" name="FanId" />
+</div>

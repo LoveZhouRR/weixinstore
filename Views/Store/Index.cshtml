@@ -1,0 +1,59 @@
+﻿@using DBC.WeChat.UI.Store.Models;
+@model DBC.WeChat.UI.Store.Models.StoreVM
+@{
+    ViewBag.Title = "店铺管理";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@section Script
+{
+    <script type="text/javascript" src="~/Content/Libraries/jQuery/jquery.form.min.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/Store/PicUpload.js"></script>
+}
+@section Css
+{
+    <link rel="stylesheet" href="~/Content/css/add_pro.css">
+    <link rel="stylesheet" href="~/Content/css/AttachStyle.css" />
+}
+
+<div class="pg_cu">
+    <a href="javascript:;" class="cur">公告与banner</a>
+    @Html.ActionLink("公司信息", "Intro", "Store", null, null)
+</div>
+@using (Html.BeginForm("UploadBanner", "Store", FormMethod.Post, new { id = "filePostForm", enctype = "multipart/form-data" }))
+{
+    <div class="picPanel">
+        @{
+    if (Model != null && Model.BannerPictures != null)
+    {
+        foreach (var item in Model.BannerPictures)
+        {
+            var conId = "picAddDelete" + item.ID;
+            var divId = "pic" + item.ID;
+            <div class="pic" id="@divId">
+                <a id="@conId" href="javascript:;" onclick="PicDelete(@item.ID)" class="icon ap_delete"></a>
+                <img src="@item.Path" alt="@item.Name"/>
+            </div>
+        }
+    }
+        }
+    </div>
+    <div class="ap_upload">
+        <span>
+            <input type="file" name="bannerPic" accept="image/gif,image/jpeg,image/jpg,image/png" id="bannerPic">
+            <i class="icon">Banner图片 </i>
+        </span>
+        <em>(此处为您的店铺首页banner，建议尺寸450X200像素，图片大小不可超过10K）</em>
+    </div>
+    <div class="ap_ctm" style="padding: 10px; margin-bottom: -10px;">
+        <span>商铺名称</span>
+        @Html.TextBoxFor(m => m.StoreName)
+    </div>
+    <div class="ap_description" style="padding: 10px;">
+        <p>商铺描述</p>
+        @Html.TextAreaFor(m => m.Announcement)
+        <em>建议不超过120个字  <font>0</font>/120</em>
+    </div>
+    <div class="ap_sub" style="padding-right: 10px; margin-top: -10px;" id="submit">
+        <a href="javascript:;" onclick='SaveAnnouncement()'>保 存</a>
+    </div>
+}

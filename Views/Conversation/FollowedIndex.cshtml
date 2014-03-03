@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "被关注自动回复";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@using DBC.WeChat.Models.Conversation
+@model DBC.WeChat.Models.Conversation.TextReplyItem
+
+<link rel="stylesheet" href="~/Content/css/pro_list.css">
+<link rel="stylesheet" href="~/Content/css/AttachStyle.css" />
+<script type="text/javascript" src="~/Content/Scripts/Conversation/Reply.js"></script>
+
+<div class="pg_cu">
+    <a href="javascript:void(0);" class="cur">被添加自动回复</a>
+</div>
+<div class="pg_ru">
+    <em>被添加自动回复</em>
+    @*<span><a href="javascript:void(0);">微信商城后台如何设置被添加回复？</a></span>*@
+    <div style="width: 600px;">
+        <div class="top">
+            <span><a href="javascript:void(0);" class="word">文字</a></span>
+        </div>
+        <div class="rp_description">
+            @Html.TextAreaFor(m => m.Content)
+        </div>
+        <div class="bottom">
+            <em>建议不超过120个字  <font>0</font>/120</em>
+        </div>
+        <div class="rp_sub">
+            <a href="javascript:void(0);" class="cancel">清 空</a>
+            <a href="javascript:;" class="confirm" onclick="SaveFollowedReply(@Model.ID)">保 存</a>
+        </div>
+    </div>
+</div>

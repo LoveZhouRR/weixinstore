@@ -1,0 +1,35 @@
+﻿@using DBC.WeChat.Models.Conversation
+@using DBC.WeChat.Services.Components
+@model DBC.WeChat.Models.Conversation.Rule
+
+<div id="RuleItem">
+    @using (Ajax.BeginForm("EditRule", "Conversation", null, new AjaxOptions()
+        {
+            HttpMethod = "POST",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "RuleItem",
+        }, new { id = "EditRuleForm" }))
+    {
+        <div>
+            @Html.TextBoxFor(m => m.ID, new { id = "ID" })
+            @Html.Label("规则名称")@Html.TextBoxFor(m => m.KeyWordGroupName)
+            <label>@(((RuleType)Model.Type).GetDescription())</label>
+            <ul>
+                @{
+                    var index = 0;
+
+                    foreach (var key in Model.KeyWords)
+                    {
+                        <li>
+                            <input name="keyID@(index)" value=@key.ID >
+                            @Html.Label("关键字")<input name="key@(index)" value=@key.Content >
+
+                        </li>
+                        index++;
+                    }
+                }
+            </ul>
+        </div>
+        <a onclick="javascript:$('#EditRuleForm').submit();">保存规则</a>
+    }
+</div>

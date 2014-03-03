@@ -1,0 +1,517 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+.or_list {
+    border: #cdcdcd solid 1px;
+    border-bottom: none;
+    overflow: hidden;
+    background: #fff;
+    zoom: 1;
+}
+
+.or_list_tab {
+    width: 100%;
+    font-family: \5b8b\4f53;
+}
+
+.or_list_tab th {
+    border-right: #dcdcdc solid 1px;
+    border-bottom: #dcdcdc solid 1px;
+    height: 34px;
+    background: url(../images/i/bg_pr_list_tab_th.png) repeat-x;
+}
+
+.or_list_tab td {
+    border-bottom: #dcdcdc solid 1px;
+    padding: 5px 0;
+    text-align: center;
+}
+
+.or_list_tab em, .or_list_tab i {
+    float: left;
+    display: inline-block;
+}
+
+.or_list_tab i {
+    width: 7px;
+    height: 8px;
+    background-position: -114px 0;
+    margin-left: 8px;
+    margin-top: 5px;
+    cursor: pointer
+}
+
+.or_list_tab i.cur {
+    background-position: -122px 0;
+}
+
+.or_list_tab td b {
+    line-height: 22px;
+    display: block;
+    text-align: left;
+    float: left;
+}
+
+.or_list_tab th.orlt_oper {
+    border-right: none;
+}
+
+.orlt_nums, .orlt_name, .orlt_stat, .orlt_cont, .orlt_oper {
+    width: 10%;
+}
+
+.orlt_pric, .orlt_wxid {
+    width: 11%;
+}
+
+.orlt_time {
+    width: 12%;
+}
+
+.orlt_logi {
+    width: 16%;
+}
+
+.or_list_tab th.orlt_name, .or_list_tab th.orlt_wxid, .or_list_tab th.orlt_cont, .or_list_tab th.orlt_logi, .or_list_tab th.orlt_oper {
+    text-align: center;
+}
+
+.or_list_tab th.orlt_nums {
+    padding-left: 3%;
+    width: 7%;
+}
+
+.or_list_tab th.orlt_pric {
+    padding-left: 3%;
+    width: 8%;
+}
+
+.or_list_tab th.orlt_time {
+    padding-left: 2%;
+    width: 10%;
+}
+
+.or_list_tab th.orlt_stat {
+    padding-left: 3%;
+    width: 7%;
+}
+
+.or_list_tab td.orlt_nums b {
+    display: inline-block;
+    float: left;
+    padding-left: 10%;
+}
+
+.or_list_tab td.orlt_nums em {
+    font-size: 12px;
+    font-family: \5FAE\8F6F\96C5\9ED1, \5b8b\4f53;
+    color: #e60011;
+    line-height: 22px;
+    margin-left: 5px;
+}
+
+.or_list_tab td.orlt_pric b {
+    text-align: right;
+    width: 70%;
+}
+
+.or_list_tab td.orlt_name b {
+    padding-left: 32%;
+    width: 68%;
+}
+
+.or_list_tab td.orlt_time b {
+    width: 100%;
+    padding-left: 20%;
+    width: 80%
+}
+
+.or_list_tab td.orlt_stat b {
+    padding-left: 25%;
+    width: 75%;
+}
+
+.or_list_tab td.orlt_wxid b {
+    padding-left: 35%;
+    width: 65%
+}
+
+.or_list_tab td.orlt_logi b {
+    padding-left: 15%;
+    width: 85%;
+}
+
+.or_list_tab td.orlt_oper {
+    text-align: center
+}
+
+.orlt_oper a {
+    display: inline-block;
+    width: 33px;
+    height: 23px;
+    line-height: 23px;
+    border: #e5e5e5 solid 1px;
+    text-align: center;
+}
+
+.orlt_oper a.cur {
+    color: #949494;
+}
+
+/**/
+.order_information {
+    background: #f7f7f7;
+    overflow: auto;
+    zoom: 1;
+    height: 708px;
+    margin-top: 28px;
+    padding: 20px;
+    color: #535353;
+    font-family: \5b8b\4f53;
+    position: relative;
+    min-width: 976px;
+}
+
+.oi_title {
+    height: 24px;
+    line-height: 24px;
+    overflow: hidden;
+    font-size: 14px;
+    color: #000;
+    font-weight: bold
+}
+
+.oi_omain {
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.oi_omain p {
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden
+}
+
+.oi_omain span {
+    float: left;
+    width: 90px;
+    display: inline-block;
+}
+
+.oi_omain em {
+    font-weight: bold;
+}
+
+.oi_omain a {
+    width: 72px;
+    height: 27px;
+    line-height: 27px;
+    text-align: center;
+    display: inline-block;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.oi_cmain {
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.oi_m {
+    overflow: hidden;
+    margin-top: 5px;
+    zoom: 1;
+}
+
+.oi_m span {
+    float: left;
+    width: 90px;
+    line-height: 26px;
+}
+
+.oi_m input {
+    width: 160px;
+    height: 24px;
+    border: #e5e5e5 solid 1px;
+    padding: 0 5px;
+    line-height: 24px;
+    float: left;
+    font-family: \5b8b\4f53
+
+}
+
+.oi_m select {
+    float: left;
+    margin-right: 10px;
+    font-family: \5b8b\4f53;
+    height: 28px;
+    height: auto\0;
+}
+
+.oi_m input.address {
+    width: 275px;
+}
+
+.oi_m b {
+    float: left;
+    line-height: 26px;
+    display: inline-block;
+}
+
+.oi_m a {
+    width: 72px;
+    height: 27px;
+    line-height: 27px;
+    text-align: center;
+    display: inline-block;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 90px;
+    margin-top: 5px;
+}
+
+.oi_list {
+    border: #cdcdcd solid 1px;
+    border-bottom: none;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.oi_tab {
+    width: 100%;
+    font-family: \5b8b\4f53;
+}
+
+.oi_tab th {
+    border-right: #dcdcdc solid 1px;
+    border-bottom: #dcdcdc solid 1px;
+    height: 34px;
+    background: url(../images/i/bg_pr_list_tab_th.png) repeat-x;
+    text-align: center
+}
+
+.oi_tab td {
+    border-bottom: #dcdcdc solid 1px;
+    padding: 5px 0;
+}
+
+.oi_name {
+    width: 25%;
+}
+
+.oi_norm {
+    width: 15%;
+}
+
+.oi_nums {
+    width: 20%;
+}
+
+.oi_reta {
+    width: 20%;
+}
+
+.oi_coun {
+    width: 20%;
+}
+
+.oi_name img {
+    width: 58px;
+    height: 58px;
+    border: #ccc solid 1px;
+    float: left;
+    margin-left: 10px;
+}
+
+.oi_tab td.oi_name p {
+    margin-left: 80px;
+    text-align: left;
+    padding-right: 50px;
+    line-height: 22px;
+}
+
+.oi_norm b {
+    display: block;
+    padding-left: 40%;
+    float: left;
+}
+
+.oi_nums {
+    text-align: center
+}
+
+.oi_reta b, .oi_coun b {
+    display: block;
+    padding-right: 38%;
+    float: right;
+}
+
+.oi_count {
+    overflow: hidden;
+    text-align: right;
+    margin-top: 10px;
+}
+
+.oi_count b {
+    margin-left: 20px;
+}
+
+.oi_count b font {
+    color: #e60011;
+    font-size: 24px;
+    font-family: \5FAE\8F6F\96C5\9ED1, \5b8b\4f53
+
+}
+
+/*20131120*/
+.or_mu {
+    height: 30px;
+    padding: 17px 0 8px 0;
+    overflow: hidden;
+    border-bottom: #dcdcdc solid 1px;
+    font-family: \5b8b\4f53
+
+}
+
+.or_mm {
+    height: 43px;
+    overflow: hidden;
+    border-top: #fff solid 1px;
+    font-family: \5b8b\4f53
+
+}
+
+.or_mm label, .or_mm b {
+    float: left;
+    display: inline-block;
+    line-height: 43px;
+}
+
+.or_mm input, .or_mm select {
+    float: left;
+    display: inline;
+}
+
+.or_mm input {
+    margin-top: 15px;
+    *margin-top: 12px;
+    margin-right: 10px;
+}
+
+.or_mm label {
+    margin-right: 20px;
+}
+
+.or_mm select {
+    margin-left: 10px;
+    margin-top: 8px;
+    margin-top: 13 px\0;
+    *margin-top: 13px;
+    font-family: \5b8b\4f53;
+    height: 28px;
+    height: auto\0;
+    width: 88px;
+}
+
+.gs_ttcur {
+    background: #fff;
+    width: 94px;
+    height: 30px;
+    float: left;
+    display: inline;
+    margin-right: 10px;
+    position: relative;
+}
+
+.gs_ttcur span {
+    overflow: hidden;
+    width: 84px;
+    height: 28px;
+    line-height: 28px;
+    border: #d5d5d5 solid 1px;
+    display: inline-block;
+    padding: 0 5px;
+    cursor: default;
+}
+
+.or_mum .gs_ttcur em {
+    float: left;
+    display: inline-block;
+    margin: 0;
+}
+
+.gs_ttcur i {
+    width: 11px;
+    height: 11px;
+    background-position: -159px 0;
+    margin-top: 12px;
+    float: right;
+    display: inline-block;
+    cursor: pointer
+}
+
+.or_mu b, .or_mu em, .or_mus {
+    float: left;
+    display: inline-block;
+    line-height: 30px;
+}
+
+.or_mum, .or_mu input {
+    float: left;
+    display: inline;
+}
+
+.or_mu b {
+    width: 44px;
+}
+
+.or_mu em {
+    margin: 0 10px;
+}
+
+.or_mu input {
+    height: 28px;
+    line-height: 28px;
+    border: #cdcdcd solid 1px;
+    padding: 0 5px;
+    width: 157px;
+    font-family: \5b8b\4f53;
+}
+
+.or_mus {
+    position: relative;
+    width: 77px;
+}
+
+.or_mu .or_mus input {
+    width: 55px;
+    padding: 0 5px 0 15px;
+}
+
+.or_mus i {
+    position: absolute;
+    top: 0;
+    left: 5px;
+    z-index: 2;
+    font-family: \5FAE\8F6F\96C5\9ED1, \5b8b\4f53;
+}
+
+.or_muc {
+    float: left;
+    display: inline-block;
+    width: 106px;
+    height: 31px;
+    overflow: hidden;
+}
+
+.or_muc a {
+    width: 60px;
+    height: 43px;
+    line-height: 43px;
+    font-size: 12px;
+    background-position: -215px -34px;
+    padding-left: 46px;
+}

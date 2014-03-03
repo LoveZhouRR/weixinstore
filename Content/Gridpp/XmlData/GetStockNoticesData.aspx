@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="GetStockNoticesData.aspx.cs" Inherits="DBC.Ors.UI.Web.Mvc.ERP.Content.Gridpp.XmlData.GetStockNoticesData" %>

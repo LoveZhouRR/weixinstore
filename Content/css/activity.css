@@ -1,0 +1,265 @@
+.scratch_card {
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-top: 20px;
+    height: 606px;
+}
+
+.sc_tab {
+    width: 100%;
+    font-family: \5b8b\4f53;
+    border: #dcdcdc solid 1px;
+    border-right: none;
+}
+
+.sc_tab th {
+    border-right: #dcdcdc solid 1px;
+    border-bottom: #dcdcdc solid 1px;
+    height: 34px;
+    padding: 0 10px;
+    text-align: center;
+    background: url(../images/i/bg_pr_list_tab_th.png) repeat-x;
+}
+
+.sc_tab td {
+    border-bottom: #dcdcdc solid 1px;
+    border-right: #dcdcdc solid 1px;
+    padding: 10px 0;
+    text-align: center;
+    background: #f7f7f7;
+}
+
+.sc_type {
+    width: 16%
+}
+
+.sc_name b {
+    display: block;
+    padding: 0 10px;
+    text-align: left;
+    text-indent: 10px;
+}
+
+.sc_num {
+    width: 16%
+}
+
+.sc_time {
+    width: 16%
+}
+
+.sc_statu {
+    width: 16%
+}
+
+.sc_oper {
+    width: 16%
+}
+
+.add_activity {
+    width: 100%;
+    margin-top: 15px;
+    height: 31px;
+    overflow: hidden;
+    font-family: \5b8b\4f53;
+}
+
+.add_activity a {
+    width: 92px;
+    height: 27px;
+    line-height: 27px;
+    background: #fff;
+    border: #dcdcdc solid 1px;
+    text-align: center;
+    display: inline-block;
+}
+
+/*sc_activity*/
+.sc_activity {
+    top: 20%;
+    left: 50%;
+    padding-bottom: 10px;
+    width: 900px;
+    background: #fff;
+    margin-left: -318px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    font-family: \5b8b\4f53;
+}
+
+.sc_hd {
+    height: 20px;
+    overflow: inherit;
+    padding: 0 0px 0 15px;
+    position: relative;
+}
+
+.sc_hd h2 {
+    line-height: 20px;
+    float: left;
+    width: 80%;
+    font-size: 16px;
+    font-weight: bold
+}
+
+.sc_hd a {
+    width: 35px;
+    height: 35px;
+    font-size: 30px;
+    font-family: "黑体";
+    display: inline-block;
+    text-align: center;
+    line-height: 30px;
+    position: absolute;
+    top: 1px;
+    right: 0;
+}
+
+.sc_ct {
+    padding: 10px 15px 0;
+}
+
+.sc_ctm {
+    overflow: hidden;
+    zoom: 1;
+}
+
+.sc_ctm span {
+    width: 76px;
+    float: left;
+    display: inline-block;
+    line-height: 27px;
+}
+
+.sc_ctmm {
+    margin-left: 76px;
+}
+
+.sc_ctmm b, .sc_ctmm em, .sc_ctmm a {
+    float: left;
+    display: inline-block;
+    line-height: 27px;
+    height: 27px;
+}
+
+.sc_ctmm em {
+    padding: 0 10px;
+}
+
+.sc_ctmm select {
+    width: 194px;
+    height: 27px;
+    height: auto\0;
+    *height: auto;
+    float: left;
+    display: inline;
+    outline: none;
+    *margin-top: 4px;
+    margin-top: 4 px\0;
+    font-family: \5b8b\4f53;
+}
+
+.sc_ctmm a {
+    margin-left: 10px;
+}
+
+.sc_top {
+    margin-top: 10px;
+}
+
+.sc_ctab {
+    overflow: auto;
+}
+
+.sc_ctab table {
+    width: 100%;
+    border: #cdcdcd solid 1px;
+    background: #fff;
+    zoom: 1;
+}
+
+.sc_ctab th {
+    height: 34px;
+    text-align: center;
+    background: url(../images/i/bg_pr_list_tab_th.png) repeat-x;
+}
+
+.sc_ctab td {
+    border-top: #dcdcdc solid 1px;
+    padding: 15px 0;
+}
+
+td.sc_ctname {
+    padding: 0 10px;
+}
+
+.sc_ctnums, .sc_ctodds {
+    width: 80px;
+    text-align: center
+}
+
+.sc_ctlabe {
+    width: 100px;
+}
+
+td.sc_ctlabe {
+    width: 80px;
+    padding: 0 10px;
+}
+
+.sc_ctopea {
+    width: 150px;
+}
+
+td.sc_ctopea {
+    text-align: center
+}
+
+.sc_ctopea a {
+    margin: 0 2px;
+    display: inline;
+}
+
+.sc_ctmm input {
+    float: left;
+    display: inline;
+    width: 182px;
+    padding: 0 5px;
+    height: 25px;
+    line-height: 25px;
+    border: #dcdcdc solid 1px;
+}
+
+.sc_addacty {
+    overflow: hidden;
+}
+
+.sc_addacty a {
+    height: 25px;
+    line-height: 25px;
+    border: #dcdcdc solid 1px;
+    width: 86px;
+    text-align: center;
+    display: inline-block;
+    float: left;
+    cursor: pointer;
+}
+
+.sc_ft {
+    height: 32px;
+    font-family: \5FAE\8F6F\96C5\9ED1, \5b8b\4f53;
+    margin-top: 10px;
+    padding: 0 15px;
+    text-align: right;
+}
+
+.sc_ft a {
+    width: 76px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    display: inline-block;
+    color: #fff;
+    font-size: 14px
+}

@@ -1,0 +1,49 @@
+﻿@using System.Configuration
+@using DBC.WeChat.UI.Components
+@model List<DBC.WeChat.Models.Conversation.VideoResource>
+@{
+    var pagination = ViewData["Pagination"] as Pagination;
+}
+<div class="radio_list">
+    <div class="rl_add">
+        <a class="rl_add_a" href="/Resource/CreateVideo"><i></i></a>
+    </div>
+    @{
+        string ftp = ConfigurationManager.AppSettings["ftp"];
+        int count = 1;
+    }
+    @foreach (var item in Model)
+    {
+        var path = System.IO.Path.Combine(ftp, item.Path, item.Name);
+        const string type = "video/mpeg";
+        var left = count % 2 == 0 ? "40" : "412";
+        var topdefault = count % 2 == 0 ? 240 : 30;
+        var top = (count / 2 - (count + 1) % 2) * 340 + topdefault;
+        <div class="rl_main" style="top: @(top)px; left: @(left)px;">
+            <div class="rl_title">@item.Title</div>
+            <div class="rl_info"><b>@item.LastUploadTime</b></div>
+            <div class="rl_radio">
+                <video width="300" height="175" controls="controls">
+                    <source src="@path" type="video/mp4">
+                    您的浏览器不支持html5播放 ,推荐下载Chrome
+                </video>
+            </div>
+            <div class="rl_cotent">
+                @item.Description
+            </div>
+            <div class="rl_btn">
+                <ul>
+                    <li><a href="/Resource/EditVideo?id=@item.ID" class="icon rl_btn_bj"></a></li>
+                    <li><a href="/Resource/Download?path=@path&type=@type&name=@item.OriginName" class="icon rl_btn_xz"></a></li>
+                    <li class="nbdn"><a href="javascript:;" class="icon rl_btn_sc" onclick="javascript:deleteMe(@item.ID);"></a></li>
+                </ul>
+            </div>
+        </div>
+        count++;
+    }
+
+
+</div>
+<div id="pagination">
+    @Html.Partial("Pagination", pagination)
+</div>

@@ -1,0 +1,173 @@
+﻿@{
+    ViewBag.Title = "欢迎来到微信商城";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@using DBC.WeChat.Models.Infrastructures
+@model DBC.WeChat.UI.Store.Models.HomePageVM
+@section Css
+{
+    <link rel="stylesheet" href="~/Content/css/index.css">
+    <link rel="stylesheet" href="~/Content/css/bootstrap-part.min.css" />
+}
+@section Script
+{
+    <script type="text/javascript" src="~/Content/Libraries/jQuery/jquery.validate.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/bootstrap-part.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/jquery-validator-extend.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#changepwd').click(function () {
+                $('#resetpwd').submit();
+            });
+            $('#resetpwd').validate({
+                rules: {
+                    OldPassword: {
+                        required: true,
+                        maxlength: 50
+                    },
+                    NewPassword: {
+                        required: true,
+                        maxlength: 50,
+                        minlength:6
+                    },
+                    ConfirmPassword: {
+                        required: true,
+                        maxlength: 50,
+                        minlength: 6,
+                        equalTo:'#NewPassword'
+                    }
+                },
+                messages: {
+                    OldPassword: {
+                        required: '当前密码不能为空',
+                    },
+                    NewPassword: {
+                        required: '新密码不能为空',
+                        minlength: '密码最小为6位'
+                    },
+                    ConfirmPassword: {
+                        equalTo: '两次密码输入不一致'
+                    }
+                },
+                submitHandler:function() {
+                    $.ajax({
+                        url: '/home/changepassword',
+                        data: { oldpwd: $('#OldPassword').val(), newpwd: $('#NewPassword').val() },
+                        type: 'POST',
+                        success:function(msg) {
+                            if (msg.success) {
+                                $.msg('修改成功');
+                                $('#myModal').modal('hide');
+                            } else {
+                                $.error(msg.msg);
+                            }
+                        }
+                    })
+                }
+            });
+        })
+    </script>
+}
+@{
+    var warnings = new List<MvcHtmlString>();
+    var emailAddress = Model.Account.Substring(Model.Account.IndexOf('@') + 1);
+    emailAddress = "www." + emailAddress;
+    var url = new UriBuilder("http", emailAddress);
+    if (Model.Type == (TenantAccountType.Email) && !Model.EmailVerified)
+    {
+        warnings.Add(new MvcHtmlString(string.Format("您的邮箱还未验证，立刻<a href='{0}'>登录邮箱</a>验证", url)));
+    }
+    if (Model.Type == (TenantAccountType.Mobile)&& !Model.MobileVerified)
+    {
+        
+    }
+    if (!Model.AlipayAccountBinded)
+    {
+        warnings.Add(new MvcHtmlString(string.Format("您还没有绑定支付宝，立刻<a href='/paymentmethod'>绑定</a>")));
+    }
+    if (!Model.IdentityVerified)
+    {
+        warnings.Add(new MvcHtmlString(string.Format("您还没有进行实名认证，立刻<a>认证</a>")));
+    }
+}
+<div class="bs_index">
+    <div class="bi_l">
+        <div class="bi_rg">
+            <p>欢迎登陆微信商城管理后台!</p>
+            <p>您一共使用本系统：@string.Format("{0}天{1}小时", Model.UsedTime.Days, Model.UsedTime.Hours)</p>
+            <p>您一共使用本系统完成了 @(Model.TradeCount) 笔交易  </p>
+        </div>
+        <div class="bi_au">
+            <span>用户认证：</span>
+            <ul>
+                @if (Model.Type == (TenantAccountType.Email))
+                {
+                    <li class='@(Model.EmailVerified?"cur":"")'><a href="javascript:;" title="@(Model.EmailVerified?"已验证":"邮箱未验证")"><i class="icon bi_uemail"></i></a></li>
+                }
+                @if (Model.Type == (TenantAccountType.Mobile))
+                {
+                    <li class='@(Model.MobileVerified?"cur":"")'><a href="javascript:;" title="@(Model.MobileVerified?"已验证":"手机未验证")"><i class="icon bi_uphone"></i></a></li>
+                }
+                @*<li><a href="javascript:;"><i class="icon bi_uphone"></i></a></li>
+                <li><a href="javascript:;"><i class="icon bi_upay"></i></a></li>*@
+            </ul>
+        </div>
+        <div class="bi_de">
+            <div class="bi_dem">
+                
+            </div>
+            <div class="bi_dem bi_demt">
+                @if (warnings.Any())
+                {
+                    <span>警告：</span>
+                    <dl>
+                        @foreach (var w in warnings)
+                        {
+                            <dd>@w</dd>
+                
+                        }
+                    </dl>
+                }
+                
+            </div>
+        </div>
+    </div>
+    
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+            </div>
+            <div class="modal-body">
+                <form id="resetpwd">
+                    <div>
+                        <div>当前密码：</div>
+                        <div>
+                            <input type="password" id="OldPassword" name="OldPassword"/></div>
+                    </div>
+                    <div>
+                        <div>新密码：</div>
+                        <div>
+                            <input type="password" id="NewPassword" name="NewPassword" /></div>
+                    </div>
+                    <div>
+                        <div>确认新密码：</div>
+                        <div>
+                            <input type="password" id="ConfirmPassword" name="ConfirmPassword"/></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="changepwd">修改密码</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -1,0 +1,241 @@
+@charset "utf-8";
+/* CSS Document */
+
+.bs_index {
+    background: #f7f7f7;
+    overflow: hidden;
+    zoom: 1;
+    height: 708px;
+    margin-top: 28px;
+    padding: 20px;
+    color: #535353;
+    font-family: \5b8b\4f53;
+    position: relative;
+}
+
+.bi_l {
+    float: left;
+    width: 452px;
+    overflow: hidden;
+}
+
+.bi_r {
+    float: left;
+    width: 218px;
+    overflow: hidden;
+    border: #dcdcdc solid 1px;
+    border-top: none;
+    margin-left: 15px;
+    display: inline;
+}
+
+.bi_rg {
+    border: #dcdcdc solid 1px;
+    padding: 10px 17px;
+    overflow: hidden;
+}
+
+.bi_rg p {
+    line-height: 30px;
+}
+
+.bi_rg p span {
+    float: right;
+}
+
+/**/
+.bi_de {
+    border: #dcdcdc solid 1px;
+    padding: 16px 17px;
+    overflow: hidden;
+    margin-top: 12px;
+}
+
+.bi_dem {
+    overflow: hidden;
+}
+
+.bi_dem span {
+    float: left;
+    width: 68px;
+    display: inline-block;
+    line-height: 24px;
+}
+
+.bi_dem dl {
+    line-height: 24px;
+    margin-left: 68px;
+}
+
+.bi_dem font {
+    color: #e60011;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.bi_demt {
+    margin-top: 5px;
+}
+
+/**/
+.bi_au {
+    border: #dcdcdc solid 1px;
+    padding: 9px 17px;
+    overflow: hidden;
+    margin-top: 12px;
+    height: 33px;
+}
+
+.bi_au span {
+    width: 68px;
+    display: inline-block;
+    float: left;
+    line-height: 33px;
+}
+
+.bi_au ul {
+    margin-left: 68px;
+    overflow: hidden;
+    height: 33px;
+}
+
+.bi_au li {
+    float: left;
+    width: 33px;
+    line-height: 33px;
+    margin-left: 10px;
+    display: inline;
+}
+
+.bi_au li i {
+    width: 33px;
+    height: 33px;
+}
+
+.bi_uemail {
+    background: url(../images/i/bg_bi_uemail.png) no-repeat;
+    _background: none;
+    _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='Content/images/i/bg_bi_uemail.png');
+}
+
+.bi_uphone {
+    background: url(../images/i/bg_bi_uphone.png) no-repeat;
+    _background: none;
+    _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='Content/images/i/bg_bi_uphone.png');
+}
+
+.bi_upay {
+    background: url(../images/i/bg_bi_upay.png) no-repeat;
+    _background: none;
+    _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='Content/images/i/bg_bi_upay.png');
+}
+
+/**/
+.bi_rm {
+    padding: 0 21px;
+    height: 200px;
+    border-top: #dcdcdc solid 1px;
+}
+
+.bi_rm dt {
+    height: 42px;
+    line-height: 42px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.bi_rm dt i {
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin-top: 6px;
+    margin-right: 10px;
+}
+
+.bi_ve {
+    background-position: 0px -238px;
+}
+
+.bi_ac {
+    background-position: -31px -238px;
+}
+
+.bi_rm dd {
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+}
+
+/*帮助中心*/
+.hp_l {
+    float: left;
+    display: inline;
+    height: 540px;
+    width: 24%;
+    border: #dcdcdc solid 1px;
+    overflow: auto;
+    background: #fff;
+}
+
+.hp_bu {
+    padding: 10px 12px;
+}
+
+.hp_su {
+    padding-left: 20px;
+    display: none
+}
+
+.hp_bu span {
+    height: 26px;
+    line-height: 26px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.hp_bu span i {
+    width: 9px;
+    height: 9px;
+    margin-right: 8px;
+    margin-top: 8px;
+    float: left;
+}
+
+.bicon {
+    background-position: -156px -17px;
+}
+
+.cur .bicon {
+    background-position: -166px -17px;
+}
+
+.hp_r {
+    float: left;
+    display: inline;
+    width: 73%;
+    border: #dcdcdc solid 1px;
+    overflow: hidden;
+    margin-left: 2%;
+    background: #fff;
+}
+
+.hp_r dl {
+    padding: 10px 15px;
+}
+
+.hp_r dt {
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+    font-weight: bold;
+    color: #000;
+    font-size: 14px;
+}
+
+.hp_r dd {
+    line-height: 24px;
+    text-indent: 2em;
+    height: 490px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}

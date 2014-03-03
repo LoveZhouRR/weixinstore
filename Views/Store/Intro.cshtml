@@ -1,0 +1,84 @@
+﻿@using DBC.WeChat.UI.Store.Models;
+@model DBC.WeChat.Models.Infrastructures.Store
+@{
+    ViewBag.Title = "公司信息";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@section Script
+{
+    <script type="text/javascript" src="~/Content/Libraries/jQuery/jquery.form.min.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/Store/PicUpload.js"></script>
+    <script type="text/javascript" src="~/Content/Libraries/jQuery/jquery.validate.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/Store/storeIntroValidate.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/jquery-validator-extend.js"></script>
+
+    <script type="text/ecmascript">
+        $().ready(function () {
+
+        })
+    </script>
+}
+@section Css
+{
+    <link rel="stylesheet" href="~/Content/css/add_pro.css">
+    <link rel="stylesheet" href="~/Content/css/g.css">
+    <link rel="stylesheet" href="~/Content/sw/sw.css">
+    <link rel="stylesheet" href="~/Content/css/AttachStyle.css" />
+}
+
+<div class="pg_cu">
+    @Html.ActionLink("公告与banner", "Index", "Store", null, null)
+    <a href="javascript:;" class="cur">公司信息</a>
+</div>
+
+<div class="picPanel">
+    @{
+        if (Model != null && Model.BannerPictures != null)
+        {
+            foreach (var item in Model.BannerPictures)
+            {
+                var conId = "picAddDelete" + item.ID;
+                var divId = "pic" + item.ID;
+                <div class="pic" id="@divId">
+                    <a id="@conId" href="javascript:;" onclick="PicDelete(@item.ID)" class="icon ap_delete"></a>
+                    <img src="@item.Path" alt="@item.Name"/>
+                </div>
+            }
+        }
+    }
+</div>
+@using (Html.BeginForm("UploadIntro", "Store", FormMethod.Post, new {id = "filePostForm", enctype = "multipart/form-data"}))
+{
+    <div class="ap_upload">
+        <span>
+            <input type="file" name="introPic" accept="image/gif,image/jpeg,image/jpg,image/png" id="introPic">
+            <i class="icon">Intro图片 </i>
+        </span>
+        <em>(此处为您的公司介绍图片，建议尺寸450X200像素，图片大小不可超过10K）</em>
+    </div>
+}
+    <div class="add_pro">
+        <div class="add_pro_main" style="font: 12px/1.5 arial, \5FAE\8F6F\96C5\9ED1, \5b8b\4f53">
+            @using (Html.BeginForm("AjaxIntro", "Store", FormMethod.Post, new { id = "IntroForm", name = "IntroForm" }))
+            {
+                <div class="ap_contant">
+                    <div class="ap_ctm">
+                        <span>联系电话</span>@Html.TextBoxFor(m => m.Phone)
+                    </div>
+                    <div class="ap_ctm ap_ctop">
+                        <span>联系邮箱</span>@Html.TextBoxFor(m => m.Email)
+                    </div>
+                    <div class="ap_ctm ap_ctop">
+                        <span>公司地址</span>@Html.TextBoxFor(m => m.Address)
+                    </div>
+                </div>
+                <div class="ap_notice" style="margin-top: 10px;">
+                    <p>公司描述</p>
+                    @Html.TextAreaFor(m => m.Description)
+                    <em>建议不超过120个字 <font>0</font>/120</em>
+                </div>
+            }
+            <div class="ap_nsub"><a href="javascript:void(0);" onclick="SaveStoreInfo();">保 存</a></div>
+        </div>
+    </div>
+

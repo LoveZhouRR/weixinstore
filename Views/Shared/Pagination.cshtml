@@ -1,0 +1,85 @@
+﻿@using DBC.WeChat.UI.Store.Properties
+@model DBC.WeChat.UI.Components.Pagination
+<script type="text/javascript">
+    function query(skip) {
+        $("#Skip").attr("value", skip);
+        $("#queryForm").submit();
+    }
+</script>
+
+<div class="pg_pging">
+    <span class="pging">
+        @{
+            var pageSize = 10;
+            Func<int, int, string> printPage =
+                (currentPage, outPage) =>
+                (currentPage == outPage) ? string.Format("<a href='javascript:;' class='cur'>{0}</a>", outPage)
+                    : string.Format("<a onclick=\"javascript:query({1});\" title='第{0}页'>{0}</a>", outPage, pageSize * (outPage - 1));
+        }
+        @if (Model.HasPrevious)
+        {
+            <a onclick="javascript:query(0);" class="prev" title="@Resources.UI_First">&lt;&lt;</a>
+            <a onclick="javascript:query(@((Model.CurrentPage - 2) * pageSize));" class="prev" title="@Resources.UI_Prev">&lt;</a>
+        }
+        else
+        {
+            <a onclick="javascript:;" class="prev" title="@Resources.UI_First">&lt;&lt;</a>
+            <a onclick="javascript:;" class="prev" title="@Resources.UI_Prev">&lt;</a>
+        }
+
+        @if (Model.TotalPage <= pageSize)
+        {
+            for (var index = 1; index <= Model.TotalPage; index++)
+            {
+            @Html.Raw(printPage(Model.CurrentPage, index))
+            }
+        }
+        else
+        {
+            var cur_before = 1;
+            var cur_after = 4;
+            var continous = cur_after + cur_before + 1;
+            //Be Aware : continous < pageSize
+            var before = cur_before;
+            var after = cur_after;
+            if (Model.CurrentPage < 1 + cur_before)
+            {
+                before = Model.CurrentPage - 1;
+                after += cur_before - before;
+            }
+            if (Model.CurrentPage > Model.TotalPage - cur_after)
+            {
+                after = Model.TotalPage - Model.CurrentPage;
+                before += cur_after - after;
+            }
+            @Html.Raw(printPage(Model.CurrentPage, 1))
+            
+            var start = Model.CurrentPage - before > 1 ? Model.CurrentPage - before : 2;
+            var end = (Model.CurrentPage + after == Model.TotalPage) ? Model.TotalPage - 1 : Model.CurrentPage + after;
+            if (start > 2)
+            {
+            <b>···</b>
+            }
+            for (var index = start; index <= end; index++)
+            {
+                @Html.Raw(printPage(Model.CurrentPage, index))
+            }
+            if (end < Model.TotalPage - 1)
+            {
+            <b>···</b>
+            }
+            @Html.Raw(printPage(Model.CurrentPage, Model.TotalPage))
+        }
+
+        @if (Model.HasNext)
+        {
+            <a href="javascript:query(@((Model.CurrentPage) * pageSize));" class="next" title="@Resources.UI_Next">&gt;</a>
+            <a href="javascript:query(@((Model.TotalPage - 1) * pageSize));" class="next" title="@Resources.UI_Last">&gt;&gt;</a>
+        }
+        else
+        {
+            <a href="javascript:;" class="next" title="@Resources.UI_Next">&gt;</a>
+            <a href="javascript:;" class="next" title="@Resources.UI_Last">&gt;&gt;</a>
+        }
+    </span>
+</div>

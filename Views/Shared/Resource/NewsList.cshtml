@@ -1,0 +1,67 @@
+﻿@using System.Configuration
+@using DBC.WeChat.UI.Components
+@model List<DBC.WeChat.Models.Conversation.NewsResource>
+@{
+    var pagination = ViewData["Pagination"] as Pagination;
+}
+<div class="radio_list">
+    <div class="rl_add" id="AddBlock">
+        <a class="rl_add_a" id="Addmark"><i></i></a>
+        <a class="rl_add_s" onclick="javascript: window.location.href ='/Resource/CreateNews?single=true' ;"><i></i><b>单图文消息</b></a>
+        <a class="rl_add_m" onclick="javascript: window.location.href ='/Resource/CreateNews?single=false' ;"><i></i><b>多图文消息</b></a>
+    </div>
+    <table id="newsTable">
+        @{
+            string ftp = ConfigurationManager.AppSettings["ftp"];
+            var count = 1;
+            var lefttop = 240;
+            var righttop = 0;
+        }
+        @foreach (var item in Model)
+        {
+            var top = count % 2 == 0 ? lefttop : righttop;
+            var left = count % 2 == 0 ? "40" : "412";
+            <div class="rl_main" style="top: @(top)px; left: @(left)px;">
+                <div class="rl_title">@item.Title</div>
+                <div class="rl_info"><b>@item.CreatedAt</b></div>
+                <div class="rl_img">
+                    <img src="@item.PicUrl" />
+                </div>
+                @if (item.Resources!=null&&item.Resources.Any())
+                {
+                    foreach (var child in item.Resources)
+                    {
+                    <div class="rl_dl">
+                        <dl>
+                            <dd><b>@child.Title</b><img src="@child.PicUrl" /></dd>
+                        </dl>
+                    </div>
+                    }
+                }
+                <div class="rl_ibtn">
+                    <ul>
+                        <li><a href="/Resource/EditNews/@(item.ID)" class="icon rl_ibtn_bj"></a></li>
+                        <li class="nbdn"><a href="javascript:DeleteMe(@(item.ID));" class="icon rl_ibtn_sc"></a></li>
+                    </ul>
+                </div>
+            </div>
+            var addsize = 270;
+            if (item.Resources != null && item.Resources.Any())
+            {
+                addsize += item.Resources.Count*90;
+            }
+            if (count%2 == 0)
+            {
+                lefttop += addsize;
+            } 
+            else
+            {
+                righttop += addsize;
+            }
+            count++;
+        }
+    </table>
+</div>
+<div id="pagination">
+    @Html.Partial("Pagination", pagination)
+</div>

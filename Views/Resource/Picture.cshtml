@@ -1,0 +1,54 @@
+﻿@{
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@model List<DBC.WeChat.Models.Conversation.PictureResource>
+@section Css{
+
+    <link rel="stylesheet" href="~/Content/sw/sw.css">
+    <link rel="stylesheet" href="~/Content/css/material.css">
+}
+@section Script
+{
+    <script type="text/javascript" src="~/Content/Libraries/jQuery/jquery.form.min.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/Resource/Picture.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/Resource/Resource.js"></script>
+    <script type="text/javascript"
+        src="~/Content/Libraries/jQuery/jquery.unobtrusive-ajax.min.js"></script>
+}
+<div class="pg_cu">
+    @Html.ActionLink("图文", "News", "Resource", null, null)
+    @Html.ActionLink("图片", "Picture", "Resource", null, new { @class = "cur" })
+    @Html.ActionLink("音频", "Audio", "Resource", null, null)
+    @Html.ActionLink("视频", "Video", "Resource", null, null)
+</div>
+<div class="material_management">
+    <div class="text_message">
+
+        @using (Html.BeginForm("CreatePic", "Resource", FormMethod.Post, new { id = "filePostForm", enctype = "multipart/form-data" }))
+        {
+            <div class="rl_count">
+                <span class="rl_cbtn">
+                    <input type="file" name="picResource" id="picResource" />上传
+                </span>大小：不超过128K， 格式：jpg
+            </div>
+        }
+
+        <!-- Tab panes -->
+        @using (Ajax.BeginForm("AjaxPicQuery", "Resource", null, new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "Picture",
+        OnSuccess = "QuerySuccess",
+    }, new { ID = "queryForm" }))
+        {
+            <div>
+                @Html.Partial("Resource/PictureQuery", ViewData["Query"])
+            </div>
+            <div id="Picture">
+                @Html.Partial("Resource/PictureList", Model)
+            </div>
+            
+        }
+    </div>
+</div>

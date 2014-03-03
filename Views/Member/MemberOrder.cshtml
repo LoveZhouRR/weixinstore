@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "用户订单信息";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@using DBC.WeChat.UI.Components
+@using DBC.WeChat.UI.Store.Models
+@model ICollection<MemberSaleOrderVM>
+
+<link rel="stylesheet" href="~/Content/css/g.css">
+<link rel="stylesheet" href="~/Content/sw/sw.css">
+<link rel="stylesheet" href="~/Content/css/mucenter.css">
+<script type="text/javascript"
+    src="~/Content/Libraries/jQuery/jquery.unobtrusive-ajax.min.js"></script>
+@section Script{
+    <script type="text/javascript">
+        $(document).ready(function () {
+        });
+    </script>
+}
+
+<div class="pg_cu">
+    @Html.ActionLink("信息列表", "Index", "Member", null, null)
+    @Html.ActionLink("个人信息", "MemberDetail", "Member", new { id = ViewData["CId"] }, new { })
+    <a href="javascript:;" class="cur">会员订单</a>
+    @Html.ActionLink("会员积分", "MemberCredit", "Member", new { id = ViewData["CId"] }, new { })
+</div>
+@using (Ajax.BeginForm("AjaxMemberOrder", "Member", null, new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "MemberOrderList"
+    }, new { ID = "queryForm" }))
+{
+    @Html.Partial("Member/MemberOrderQuery", new MemberSaleOrderVMQuery())
+    <div id="MemberOrderList">
+        @Html.Partial("Member/MemberOrderList", Model)
+    </div>
+}

@@ -1,0 +1,231 @@
+﻿@using DBC
+@using DBC.Utils.Serialization
+@using Res = DBC.WeChat.UI.Store.Properties.Resources;
+
+@{
+    ViewBag.Title = Res.UI_DeliveryMethod_AddNew;
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@section Css{
+    <link rel="stylesheet" href="~/Content/css/support.css">
+    <link rel="stylesheet" href="~/Content/css/TreePanel.css"/>
+    <link rel="stylesheet" href="~/Content/css/bootstrap-part.min.css" />
+}
+@section Script{
+    <script type="text/javascript" src="~/Content/Libraries/jQuery/jquery.validate.js"></script>
+     <script type="text/javascript" src="~/Content/Scripts/jquery-validator-extend.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/deliverymethod.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/TreePanel.min.js"></script>
+     <script type="text/javascript" src="~/Content/Scripts/bootstrap-part.min.js"></script>
+    <script type="text/javascript">
+        @{
+            @Html.Raw("var area = " + ViewData["AreaJson"] + ";")
+        }
+        var all = [];
+        var allIds = [];
+        function buildArea(areas) {
+            if (!areas || !areas.length) return {};
+            var roots = [];
+            var map = {};
+            for (var index = 0; index < areas.length; index++) {
+                var area = areas[index];
+                allIds.push(area.ID);
+                if (area.ParentID <= 0) {
+                    var obj = {
+                        text: area.Name,
+                        pid: 0,
+                        id: area.ID,
+                        children: [],
+                        checked: '0'
+                    };
+                    
+                    roots.push(obj);
+                } else {
+                    var data = {
+                        text: area.Name,
+                        checked: '0',
+                        pid: area.ParentID,
+                        children: [],
+                        id: area.ID
+                    };
+                    all.push(data);
+                    if (map[area.ParentID]) {
+                        map[area.ParentID].push(data);
+                    } else {
+                        map[area.ParentID] = [data];
+                    }
+                }
+
+            }
+            var getChildren = function(id) {
+                var children = map[id];
+                if (!children || !children.length) return [];
+                for (var i = 0; i < children.length; i++) {
+                    var child = children[i];
+                    child.children = getChildren(child.id);
+                }
+                return children;
+            };
+            roots[0].children = getChildren(roots[0].id);
+            return roots[0];
+        }
+
+        
+        $(document).ready(function() {
+            dm_init(false);
+            var root = buildArea(area);
+            var tree = new TreePanel({
+                'root': root,
+                renderTo: 'renderSpan'
+            });
+            $('#ConfirmBtn').on('click', function() {
+                $('#SelectAreaIDs').val(tree.getChecked().join(','));
+            });
+            $('#SelectArea').on('click', function () {
+                $('#myModal').modal();
+                for (var i = 0; i < allIds.length; i++) {
+                    node = tree.getNodeById(allIds[i]);
+                    if (node) {
+                        node.setCheck(0);
+                    }
+                }
+                var list = $('#SelectAreaIDs').val().split(',');
+                if (!list || !list.length) return;
+                for (var index = 0; index < list.length; index++) {
+                    var node = tree.getNodeById(list[index]);
+                    if (node) {
+                        node.setCheck(1);
+                    }
+                }
+            });
+            
+            tree.render();
+        });
+
+    </script>
+}
+<form method="POST">
+
+    <div class="delivery_method">
+        <div id="errMsg" class="alert alert-danger" style="display: none"></div>
+        <input type="hidden" name="ID"/>
+        <div class="dm_set">
+            <span class="dms_l">@Res.UI_DeliveryMethod_Name：</span>
+            <div class="dms_m">
+                <input type="text" name="Name" required id="Name" class="dm_sett" maxlength="80" />
+            </div>
+        </div>
+        <div class="dm_set">
+            <span class="dms_l">@Res.UI_DeliveryMethod_Type：</span>
+            <div class="dms_m">
+                <label>
+                    <input type="radio" required name="CODSupported" value="false" class="dm_setr" checked="checked" />预付</label>
+                <label>
+                    <input type="radio" name="CODSupported" value="true" class="dm_setr" />到付</label>
+            </div>
+        </div>
+        <div class="dm_set">
+            <span class="dms_l">是否启用：</span>
+            <div class="dms_m">
+                <label>
+                    <input type="radio" required name="Enabled" value="true" class="dm_setr" checked="checked" />是</label>
+                <label>
+                    <input type="radio" name="Enabled" value="false" class="dm_setr" />否</label>
+            </div>
+        </div>
+        <div class="dm_set">
+            <span class="dms_l">免费基数：</span>
+            <div class="dms_m">
+                <input type="text" name="FreeBase" id="FreeBase" class="dm_sett" maxlength="10"/>
+            </div>
+        </div>
+        <div class="dm_set">
+            <span class="dms_l">重量设置：</span>
+            <div class="dms_m">
+                <b>首重重量</b>
+                <select name="FirstWeight">
+                    <option value="500">500g</option>
+                    <option value="1000">1kg</option>
+                    <option value="1500">1.5kg</option>
+                    <option value="2000">2kg</option>
+                    <option value="3000">3kg</option>
+                    <option value="4000">4kg</option>
+                    <option value="5000">5kg</option>
+                    <option value="6000">6kg</option>
+                    <option value="7000">7kg</option>
+                </select>
+                <b>续重重量</b>
+                <select name="AddWeight">
+                    <option value="500">500g</option>
+                    <option value="1000">1kg</option>
+                    <option value="2000">2kg</option>
+                    <option value="3000">3kg</option>
+                    <option value="4000">4kg</option>
+                    <option value="5000">5kg</option>
+                </select>
+            </div>
+        </div>
+        <div class="dm_set">
+            <span class="dms_l">默认配送费用：</span>
+            <div class="dms_m">
+                <b>首重费用</b><input type="number" min="0" required class="dm_seti"  name="DefaultFirstPrice" />
+                <b>续重费用</b><input type="number" min="0" required class="dm_seti" name="DefaultAddPrice" />
+            </div>
+        </div>
+        <div style="display: block;">
+        <div class="dm_set">
+            <span class="dms_l">默认配送费用使用方式：</span>
+            <div class="dms_m">
+                <label>
+                    <input type="radio" name="HasAssignArea" value="false" class="dm_setr" checked />所有地区适用</label>
+                <label>
+                    <input type="radio" name="HasAssignArea" value="true" class="dm_setr" />指定部分地区城市设置运费</label>
+            </div>
+        </div>
+            <div class="dm_set_part" style="display: none;">
+                <ul>
+                    <li class="dm_sp_l">
+                        <input type="checkbox" class="dm_set" name="UseDefault" value="true"/><b>除指定地区外，其余地区的运费采用"默认配送费用" </b><em>注意：未勾选时，不在指定配送地区的顾客不能使用本配送方式下订单.</em></li>
+                    <li class="dm_sp_e">
+                        <b>首重费用</b><input type="text" class="dm_seti" name="AssignFirstPrice" />
+                        <b>续重费用</b><input type="text" class="dm_seti"  name="AssignAddPrice" />
+
+                    </li>
+                    <li class="dm_sp_e">
+                        <span>配送地区： 请选择配送地区 <a id="SelectArea">选择地区</a></span>
+                        <div id="AreaDiv">
+                            
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+            </div>
+        <div class="dm_sub">
+            <a onclick="javascript:doSubmit();" class="dm_sub_s">保 存</a>
+            @*<a onclick="javascript:void(0);">取 消</a>*@
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">配送区域选择</h4>
+                </div>
+                <div class="modal-body">
+                    <span id="renderSpan">
+                        
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="ConfirmBtn"data-dismiss="modal">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <input type="hidden" id="SelectAreaIDs" name="SelectAreaIDs"/>
+</form>

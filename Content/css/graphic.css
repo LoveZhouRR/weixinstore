@@ -1,0 +1,94 @@
+@charset "utf-8";
+/* CSS Document */
+
+.graphic_statistics {
+    background: #f7f7f7;
+    overflow: auto;
+    zoom: 1;
+    height: 708px;
+    margin-top: 28px;
+    padding: 20px;
+    color: #535353;
+    font-family: \5b8b\4f53;
+    position: relative;
+}
+
+.gs_graph {
+    overflow: hidden;
+    border: #535353 solid 1px;
+    height: 305px;
+}
+
+.gs_tab {
+    overflow: hidden;
+    margin-top: 50px;
+}
+
+.gs_ttime {
+    height: 27px;
+    zoom: 1;
+}
+
+.gs_ttcur {
+    width: 114px;
+    height: 27px;
+    float: left;
+    display: inline;
+    margin-right: 10px;
+    position: relative;
+}
+
+.gs_ttcur span {
+    overflow: hidden;
+    width: 92px;
+    height: 25px;
+    line-height: 25px;
+    border: #d5d5d5 solid 1px;
+    display: inline-block;
+    padding: 0 10px;
+    cursor: default;
+}
+
+.gs_ttcur em {
+    float: left;
+    display: inline-block;
+}
+
+.gs_ttcur i {
+    width: 11px;
+    height: 11px;
+    background-position: -159px 0;
+    margin-top: 10px;
+    float: right;
+    display: inline-block;
+    cursor: pointer
+}
+
+.gs_ttable {
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.gs_tt_table {
+    border: #e5e5e5 solid 1px;
+    width: 351px;
+    border-bottom: none;
+    border-right: none;
+}
+
+.gs_tt_table table {
+    width: 351px;
+}
+
+.gs_tt_table td {
+    width: 117px;
+    height: 36px;
+    text-align: center;
+    border-bottom: #e5e5e5 solid 1px;
+    border-right: #e5e5e5 solid 1px;
+}
+
+.gs_ttpage {
+    overflow: hidden;
+    margin-top: 10px;
+}

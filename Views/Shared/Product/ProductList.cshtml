@@ -1,0 +1,100 @@
+﻿@using DBC.WeChat.UI.Components
+@model ICollection<DBC.WeChat.Models.Sales.Product>
+@{
+    var pagination = ViewData["Pagination"] as Pagination;
+}
+<div class="pr_list">
+    <table class="pr_list_tab table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="prlt_nams">
+                    <em>商品名称</em><i class="icon" action="Sort" orderField="Name"></i>
+                </th>
+                <th class="prlt_norm">商品规格</th>
+                <th class="prlt_pric"><em>价格</em></th>
+                <th class="prlt_stoc"><em>库存</em></th>
+                <th class="prlt_oper">操作</th>
+            </tr>
+        </thead>
+        <tbody id="productBody">
+            @if (Model != null)
+            {
+                int count = 0;
+                var picList = ViewData["picList"] as List<string>;
+                foreach (var product in Model)
+                {
+                    string path = "/Content/images/pic/58X58.png";
+                    if (!String.IsNullOrEmpty(picList[count]))
+                    {
+                        path = picList[count];
+                    }
+                    count++;
+                <tr>
+                    <td class="prlt_nams">
+                        <table>
+                            <tr>
+                                <td class="prlt_check">
+                                    <input type="checkbox" value="@(string.Format("{0}_{1}", product.ID, (product.Shelved ?? false) ? 1 : 0))"/></td>
+                                <td class="prlt_img">
+                                    <img src=@path alt="@product.Name" title="@product.Name"/></td>
+                                <td class="prlt_txt">@product.Name</td>
+
+                            </tr>
+                        </table>
+                    </td>
+                    <td colspan="3" class="prlt_nps">
+
+                        @{
+                    var Default = product.Specifications.FirstOrDefault(p => p.IsDefault != null && p.IsDefault.Value);
+                    var Specs = product.Specifications.Where(p => p.IsDefault != null && !p.IsDefault.Value).ToList();
+                        }
+                        <table>
+                            @if (Specs!=null&&Specs.Count > 0)
+                            {
+                                foreach (var item in Specs)
+                                {                                      
+                                <tr>
+                                    <td class="prlt_norm"><b>@item.Name</b></td>
+                                    <td class="prlt_pric"><b>@item.Price</b></td>
+                                    <td class="prlt_stoc"><b>@item.Stock</b></td>
+                                </tr> 
+                                }
+                            }
+                            else if (Default != null)
+                            {
+                                <tr>
+                                    <td class="prlt_norm"><b>@Default.Name</b></td>
+                                    <td class="prlt_pric"><b>@Default.Price</b></td>
+                                    <td class="prlt_stoc"><b>@Default.Stock</b></td>
+                                </tr> 
+                            }
+                        </table>
+                    </td>
+                    <td class="prlt_oper">
+                        @Html.ActionLink("编辑", "Edit", "Product", new { id = product.ID }, new { })
+                        @{
+                            bool shelved = product.Shelved ?? false;
+                            var shelvedvalue = !shelved ? "true" : "false";
+                            var shelvedtext = !shelved ? "上架" : "下架";
+                            bool isTop = product.IsTop ?? false;
+                            var topvlaue = !shelved ? "true" : "false";
+                            var topText = isTop ? "取消置顶" : "置顶";
+                                
+                            <a id="doShelve@(product.ID)"
+                                   href="javascript:doShelve(@shelvedvalue,[@product.ID.Value])">
+                                @shelvedtext
+                            </a>
+                            <a id="setTop@(product.ID)" 
+                                   href="javascript:setTop(@topvlaue,[@product.ID.Value]);">@topText</a>
+                        }
+                        @Html.ActionLink("评论","Index","Comment",new{id=product.ID},null)
+                    </td>
+                </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div id="pagination">
+    @Html.Partial("Pagination", pagination)
+</div>

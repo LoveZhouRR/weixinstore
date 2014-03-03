@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "video";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+@model List<DBC.WeChat.Models.Conversation.VideoResource>
+@section Css{
+
+    <link rel="stylesheet" href="~/Content/sw/sw.css">
+    <link rel="stylesheet" href="~/Content/css/material.css">
+}
+@section Script
+{
+    <script type="text/javascript" src="~/Content/Libraries/jQuery/jquery.form.min.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/Resource/Video.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/Resource/Resource.js"></script>
+    <script type="text/javascript"
+        src="~/Content/Libraries/jQuery/jquery.unobtrusive-ajax.min.js"></script>
+}
+<div class="pg_cu">
+    @Html.ActionLink("图文", "News", "Resource", null, null)
+    @Html.ActionLink("图片", "Picture", "Resource", null, null)
+    @Html.ActionLink("音频", "Audio", "Resource", null, null)
+    @Html.ActionLink("视频", "Video", "Resource", null, new { @class = "cur" })
+</div>
+<div class="material_management">
+    <div class="text_message">
+        <div class="rl_count">视频列表（共2个）</div>
+        @using (Ajax.BeginForm("AjaxVideoQuery", "Resource", null, new AjaxOptions()
+        {
+            HttpMethod = "POST",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "Video",
+            OnSuccess = "QuerySuccess",
+        }, new { ID = "queryForm" }))
+        {
+            <div>
+                @Html.Partial("Resource/VideoQuery", ViewData["Query"])
+            </div>
+            <div id="Video">
+                @Html.Partial("Resource/VideoList", Model)
+            </div>
+        }
+    </div>
+</div>

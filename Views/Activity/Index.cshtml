@@ -1,0 +1,119 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+<link rel="stylesheet" href="~/Content/css/bootstrap-part.min.css" />
+<link rel="stylesheet" href="~/Content/css/activity.css">
+<link rel="stylesheet" href="~/Content/css/mucenter.css" />
+<link type="text/css" rel="stylesheet" href="~/Content/css/datePicker.css" />
+<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="~/Content/css/Timepicker.css" />
+
+<script type="text/javascript" src="~/Content/Scripts/bootstrap-part.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.9.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="~/Content/Libraries/jQuery/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="~/Content/Scripts/Timepicker-zh.js"></script>
+<script type="text/javascript"
+    src="~/Content/Libraries/jQuery/jquery.unobtrusive-ajax.min.js"></script>
+<style type="text/css">
+    #AddActivity {
+        cursor: pointer;
+    }
+
+        #AddActivity:hover {
+            background-color: #1C86EE;
+            color: #fff;
+            border: #fff solid 1px;
+        }
+
+    #AddAwardType {
+        cursor: pointer;
+    }
+
+        #AddAwardType:hover {
+            background-color: #1C86EE;
+            color: #fff;
+            border: #fff solid 1px;
+        }
+</style>
+<div class="pt_addprize">
+    <span id="AddActivity">+ 增加活动</span>
+</div>
+@using DBC.WeChat.Models.Conversation
+@model IEnumerable<DBC.WeChat.Models.Conversation.Activity>
+@using (Ajax.BeginForm("AjaxQuery", "Activity", null, new AjaxOptions()
+{
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "List",
+    // OnSuccess = "QuerySuccess",
+}, new { ID = "queryForm" }))
+{
+    <div>
+        @Html.Partial("Activity/ActivityQuery", ViewData["Query"])
+    </div>
+    <div id="List" class="prize_list">
+        @Html.Partial("Activity/ActivityList", Model)
+    </div>
+}
+<span class="cm_bg"></span>
+<div class="cm_dg sc_activity" id="AddView" style="display: none">
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+    data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="cm_hd sc_hd">
+                    <h2 id="Title">编辑</h2>
+                    <a class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+                </div>
+            </div>
+            <div class="modal-body" id="Content">
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<script type="text/javascript">
+    function EditClick(id) {
+        $.ajax({
+            type: 'get',
+            url: '/Activity/Edit',
+            data: { id: id },
+            success: function (responsetext) {
+                $("#Content").html(responsetext);
+            }
+        });
+        $("#Title").html("编辑");
+        $(".modal-content").css({
+            width: "900px"
+        });
+        $("#myModal").modal().css({
+            width: "auto"
+        });
+    }
+
+    $(function () {
+        $('.cm_bg').css({ 'height': $('body').height() + 'px', 'width': $('body').width() + 'px' });
+        $('.sc_activity').css('margin-top', -$('.sc_activity').height() / 2 + 'px');
+        $('#AddActivity').on('click', function () {
+            $.ajax({
+                type: 'get',
+                url: '/Activity/Add',
+                data: { type: 1 },
+                success: function (responsetext) {
+                    $("#Content").html(responsetext);
+                }
+            });
+            $("#Title").html("添加");
+            $(".modal-content").css({
+                width: "900px"
+            });
+            $("#myModal").modal().css({
+                width: "auto"
+            });
+        });
+    });
+</script>

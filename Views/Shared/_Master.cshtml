@@ -1,0 +1,71 @@
+﻿@{
+    Layout = "_Layout.cshtml";
+}
+@section Css
+{
+    @RenderSection("Css", false)
+}
+@section Scripts
+{
+    <script type="text/javascript">
+        function logout() {
+            window.location.href = '/login';
+        }
+    </script>
+}
+<body>
+    @RenderSection("Script", false)
+    <div class="page">
+        <div class="header">
+            <div class="wraphd">
+                <div class="hd_l">
+                    <a onclick="javascript:window.location.href='/';" class="logo">
+                        <img src="~/Content/images/i/logo.png" /></a>
+                </div>
+
+                <div class="hd_m">
+                    <ul>
+                        @*<li><a href="javascript:;"><i class="icon_ap"></i><b>关于产品</b></a></li>*@
+                        <li><a href="javascript:;" onclick="javascript:window.open('http://www.dbcec.com/legal.html');"><i class="icon_cu"></i><b>联系我们</b></a></li>
+                        <li><a onclick="javascript:window.open('http://www.dbcec.com/legal.html');"><i class="icon_ln"></i><b>法律声明</b></a></li>
+                        @*<li><a href="javascript:;" ><i class="icon_op"></i><b>其他产品</b></a></li>*@
+                        <li><a href="javascript:;" onclick="javascript:logout();"><i class="icon_zx"></i><b>注销登录</b></a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div class="content">
+
+            <div class="pg_content">
+                <div class="pg_left">
+                    <dl class="pg_lm">
+                        <dt><a href="javascript:;"><i class="icon_bs"></i>后台商品管理</a></dt>
+                        <dd><a href="/Product" id="ProductMenu">商品信息管理</a></dd>
+                        <dd><a href="/SaleOrder" id="SaleOrderMenu">订单管理</a></dd>
+                        <dd><a href="/Member" id="MemberMenu">会员管理</a></dd>
+                        <dd><a href="/Store" id="StoreMenu">店铺管理</a></dd>
+                        <dd><a href="/DeliveryMethod" id="DeliveryMenu">配送方式设置</a></dd>
+                        <dd><a href="/PaymentMethod" id="PaymentMenu">支付方式设置</a></dd>
+                    </dl>
+                    <dl class="pg_lm">
+                        <dt><a href="javascript:;" id="MessageMenu"><i class="icon_wc"></i>微信消息管理</a></dt>
+
+                        <dd><a href="/Account" id="AccountMenu">账号绑定</a></dd>
+                        <dd><a href="/Activity">活动</a></dd>
+                        <dd><a href="/Resource/Picture">素材管理</a></dd>
+                        <dd><a href="/Conversation/FollowedIndex" id="FollowedMenu">被关注回复</a></dd>
+                        <dd><a href="/KeywordReply" id="KeywordReply">关键字回复</a></dd>
+                    </dl>
+                </div>
+
+                <div class="pg_middle">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="__MsgDiv" class="msg_tips" style="display: none;">
+        <div class="inner">保存成功</div>
+    </div>
+</body>

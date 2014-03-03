@@ -1,0 +1,129 @@
+﻿@charset "utf-8";
+
+/* 边框   */
+.rg_is a {
+	border:#0c65a2 solid 1px;
+	box-shadow: 0 0 1px 1px #999;
+	-moz-box-shadow: 0 0 1px 1px #999;
+	-webkit-box-shadow: 0 0 1px 1px #999;
+}
+.cm_mmain_c a.cm_mmain_ca,.sal_main dd span.cur,.lg_is a,.ab_bm a em{
+	border:#0b6ba8 solid 1px;
+}
+.ap_label_dl dd a.cur {
+	border:#e1ecf4 solid 1px;	
+}
+/* 背景颜色   */
+.pg_lm dt, .rg_isr, .lg_title, .lg_reg, .lg_send, .lg_is a, .ab_as a, .ab_mu b, .ab_bs a, .ap_sub a, .ap_nsub a, .pw_sub a, .dg_area_ft a.dg_area_fts, .dm_sub a.dm_sub_s, .oi_omain a, .oi_m a, .sar_ul li.cur, .sar_bl_sub a, .sar_txt a, .cm_mmain_c a.cm_mmain_ca, .sal_main dd span a, .ia_sub a, .ar_sub a, .ar_ud_sub a, .personal_information p a, .sc_ft a, .pt_addprize a ,.tm_sub a,.cm_micro .cm_ft a.cm_micro_s ,.rl_cbtn,.pl_sound,.pl_schedule i{
+    background: #0c67a5;
+}
+.rg_isl{
+	background:#e1e1e1;
+}
+.rg_label {
+	background:#d4e1e8;
+}
+.ab_bm a em {
+	background:#7ecef4;
+}
+.ap_label_dl dd a.cur {
+	background:#e1ecf4;	
+}
+/* 字体颜色   */
+.or_list_tab th, .orlt_nums a, .orlt_oper a, .hp_su .cur a, .pg_cu a.cur, .pg_cu a:hover, .ap_upload i, .ap_norms a, .ap_operate a, .ap_add_norms a, .pr_list_tab th, .prlt_oper a, .bi_dem a:hover, .bi_rm dd a:hover, .dm_sp_e span a, .dm_sp_a a, .dm_tab th, .dmd_oper a, .dm_add, .oi_omain em, .oi_tab th, .cm_lm_dl dd a.add, .cm_mtitle, .sar_bl_upload, .sa_add, .sar_sl_upload, .cm_mmain_choose dd a:hover, .sal_title, .sal_main dd span b, .av_list_tab th, .av_list_tab td.avlt_time, .ia_upload a, .ab_bm a em, .rg_label, .rg_isl, .hp_bu a:hover, .ar_label a, .ar_blabel font, .ar_label span, .ar_mt a, .ap_label_m b, .ap_label_dl dt b, .ap_label_dl dt i, .ap_label_dl dd a.cur, .add_activity a, .sc_ctmm a, .sc_addacty a, .il_oper a, .il_search a, .ps_opea a, .pt_opea a, .pt_addprize span, .el_opea a,.tm_rimg a,.tm_rt a,.cm_micro .cm_bd p font {
+    color: #0b6ba8;
+}
+.rg_isr {
+	color:#fff;
+}
+.pg_lm dd a:hover, .pg_lm dd a.cur {
+	color:#003466;
+}
+
+/* 背景图片  */
+.wraphd {
+	background:url(bg_wraphd.jpg) center top repeat-x;
+}
+.pg_left {
+	background:url(bg_pg_left.png) repeat;
+}
+.rg_ul li {
+	background:url(bg_rg_li.png) repeat-x;
+}
+.ab_mc i{
+	background:url(bg_ab_mc_i.png) no-repeat;
+}
+.sicon {
+	background:url(bg_ab_mc_icur.png) no-repeat;
+}
+.hp_su .cur a .sicon, .hp_su a:hover .sicon {
+	background:url(bg_ab_mc_i.png) no-repeat;
+}
+.pg_cu a.cur, .pg_cu a:hover{
+	background:url(bg_pg_cu_acur.png) no-repeat
+}
+.ap_setindex {
+	background:url(bg_ap_setindex.png) no-repeat;
+}
+.bi_au li{
+	background:url(bg_bi_au_li.png) no-repeat;
+}
+.bi_au li.cur{
+	background:url(bg_bi_au_licur.png) no-repeat;
+}
+.cm_lm li a.cur {
+	background:url(bg_cm_lm_li_a.png) no-repeat;
+}
+.cm_next_o i {
+	background:url(bg_cm_next_o.png) no-repeat;
+}
+.cm_next_t i {
+	background:url(bg_cm_next_t.png) no-repeat;
+}
+.cm_right a {
+	background:url(bg_cm_right_a.png) no-repeat;
+}
+.sar_bl {
+	background:url(bg_sar_bl.png) no-repeat;
+}
+.sar_sl {
+	background:url(bg_sar_sl.png) no-repeat;
+}
+.cm_mmain_choose dd i {
+	background-image:url(bg_cm_mmain_o.png);
+}
+.ap_delete,.icon_ap,.icon_cu,.icon_ln,.icon_op,.icon_zx,.pg_lu i,.pg_lu em{
+	_background:none;
+}
+.ap_delete {
+	background:url(bg_ap_delete.png) no-repeat;
+ _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='bg_ap_delete.png');
+}
+.icon_ap {
+	background:url(bg_icon_ap.png) no-repeat;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='bg_icon_ap.png');
+}
+.icon_cu {
+	background:url(bg_icon_cu.png) no-repeat;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='bg_icon_cu.png');
+}
+.icon_ln {
+	background:url(bg_icon_ln.png) no-repeat;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='bg_icon_ln.png');
+}
+.icon_op {
+	background:url(bg_icon_op.png) no-repeat;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='bg_icon_op.png');
+}
+.icon_zx {
+	background:url(bg_icon_zx.png) no-repeat;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='bg_icon_zx.png');
+}
+.pg_lu i {
+	background:url(bg_pg_lu_i.png) no-repeat;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='bg_pg_lu_i.png');
+}
+.pg_lu em {
+	background:url(bg_pg_lu_em.png) no-repeat;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='bg_pg_lu_em.png');
+}

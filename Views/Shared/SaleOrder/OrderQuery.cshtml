@@ -1,0 +1,70 @@
+﻿@model DBC.WeChat.Models.Sales.SaleOrderQuery
+
+<script src="~/Content/Scripts/Datapicker.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("input.datepicker").datepicker({
+            changeYear: true
+        });
+        $("#isShowFinished").click(function () {
+            $(this).attr("value", $(this)[0].checked);
+        });
+    });
+    function Query() {
+        $("input[name=Skip]").attr("value", 0);
+        $("input[name=hasQuery]").attr("value", true);
+        $("#queryForm").submit();
+    }
+    function PartlyQuery() {
+        $("#queryForm").submit();
+    }
+</script>
+
+@{
+    var stateList = ViewData["stateList"] as IEnumerable<SelectListItem>;
+}
+<div class="or_mu">
+    <b>订单号</b>@Html.TextBoxFor(m => m.CodePattern)
+    <em>收件人</em>@Html.TextBoxFor(m => m.NamePattern)
+    <em>联系人电话</em>@Html.TextBoxFor(m=>m.Mobile)
+</div>
+<div class="or_mu">
+    <b>订单费用</b>
+    <span class="or_mus">
+        @Html.TextBoxFor(m => m.AmountRange.Left)<i>&yen;</i></span>
+    <em>-</em>
+    <span class="or_mus">
+        @Html.TextBoxFor(m => m.AmountRange.Right)<i>&yen;</i></span>
+    <em>日期</em>
+    <div class="or_mum">
+        <div class="gs_tt_begin gs_ttcur">
+            <span><em>@Html.TextBoxFor(m => m.CreatedAtRange.Left, new { @class = "datepicker" })</em></span>
+        </div>
+        <div class="gs_tt_end gs_ttcur">
+            <span><em>@Html.TextBoxFor(m => m.CreatedAtRange.Right, new { @class = "datepicker" })</em></span>
+        </div>
+    </div>
+
+    <span class="or_muc"><a onclick="javascript:Query();">搜 索</a></span>
+</div>
+<div class="or_mm">
+    <label>
+        @if (Model.IsCOD != null)
+        {
+            @Html.CheckBoxFor(m => m.IsCOD.Value)
+        }
+    </label>
+    <label>
+        <input type="checkbox" id="isShowFinished" name="isShowFinished" value="false" onclick="FilterSaleOrderStatus();" />不显示已完成/已作废订单</label>
+    <b>订单状态</b>
+    @Html.DropDownListFor(m => m.State, stateList)
+     
+    <span class="or_muc"><a onclick="javascript:document.queryForm.reset();">清空条件</a></span>
+</div>
+<div class="hide">
+    @Html.TextBoxFor(m => m.Take)
+    @Html.TextBoxFor(m => m.Skip)
+    @Html.TextBoxFor(m => m.OrderField)
+    @Html.TextBoxFor(m => m.OrderDirection)
+    <input id="hasQuery" type="hidden" value="false" name="hasQuery" />
+</div>

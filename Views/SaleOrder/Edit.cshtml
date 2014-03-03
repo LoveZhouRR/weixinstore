@@ -1,0 +1,178 @@
+﻿@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@using DBC.WeChat.Models.Infrastructures
+@using DBC.WeChat.Models.Sales
+@using DBC.WeChat.Services.Components
+@using DBC.WeChat.UI.Store.Models
+@model DBC.WeChat.Models.Sales.SaleOrder
+@section Css{
+    <link rel="stylesheet" href="~/Content/css/order.css">
+}
+@section Script{
+    <script src="~/Content/Scripts/SaleOrder/SaleOrder.js" type="text/javascript"></script>
+<script src="~/Content/Gridpp/Scripts/CreateControl.js" type="text/javascript"></script>
+    <script src="~/Content/Gridpp/Scripts/GRInstall.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        Install_InsertReport();
+    </script>
+}
+
+<script type="text/javascript">
+    $(function () {
+        if ($("#cansave").val() == "False") {
+            $("#submit").attr("onclick", "").css({ background: "gray" });;
+        }
+        $("#DeliveryMethodSelect").find("option[value=" + $("#DeliveryMethodID").val() + "]").attr("selected", true);
+
+        $("#DeliveryMethodSelect").change(function () {
+            $("#DeliveryMethodID").attr("value", $(this).find("option:selected").val());
+        });
+    })
+    var Installed = Install_Detect();
+</script>
+<div class="pg_mm">
+    <div class="order_information">
+        @using (Html.BeginForm("Edit", "SaleOrder"))
+        {
+            <div class="oi_title">订单信息</div>
+            <img onclick="javascript:window.open('/Content/Gridpp/General/PrintReport.aspx?Report=SaleOrder4.grf&Data=getsaleorderdata.aspx?SaleOrderID='+@Model.ID);"src="~/Content/images/i/printer.png" alt="打印" title="打印订单" style="width: 25px;height: 25px;margin: 4px;cursor: pointer;"/>
+            <div class="oi_omain">
+                <p><span>订单号：</span>@Model.Code</p>
+                <p><span>订单生产时间：</span>@Model.CreatedAt</p>
+                <p>
+                    <span>订单状态：</span><em id="status@(Model.ID)">@(((OrderState)Model.State).GetDescription())</em>
+                    @{
+            var isCOD = Model.IsCOD != null && Model.IsCOD.Value;
+                    }
+                </p>
+                <p>
+                    <span>订单操作：</span>
+                    @{
+            if (Model.State == (int)OrderState.ToBePaid)
+            {
+                        <a href="javascript:changestate([@Model.ID],@((int)OrderState.Canceled),@Model.State,'@isCOD.ToString()');" class="cur">作废</a>
+            }
+            else if (Model.State == (int)OrderState.ToBeShipped)
+            {
+                        <a href="javascript:changestate([@Model.ID],@((int)OrderState.ToBeAccept),@Model.State,'@isCOD.ToString()');">发货</a>
+                        <a href="javascript:changestate([@Model.ID],@((int)OrderState.Canceled),@Model.State,'@isCOD.ToString()');" class="cur">作废</a>
+            }
+                    }
+
+
+                    @*<a href="javascript:changestate([@Model.ID],
+                                @((int)OrderState.ToBeAccept),@Model.State,'@isCOD.ToString()');">发货</a>
+                    <a href="javascript:changestate([@Model.ID],
+                                @((int)OrderState.Finished),@Model.State,'@isCOD.ToString()');">退款</a>
+                    <a href="javascript:changestate([@Model.ID],
+                                @((int)OrderState.Canceled),@Model.State,'@isCOD.ToString()');"
+                        class="cur">作废</a>*@
+                </p>
+                <div class="hide">@Html.TextBoxFor(m => m.State, new { id = "state" + Model.ID })</div>
+            </div>
+            <div class="oi_title">收货人信息</div>
+            <div class="oi_cmain">
+                <div class="oi_m">
+                    <span>收货人：</span>@Html.TextBoxFor(m => m.Name)
+                </div>
+                <div class="oi_m">
+                    <span>联系电话：</span>@Html.TextBoxFor(m => m.Mobile)
+                </div>
+                <div class="oi_m">
+                    <span>收货人地址：</span>
+                    @Html.Partial("District", Model.AreaID.Value)
+                </div>
+                <div class="hide">
+                    @Html.TextBoxFor(m => m.AreaID,new { id = "targetDis" })
+                </div>
+                <div class="oi_m">
+                    <span>详细地址：</span>@Html.TextBoxFor(m => m.Address)
+                </div>
+            </div>
+            <div class="oi_title">物流信息</div>
+            <div class="oi_cmain">
+                <div class="oi_m">
+                    <span>快递名称：</span>
+                    <select id="DeliveryMethodSelect">
+                        @{
+            var items = (DeliveryMethod[])ViewBag.DeliveryMethods;
+            if (items != null && items.Any())
+            {
+                foreach (var item in items)
+                {
+                            <option value="@item.ID">@item.Name</option>
+                }
+            }
+                        }
+                    </select>
+                    <div class="hide">
+                        @Html.TextBoxFor(m => m.DeliveryMethodID)
+                    </div>
+                </div>
+                <div class="oi_m">
+                    <span>快递费用：</span><b>&yen;@Html.DisplayTextFor(m => m.DeliveryFee)</b>
+                </div>
+                <div class="oi_m">
+                    <span>快递单号：</span>@Html.TextBoxFor(m => m.DeliveryCode)
+                </div>
+                <div class="oi_m"><a id="submit" onclick="SubmitData();">保存</a></div>
+            </div>
+            <div class="oi_title">商品信息</div>
+        }
+
+        <div class="oi_list">
+            <table class="oi_tab">
+                <thead>
+                    <tr>
+                        <th class="oi_name">商品名称</th>
+                        <th class="oi_norm">规格</th>
+                        <th class="oi_nums">商品数量</th>
+                        <th class="oi_reta">商品单价</th>
+                        <th class="oi_coun">商品总价</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var paths = (List<string>)ViewData["paths"];
+                        int count = 0;
+                        int index = 0;
+                        decimal totalamount = 0;
+                        foreach (var item in Model.Items)
+                        {
+                            count += item.Quantity.Value;
+                            if (item.Specification != null)
+                            {
+                                totalamount += (item.Specification.Price * item.Quantity).Value;
+                        <tr>
+                            <td class="oi_name">
+                                <a href="javascript:;">
+                                    <img src="@paths[index]" />
+                                </a>
+                                <p>@Html.ActionLink(item.Specification.ProductName ?? " ", "Edit", "Product", new { id = item.Specification.ProductID }, new { })</p>
+                            </td>
+                            <td class="oi_norm"><b>@item.Specification.Name</b></td>
+                            <td class="oi_nums">@item.Quantity</td>
+                            <td class="oi_reta"><b>&yen;@item.Specification.Price</b></td>
+                            <td class="oi_coun"><b>&yen;@(item.Specification.Price * item.Quantity)</b></td>
+                        </tr>
+                                index++;
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="hide">
+            @{
+                var cansave = Model.State != null && Model.State.Value != (int)OrderState.Canceled
+                    && Model.State.Value != (int)OrderState.ToBeAccept&&Model.State.Value!=(int)OrderState.Finished;
+            }
+            <input id="cansave" value=@cansave.ToString() />
+        </div>
+        <div class="oi_count">
+            <span>商品数量：@count</span><b>合计价格：<font>&yen;@totalamount</font></b>
+        </div>
+    </div>
+</div>

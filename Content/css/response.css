@@ -1,0 +1,398 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+.auto_response {
+    background: #f7f7f7;
+    height: 635px;
+    margin-top: 25px;
+    padding: 15px 30px;
+    overflow: hidden
+}
+
+.ar_content {
+    height: 635px;
+    overflow-y: auto;
+    font-family: \5b8b\4f53;
+}
+
+.ar_label, .ar_blabel {
+    height: 24px;
+    line-height: 24px;
+    overflow: hidden
+}
+
+.ar_label a {
+    margin-left: 20px;
+}
+
+.ar_area {
+    margin-top: 10px;
+    resize: none;
+    padding: 5px 10px;
+    line-height: 20px;
+    font-family: \5b8b\4f53;
+    width: 660px;
+    height: 124px;
+    border: #cdcdcd solid 1px;
+}
+
+.ar_blabel {
+    text-align: right;
+    display: block;
+    width: 680px;
+}
+
+.ar_blabel font {
+    font-size: 12px;
+}
+
+.ar_sub {
+    height: 30px;
+    overflow: hidden
+}
+
+.ar_sub a {
+    float: left;
+    display: inline-block;
+    margin-right: 10px;
+    color: #fff;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    width: 90px;
+    font-size: 16px;
+    font-family: \5FAE\8F6F\96C5\9ED1, \5b8b\4f53
+
+}
+
+.ar_sub a.ar_ss {
+    border: #cdcdcd solid 1px;
+    height: 28px;
+    line-height: 28px;
+    width: 88px;
+    background: none;
+    color: #535353
+}
+
+/**/
+.ar_lb {
+    width: 682px;
+}
+
+.ar_label span {
+    float: right;
+    display: inline-block;
+    line-height: 22px;
+    width: 82px;
+    text-align: center;
+    border: #cdcdcd solid 1px;
+    height: 22px;
+}
+
+.ar_mn {
+    border: #cdcdcd solid 1px;
+    width: 680px;
+    overflow: hidden;
+    margin-top: 10px;
+    background: #fff
+}
+
+.ar_mt {
+    height: 31px;
+    overflow: hidden;
+    background: #d8d8d8;
+    padding: 0 10px;
+    line-height: 31px;
+}
+
+.ar_mt a {
+    float: right;
+}
+
+.ar_mt b, .ar_mt em {
+    float: left;
+    display: inline-block;
+}
+
+.ar_mt b {
+    font-weight: bold;
+}
+
+.ar_mm {
+    overflow: hidden;
+    background: #fff;
+    border-top: #cdcdcd solid 1px;
+}
+
+.ar_mdl {
+    padding: 10px 10px 15px;
+}
+
+.ar_mdl dt {
+    overflow: hidden;
+}
+
+.ar_mdl dt span {
+    margin-top: 5px;
+}
+
+.ar_mdl dd {
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.ar_mdl span {
+    float: left;
+    display: inline-block;
+    font-weight: bold;
+    width: 65px;
+    line-height: 21px;
+    height: 21px;
+}
+
+.ar_mdlm {
+    margin-left: 65px;
+    line-height: 21px;
+}
+
+.ar_mdlm em {
+    display: inline-block;
+    margin-right: 8px;
+    height: 21px;
+    line-height: 21px;
+    background: #eee;
+    padding: 0 10px;
+    margin-top: 5px;
+}
+
+/**/
+.ar_unfold dt, .ar_unfold dd {
+    overflow: hidden;
+    zoom: 1;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.ar_unfold dd {
+    border-top: #cdcdcd solid 1px;
+}
+
+.ar_re_t, .ar_kd_t, .ar_rt_t, .ar_ud_sub {
+    background: #f5f6f6;
+}
+
+
+.ar_re_m li {
+    position: relative;
+    line-height: 39px;
+    border-top: 1px solid #d3d3d3;
+    list-style-type: none;
+}
+.ar_re_m .media_content {
+    word-wrap: break-word;
+    word-break: break-all;
+    line-height: normal;
+    padding: 15px 0;
+    margin-right: 200px;
+}
+.ar_re_m .optr {
+    position: absolute;
+    top: 15px;
+    right: 14px;
+    line-height: normal;
+}
+.ar_re_m .optr a {
+    margin-left: 12px;
+}
+.ar_unfold span {
+    float: left;
+    display: inline-block;
+}
+
+.ar_unfold span i {
+    width: 10px;
+    height: 10px;
+    background-position: -275px 0px;
+    float: left;
+}
+
+.ar_unfold input {
+    float: left;
+    display: inline;
+    font-family: \5b8b\4f53;
+    color: #535353;
+}
+
+.ar_kd_t, .ar_rt_t {
+    line-height: 31px;
+    height: 31px;
+}
+
+.ar_kd_t a {
+    float: right
+}
+
+.ar_kd_t span i, .ar_rt_t span i {
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+.ar_kd_m {
+    padding: 0 0 10px 0;
+}
+
+.ar_kd_m input {
+    border: #cdcdcd solid 1px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px;
+    float: left;
+    display: inline;
+    margin-left: 10px;
+    margin-top: 10px;
+    width: 86px;
+}
+.ar_kd_m a {
+    border: #cdcdcd solid 1px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px;
+    float: left;
+    display: inline;
+    margin-left: 10px;
+    margin-top: 10px;
+    
+}
+.ar_kd_m i {
+    width: 10px;
+    cursor: pointer;
+    font-family: "黑体";
+    font-size: 18px;
+    line-height: 20px;
+    margin-left: 5px;
+    /*display: none;*/
+    visibility:hidden
+}
+.ar_kd_m a:hover {
+    background: #b28850;
+    color: #fff;
+}
+
+.ar_kd_m a:hover i {
+    /*display: inline-block;*/
+    visibility: visible;
+}
+.ar_media_list {
+    padding: 0 14px;
+    border-bottom: 1px solid #d3d3d3;
+}
+.ar_media_list li {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 14px;
+    line-height: 39px;
+}
+
+.ar_re_t, .ar_re_m, .ar_ud_sub {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.ar_re_t {
+    height: 32px;
+    line-height: 32px;
+    overflow: hidden;
+}
+
+.ar_re_t span i {
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+.ar_re_t input {
+    height: 30px;
+    line-height: 30px;
+    border: #cdcdcd solid 1px;
+    padding: 0 5px;
+    width: 250px;
+    float: left;
+    display: inline;
+    margin-left: 10px;
+}
+
+.ar_re_t em {
+    float: left;
+    display: inline-block;
+    margin-left: 10px;
+    color: #949494
+}
+
+.ar_ud_sub {
+    text-align: right;
+}
+
+.ar_ud_sub a {
+    display: inline-block;
+    margin-left: 5px;
+    color: #fff;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    width: 90px;
+    font-size: 16px;
+    font-family: \5FAE\8F6F\96C5\9ED1, \5b8b\4f53
+
+}
+
+.ar_ud_sub a.ar_ud_ss {
+    border: #cdcdcd solid 1px;
+    height: 28px;
+    line-height: 28px;
+    width: 88px;
+    background: none;
+    color: #535353
+}
+
+.media_list_dialog {
+    height: 400px;
+    padding: 0 10px;
+    overflow-y: scroll;
+    position: relative;
+}
+.media_item {
+    position: relative;
+    padding: 20px 0;
+    border-bottom: 1px solid #e6e5e5;
+    list-style-type: none;
+}
+.media_info {
+    position: relative;
+    min-height: 22px;
+}
+.media_content {
+    padding-top: 8px;
+    margin-left: 24px;
+}
+.media_label {
+    display: inline-block;
+    width: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 400px;
+    font-weight: 400;
+    font-style: normal;
+}
+.media_size {
+    position: absolute;
+    right: 140px;
+    top: 0;
+}
+.media_page a{
+    text-decoration: underline;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.media_page span {
+    
+}

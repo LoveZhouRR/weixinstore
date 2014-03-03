@@ -1,0 +1,103 @@
+﻿@using System.Collections.ObjectModel
+@using DBC.WeChat.Models.Conversation
+@using DBC.WeChat.Services.Components
+@model DBC.WeChat.Models.Conversation.Activity
+@using (Ajax.BeginForm("Edit", "Activity", null, new AjaxOptions()
+{
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "Content",
+    OnSuccess = "EditSuccess"
+}, new { id = "EditForm" }))
+{
+    <div class="sc_ctm">
+        <span>活动名称</span>
+        <div class="sc_ctmm">
+            @Html.TextBoxFor(m => m.Name)
+        </div>
+    </div>
+    <div class="sc_ctm sc_top">
+        <span>状态</span>
+        <div class="sc_ctmm">
+            <b>@(((ActivityState)Model.State).GetDescription())</b>
+        </div>
+    </div>
+    <div class="sc_ctm sc_top">
+        <span>活动类型</span>
+        <div class="sc_ctmm">
+            <b>@(((ActivityType)Model.Type).GetDescription())</b>
+        </div>
+    </div>
+    <div class="sc_ctm sc_top">
+        <span>活动条件</span>
+        <div class="sc_ctmm">
+            <select id="RuleTypeSelect">
+                <option value="1">限制次数规则</option>
+                <option value="2">使用积分规则</option>
+                <option value="3">每日次数限制</option>
+            </select>
+        </div>
+    </div>
+    <div class="sc_ctm sc_top" id="RequireCredits" style="display: none">
+        <span>活动消耗积分</span>
+        <div class="sc_ctmm">
+            @Html.TextBoxFor(m => m.RequireCredits)
+        </div>
+    </div>
+    
+    <div class="sc_ctm sc_top" id="Times" style="display: ">
+        <span>活动限制次数</span>
+        <div class="sc_ctmm">
+            @Html.TextBoxFor(m => m.Times)
+        </div>
+    </div>
+    <div class="sc_ctm sc_top">
+        <span>未中奖提示</span>
+        <div class="sc_ctmm">
+            @Html.TextBoxFor(m => m.DefaultReply)
+        </div>
+    </div>
+    <div class="sc_ctm sc_top">
+        <span>活动描述</span>
+        <div class="sc_ctmm">
+            @Html.TextAreaFor(m => m.Description)
+        </div>
+    </div>
+    <div class="sc_ctm sc_top">
+        <span>截止日期</span>
+        <div class="sc_ctmm">
+            @Html.TextBoxFor(m => m.DeadLineTime, new { @class = "datepicker", @readonly = "readonly" })
+        </div>
+    </div>
+    <div id="AwradTypes">
+        @{
+    if (Model.AwardTypes == null)
+    {
+        Model.AwardTypes = new Collection<AwardType>();
+    }   
+        }
+        @Html.Partial("Activity/ActivityAwardTypes", Model.AwardTypes)
+    </div>
+    <div class="hide">
+        @Html.TextBoxFor(m => m.Type)
+        @Html.TextBoxFor(m => m.OwnerID)
+        @Html.TextBoxFor(m => m.ID)
+        @Html.TextBoxFor(m => m.RuleType)
+        @Html.TextBoxFor(m => m.State)
+        <input type="text" id="Error" value="@ViewBag.Error"/>
+    </div>
+    <div class="cm_ft sc_ft">
+        <a onclick="SaveEditActive();">保存</a>
+    </div>
+}
+<script src="~/Content/Scripts/Datapicker.js"></script>
+<script type="text/javascript" src="~/Content/Scripts/Conversation/AcitvityTimePicker.js"></script>
+<script type="text/javascript" src="~/Content/Scripts/Conversation/AwardType.js"></script>
+<script type="text/javascript" src="~/Content/Scripts/Conversation/Activity.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#RuleTypeSelect").find("option[value=" + $("input[name=RuleType]").val() + "]").attr("selected", true);
+        $("#RuleTypeSelect").change();
+    })
+</script>
+

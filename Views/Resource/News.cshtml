@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "News";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@model List<DBC.WeChat.Models.Conversation.NewsResource>
+@section Css{
+
+    <link rel="stylesheet" href="~/Content/sw/sw.css">
+    <link rel="stylesheet" href="~/Content/css/material.css">
+    <link rel="stylesheet" href="~/ueditor/themes/iframe.css">
+}
+@section Script
+{
+    <script type="text/javascript" src="~/Content/Libraries/jQuery/jquery.form.min.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/Resource/News.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/Resource/Resource.js"></script>
+    <script type="text/javascript"
+        src="~/Content/Libraries/jQuery/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript" src="~/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="~/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $("#AddBlock").hover(function() {
+                $("#Addmark").css("display", "none");
+            }, function() {
+                $("#Addmark").css("display", "");
+            });
+        });
+    </script>
+}
+
+<div class="pg_cu">
+    @Html.ActionLink("图文", "News", "Resource", null, new { @class = "cur" })
+    @Html.ActionLink("图片", "Picture", "Resource", null, null)
+    @Html.ActionLink("音频", "Audio", "Resource", null, null)
+    @Html.ActionLink("视频", "Video", "Resource", null, null)
+</div>
+<div class="material_management">
+    <div class="text_message">
+        <div class="rl_count">图文消息列表（共2个）</div>
+        @using (Ajax.BeginForm("AjaxNewsQuery", "Resource", null, new AjaxOptions()
+{
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "News",
+    OnSuccess = "QuerySuccess",
+}, new { ID = "queryForm" }))
+        {
+            <div>
+                @Html.Partial("Resource/NewsQuery", ViewData["Query"])
+            </div>
+            <div id="News">
+                @Html.Partial("Resource/NewsList", Model)
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,22 @@
+﻿@model DBC.WeChat.Models.Sales.ProductQuery
+<script type="text/javascript">
+    function Query() {
+        $("input[name=Skip]").attr("value", 0);
+        $("input[name=hasQuery]").attr("value", true);
+        $('#queryForm').submit();
+    }
+    function PartlyQuery() {
+        $("#queryForm").submit();
+    }
+</script>
+<span>
+    @Html.TextBoxFor(m => m.NamePattern)
+    <a onclick="javascript:Query();">搜 索</a>
+</span>
+<div class="hide">
+    @Html.TextBoxFor(m => m.Take)
+    @Html.TextBoxFor(m => m.Skip)
+    @Html.TextBoxFor(m => m.OrderField)
+    @Html.TextBoxFor(m => m.OrderDirection)
+    <input id="hasQuery" type="hidden" value="false" name="hasQuery"/>
+</div>

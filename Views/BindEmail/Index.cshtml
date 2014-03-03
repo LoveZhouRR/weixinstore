@@ -1,0 +1,86 @@
+﻿@model DBC.WeChat.UI.Store.Controllers.BindEmailController.Ret
+
+@{
+    ViewBag.Title = "注册验证";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Css
+{
+    <link rel="stylesheet" href="~/Content/sw/sw.css">
+    <link rel="stylesheet" href="~/Content/css/login.css" />
+}
+<div class="page">
+    <div class="lr_header">
+        <div class="layout">
+            <h1 class="logo"><a href="javascript:;">
+                <img src="~/Content/images/i/lr_logo.jpg" /></a></h1>
+            <em>手机快速注册：发送DBC到1234567890，根据短信提示完成注册。</em>
+        </div>
+    </div>
+
+    <div class="lr_content">
+        <div class="lr_bgimg">
+            <div class="lr_ul">
+                <ul>
+                    <li>
+                        <img src="~/Content/images/i/lr_li_e.jpg" /></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="lr_layout">
+            <div class="lg_tmain">
+                <span class="lg_tbgmain lr_bgmain"></span>
+                <div class="lg_tcontent">
+                    <div class="lg_title"><a href="javascript:;">第三步：邮箱确认</a></div>
+                    <div class="lg_sm">
+                        @if (Model.success)
+                        {
+                            <i class="icon"></i><span>邮箱验证成功！</span>
+                        }
+                        else
+                        {
+                            <span><i class="icon rt"></i>@Model.msg</span>
+                        }
+                    </div>
+                    @if (Model.success)
+                    {
+                        <div class="lg_go"><span id="sec_span"></span>秒后自动跳转到<a href="/login">登录</a>页
+                            
+                            如果跳转失败，请手动点击<a href="/login" style="color: red;text-decoration: underline;">登录</a>
+                        </div>
+                        <script type="text/javascript">
+                            function countDown(seconds, dest) {
+                                $('#sec_span').html(seconds);
+                                seconds = seconds - 1;
+                                if (seconds > 0) {
+                                    setTimeout("countDown(" + seconds + ",'" + dest + "')", 1000);
+                                } else {
+                                    window.location.href = dest;
+                                }
+                            }
+
+                            $(document).ready(function() {
+                                countDown(5, "/login");
+                            });
+                        </script>
+                    }
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="lr_bottom">
+        </div>
+    </div>
+
+    <div class="lr_footer">
+        <div class="layout">
+            <a href="javascript:;">关于我们</a>
+            <a href="javascript:;">关于微信商城</a>
+            <a href="javascript:;">客户管理</a>
+            <a href="javascript:;">隐私政策</a>|
+        	<b>同心圆软件版权所有*********</b>
+        </div>
+    </div>
+</div>

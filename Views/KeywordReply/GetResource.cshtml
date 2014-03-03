@@ -1,0 +1,23 @@
+﻿@using DBC.WeChat.Models.Conversation
+@model System.Collections.Generic.IEnumerable<DBC.WeChat.Models.Conversation.Resource>
+@{
+    var type = (int)ViewData["Type"];
+}
+@switch (type)
+{
+    case (int)ResourceType.Audio:
+        
+        break;
+    case (int)ResourceType.News:
+        
+        break;
+    case (int)ResourceType.Picture:
+        foreach (var m in Model)
+        {
+            
+        }
+        break;
+    case (int)ResourceType.Video:
+        
+        break;
+}

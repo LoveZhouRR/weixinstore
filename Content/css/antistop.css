@@ -1,0 +1,568 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+.set_antistop {
+    background: #f7f7f7;
+    overflow: hidden;
+    zoom: 1;
+    height: 708px;
+    margin-top: 28px;
+    padding: 20px;
+    color: #535353;
+    font-family: \5b8b\4f53;
+    position: relative;
+    min-width: 976px;
+}
+
+.sa_left {
+    overflow: hidden;
+    border: #d5d5d5 solid 1px;
+    margin-right: 585px;
+}
+
+.sal_title {
+    height: 32px;
+    background: url(../images/i/bg_pr_list_tab_th.png) repeat-x;
+    overflow: hidden;
+    line-height: 32px;
+    padding-left: 18px;
+}
+
+.sal_main {
+    overflow: auto;
+    height: 425px;
+    padding-bottom: 100px;
+}
+
+.sal_main dt {
+    height: 41px;
+    background: url(../images/i/bg_sal_main_dt.png) repeat-x;
+    overflow: hidden;
+    line-height: 41px;
+}
+
+.sal_main dt i, .sal_main dt b {
+    float: left;
+    display: inline-block;
+}
+
+.sal_main dt i {
+    width: 11px;
+    height: 11px;
+    background-position: -172px 0;
+    margin-left: 10px;
+    margin-top: 13px;
+}
+
+.sal_main dt b {
+    margin-left: 10px;
+    color: #000;
+    width: 200px;
+}
+
+.sal_main dt input {
+    float: left;
+    display: inline;
+    height: 24px;
+    line-height: 24px;
+    margin-top: 6px;
+    margin-left: 10px;
+    border: #949494 solid 1px;
+    padding: 0 5px;
+    width: 190px;
+    font-family: \5b8b\4f53;
+}
+
+.sal_main dt a {
+    float: right;
+    width: 8px;
+    height: 7px;
+    background-position: -136px 0;
+    margin-right: 10px;
+    margin-top: 17px;
+    display: none
+}
+
+.sal_main dl.hover dt {
+    background: #d2d2d2;
+}
+
+.sal_main dl.hover dt a {
+    display: inline-block;
+}
+
+.sal_main dl.hcur dt {
+    background: url(../images/i/bg_sal_main_dt_cur.png) repeat-x;
+}
+
+.sal_main dl.hcur dt i {
+    background-position: -159px 0;
+    margin-top: 18px;
+}
+
+.sal_main dl.hcur dd {
+    display: block;
+}
+
+.sal_main dd {
+    padding: 0 5px 10px 5px;
+    background: #fff;
+    overflow: hidden;
+    zoom: 1;
+    display: none;
+}
+
+.sal_main dd span {
+    height: 17px;
+    line-height: 17px;
+    overflow: hidden;
+    border: #949494 solid 1px;
+    padding: 0 10px;
+    float: left;
+    display: inline-block;
+    position: relative;
+    margin-top: 10px;
+    margin-right: 5px;
+    cursor: pointer
+}
+
+.sal_main dd input {
+    height: 17px;
+    line-height: 17px;
+    overflow: hidden;
+    width: 30px;
+    padding: 0 5px;
+    border: #949494 solid 1px;
+    float: left;
+    display: inline;
+    margin-top: 10px;
+    margin-right: 5px;
+    cursor: pointer;
+    font-family: \5b8b\4f53;
+}
+
+.sal_main dd span a {
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.7;
+    filter: alpha(opacity:70);
+}
+
+.sal_main dd span a i {
+    width: 8px;
+    height: 7px;
+    background-position: -145px 0;
+    float: left;
+    margin-top: 5px;
+    margin-left: 18px;
+}
+
+.sal_main dd span.cur a {
+    display: inline-block
+}
+
+/**/
+.sa_middle {
+    width: 285px;
+    float: right;
+    overflow: hidden;
+    margin-right: 5%;
+    display: inline;
+    margin-left: 5%;
+}
+
+.sa_middle img {
+    width: 285px;
+    height: 556px;
+}
+
+/**/
+.sa_right {
+    width: 280px;
+    float: right;
+    zoom: 1;
+    border: #d5d5d5 solid 1px;
+    display: inline;
+    margin-right: 3%;
+}
+
+.sar_main {
+    width: 262px;
+    zoom: 1;
+    height: 525px;
+    padding: 10px 9px 0;
+}
+
+.sar_ul {
+    height: 27px;
+    overflow: hidden;
+}
+
+.sar_ul li {
+    width: 50%;
+    float: left;
+    height: 27px;
+    line-height: 27px;
+    color: #000;
+    text-align: center;
+    background: #d2d2d2
+}
+
+.sar_ul li.cur {
+    color: #fff;
+}
+
+.sar_centent {
+    zomm: 1;
+    margin-top: 10px;
+}
+
+.sar_txt {
+    overflow: hidden;
+}
+
+.sar_txt textarea {
+    height: 136px;
+    border: #e5e5e5 solid 1px;
+    line-height: 20px;
+    width: 250px;
+    resize: none;
+    padding: 5px;
+    font-family: \5b8b\4f53;
+}
+
+.sar_txt a {
+    display: block;
+    height: 27px;
+    line-height: 27px;
+    text-align: center;
+    color: #fff;
+    margin-top: 10px;
+    overflow: hidden;
+    width: 262px;
+}
+
+.sar_it {
+    zoom: 1;
+}
+
+.sar_big {
+    width: 262px;
+    height: 146px;
+    position: relative;
+}
+
+.sar_big_img {
+    width: 262px;
+    height: 146px;
+}
+
+.sar_big_bg {
+    height: 28px;
+    background: #000;
+    opacity: 0.8;
+    filter: alpha(opacity:80);
+    width: 262px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.sar_big_txt {
+    height: 28px;
+    line-height: 28px;
+    width: 262px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+    color: #fff;
+    padding: 0 10px;
+    overflow: hidden;
+}
+
+.sar_big_edit {
+    position: absolute;
+    top: 45px;
+    left: 117px;
+    background-position: -192px -71px;
+    width: 27px;
+    height: 26px;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.sar_bl {
+    position: absolute;
+    left: -315px;
+    top: 0;
+    z-index: 2;
+    width: 274px;
+    height: 411px;
+    padding: 15px 25px 0 13px;
+    overflow: hidden;
+}
+
+.sar_bl_img {
+    width: 274px;
+    height: 152px;
+    overflow: hidden
+}
+
+.sar_bl_img img {
+    width: 274px;
+    height: 152px;
+}
+
+.sar_bl_upload {
+    height: 24px;
+    width: 272px;
+    border: #d7d7d7 solid 1px;
+    line-height: 24px;
+    text-align: center;
+    position: relative;
+    margin-top: 7px;
+    background: url(../images/i/bg_pr_list_tab_th.png) repeat-x
+}
+
+.sar_bl_upload input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    filter: alpha(opacity:0);
+    cursor: pointer
+}
+
+.sar_bl_label {
+    height: 22px;
+    line-height: 22px;
+    overflow: hidden;
+    color: #949494
+}
+
+.sar_bl_title {
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.sar_bl_title input, .sar_bl_title textarea {
+    border: #d7d7d7 solid 1px;
+    width: 262px;
+    font-family: \5b8b\4f53;
+    float: left
+}
+
+.sar_bl_title input {
+    height: 24px;
+    line-height: 24px;
+    padding: 0 5px;
+}
+
+.sar_bl_title textarea {
+    height: 44px;
+    line-height: 20px;
+    padding: 5px;
+    resize: none;
+}
+
+.sar_bl_sub {
+    overflow: hidden;
+    height: 27px;
+    margin-top: 8px;
+}
+
+.sar_bl_sub a {
+    display: block;
+    height: 27px;
+    line-height: 27px;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+    width: 262px;
+}
+
+/**/
+.sar_small {
+    zoom: 1;
+    width: 262px;
+    margin-top: 10px;
+}
+
+.sar_smain {
+    height: 72px;
+    zoom: 1;
+    position: relative;
+}
+
+.sar_sm {
+    overflow: hidden;
+    height: 72px;
+    zoom: 1;
+    width: 262px;
+    background: url(../images/i/bg_sal_main_dt.png) left bottom repeat-x;
+}
+
+.sar_sm_txt {
+    float: left;
+    width: 185px;
+    line-height: 72px;
+    padding-left: 10px;
+    overflow: hidden;
+    color: #000
+}
+
+.sar_sm_img {
+    float: right;
+    margin-top: 11px;
+    width: 50px;
+    height: 50px;
+}
+
+.sar_sm i {
+    width: 17px;
+    height: 17px;
+    position: absolute;
+    top: 27px;
+    z-index: 2;
+    cursor: pointer;
+    display: none
+}
+
+.sar_sm_edit {
+    background-position: -200px 0px;
+    left: 103px;
+}
+
+.sar_sm_delete {
+    background-position: -218px 0px;
+    left: 138px;
+}
+
+.sar_smain div.cur {
+    background: #d2d2d2;
+}
+
+.sar_smain div.cur i {
+    display: inline-block;
+}
+
+.sa_add {
+    height: 41px;
+    background: url(../images/i/bg_sal_main_dt.png) repeat-x;
+    overflow: hidden;
+    line-height: 41px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.sar_sl {
+    position: absolute;
+    left: -315px;
+    top: 0;
+    z-index: 3;
+    width: 274px;
+    height: 298px;
+    padding: 15px 25px 0 13px;
+    display: none;
+    overflow: hidden;
+}
+
+.sar_sl_txt, .sar_sl_url {
+    overflow: hidden;
+    height: 26px;
+}
+
+.sar_sl_url {
+    margin-top: 8px;
+}
+
+.sar_sl_txt input, .sar_sl_url input {
+    height: 24px;
+    line-height: 24px;
+    padding: 0 5px;
+    resize: none;
+    border: #d7d7d7 solid 1px;
+    width: 262px;
+    font-family: \5b8b\4f53;
+}
+
+.sar_sl_text {
+    overflow: hidden;
+    height: 56px;
+    margin-top: 8px;
+}
+
+.sar_sl_text textarea {
+    height: 44px;
+    line-height: 20px;
+    padding: 5px;
+    resize: none;
+    border: #d7d7d7 solid 1px;
+    width: 262px;
+    font-family: \5b8b\4f53;
+}
+
+.sar_bl_main {
+    overflow: hidden;
+    height: 97px;
+    margin-top: 5px;
+}
+
+.sar_bl_main span {
+    width: 97px;
+    height: 97px;
+    float: left;
+    overflow: hidden;
+}
+
+.sar_bl_main span img {
+    width: 97px;
+    height: 97px;
+}
+
+.sar_sl_upload {
+    height: 24px;
+    margin-left: 103px;
+    width: 160px;
+    border: #d7d7d7 solid 1px;
+    line-height: 24px;
+    text-align: center;
+    position: relative;
+    margin-top: 36px;
+    background: url(../images/i/bg_pr_list_tab_th.png) repeat-x
+}
+
+.sar_sl_upload input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    filter: alpha(opacity:0);
+    cursor: pointer
+}
+
+.sar_sl_label {
+    height: 28px;
+    line-height: 14px;
+    overflow: hidden;
+    margin-left: 103px;
+    color: #949494;
+    margin-top: 5px;
+    width: 160px;
+}
+
+.sa_label {
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+}

@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "用户订单信息";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@using DBC.WeChat.Models.Infrastructures;
+@using DBC.WeChat.UI.Store.Models;
+@model ICollection<MemberCredit>
+
+<link rel="stylesheet" href="~/Content/css/g.css">
+<link rel="stylesheet" href="~/Content/sw/sw.css">
+<link rel="stylesheet" href="~/Content/css/mucenter.css">
+<script type="text/javascript"
+    src="~/Content/Libraries/jQuery/jquery.unobtrusive-ajax.min.js"></script>
+
+<div class="pg_cu">
+    @Html.ActionLink("信息列表", "Index", "Member", null, null)
+    @Html.ActionLink("个人信息", "MemberDetail", "Member", new { id = ViewData["CId"] }, new { })
+    @Html.ActionLink("会员订单", "MemberOrder", "Member", new { id = ViewData["CId"] }, new { })
+    <a href="javascript:;" class="cur">会员积分</a>
+</div>
+@using (Ajax.BeginForm("AjaxMemberCredit", "Member", null, new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "MemberCreditList"
+    }, new { ID = "queryForm" }))
+{
+    @Html.Partial("Member/MemberCreditQuery", new FanCreditsQuery())
+    <div id="MemberCreditList">
+        @Html.Partial("Member/MemberCreditList", Model)
+    </div>
+}

@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@model DBC.WeChat.Models.Conversation.WeChatAccount
+<link rel="stylesheet" href="~/Content/css/authentication.css">
+<script type="text/javascript">
+    $(function() {
+        $("#TypeSelect").change(function() {
+            var type = parseInt($("#TypeSelect option:selected").val());
+            $("input[name=AccountType]").attr("value", type);
+            if (type == 2) {
+                $("#AppDiv").css("display", "");
+            } else {
+                $("#AppDiv").css("display", "none");
+            }
+            
+        });
+        var type = $("input[name=AccountType]").val();
+        $("#TypeSelect").find("option[value=" + type + "]").attr("selected", true);
+        $("#TypeSelect").change();
+    })
+
+</script>
+<div id="Error">
+    <span>@ViewBag.Error</span>
+</div>
+@using (Html.BeginForm("Index","Account",FormMethod.Post,new {id="Form"}))
+{
+
+    <div class="ab_ma">
+        <div class="ab_am">
+            <span>公众号名称</span>@Html.TextBoxFor(m => m.Name)
+        </div>
+        <div class="ab_am">
+            <span>公众号原始ID</span>
+            @if (Model == null||Model.ID==null)
+            {
+                @Html.TextBoxFor(m => m.OriginalID)
+            }
+            else
+            {
+                @Html.DisplayTextFor(m => m.OriginalID)
+            }
+            
+        </div>
+    </div>
+    <div class="ab_mb">
+        <h2>详细信息</h2>
+        <p>您的url和token已经生成：</p>
+        <div class="ab_bm">
+            <span>url</span>
+            @ViewBag.url
+        </div>
+        <div>
+            <div class="ab_bm">
+                 <span>Token</span>
+                @ViewBag.Token
+            </div>
+            <div class="hide">
+                @{
+                    int type = 1;
+                    if (Model != null)
+                    {
+                        type = Model.AccountType ?? 1;
+                    }
+                }
+                <input name="Url" value=@ViewBag.url />
+                <input name="Token" value=@ViewBag.Token />
+                <input name="AccountType" value=@(type) />
+                @Html.TextBoxFor(m=>m.ID)
+            </div>
+        </div>
+        <div class="ab_bm">
+            <span>公众号类型</span>
+            <select id="TypeSelect">
+                <option value="1">订阅号</option>
+                <option value="2">服务号</option>
+            </select>
+        </div>
+        <div id="AppDiv" style="display: none">
+            <div class="ab_bm">
+                <span>AppID</span>@Html.TextBoxFor(m => m.AppID)
+            </div>
+            <div class="ab_bm">
+                <span>AppSecret</span>@Html.TextBoxFor(m => m.AppSecret)
+            </div>
+        </div>
+    </div>
+
+    <div class="ab_as"><a onclick="javascript:$('#Form').submit();">提 交</a></div>
+}
+

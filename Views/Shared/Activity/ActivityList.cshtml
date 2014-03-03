@@ -1,0 +1,52 @@
+﻿@using DBC.WeChat.Models.Conversation
+@using DBC.WeChat.Services.Components
+@using DBC.WeChat.UI.Components
+@model IEnumerable<DBC.WeChat.Models.Conversation.Activity>
+@{
+    var pagination = ViewData["Pagination"] as Pagination;
+}
+<script type="text/javascript" src="~/Content/Scripts/Conversation/Activity.js"></script>
+<table class="prize_set">
+    <thead>
+        <tr>
+            <th class="pt_atype">活动名称</th>
+            <th class="pt_name">截止时间</th>
+            <th class="pt_ptype">活动状态</th>
+            <th class="pt_opea">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var activity in Model)
+        {
+            <tr>
+                <td class="pt_atype">
+                    <a onclick="javascript:EditClick(@activity.ID);">@activity.Name</a>
+                </td>
+                <td class="pt_name">@activity.DeadLineTime</td>
+                <td class="pt_ptype"><b id="State@(activity.ID)">@(((ActivityState)activity.State).GetDescription())</b></td>
+                <td class="pt_opea">
+                    @Html.ActionLink("奖品发放","Index","Award",new {activityID=activity.ID},null)
+
+                    @if (activity.State == (int) ActivityState.Started)
+                    {
+                        <a id="Change@(activity.ID)" onclick="javascript:ChangeState(@activity.ID,@((int) ActivityState.Stoped));">暂停</a>
+                    }
+                    else if (activity.State == (int)ActivityState.Init || activity.State == (int)ActivityState.Stoped)
+                    {
+                        <a id="Change@(activity.ID)" onclick="javascript:ChangeState(@activity.ID,@((int) ActivityState.Started));">启用</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="hide">
+    <input type="text" id="AddError" value="@ViewBag.Error"/>
+    <input type="text" id="Stop" value="@((int) ActivityState.Started)" 
+        des=@((ActivityState.Stoped).GetDescription()) action="启用" /> 
+    <input type="text" id="Start" value="@((int) ActivityState.Stoped)" 
+        des=@((ActivityState.Started).GetDescription()) action="暂停" /> 
+</div>
+<div id="pagination">
+    @Html.Partial("Pagination", pagination)
+</div>

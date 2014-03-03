@@ -1,0 +1,45 @@
+﻿@using System.Configuration
+@using DBC.WeChat.UI.Components
+@model List<DBC.WeChat.Models.Conversation.AudioResource>
+
+@{
+    var pagination = ViewData["Pagination"] as Pagination;
+}
+<div class="pic_list" >
+    <table id="audioTable">
+        @{
+            string ftp = ConfigurationManager.AppSettings["ftp"];
+        }
+        @foreach (var item in Model)
+        {
+            const string type = "audio/mpeg";
+            var path = System.IO.Path.Combine(ftp, item.Path, item.Name);
+            var encodePath = HttpUtility.UrlEncode(path);
+            <tr id="tr@(item.ID)">
+                <td class="pl_title">
+
+                        <b>@item.OriginName</b>
+                        <div class="pl_sound">
+                            <audio controls="controls">
+                                <source src="@path" type="audio/mpeg" >
+                                您的浏览器不支持html5播放 ,推荐下载Chrome
+                            </audio>
+                        </div>
+                </td>
+                <td class="pl_size">
+                        @item.Size KB
+                </td>
+                <td class="pl_opera">
+                    <span class="ps_opera">
+                        <i class="ps_up" onclick="javascript:Download('@encodePath','@type','@item.OriginName');" ></i>
+                        <i class="ps_xg"></i>
+                        <i class="ps_sc" onclick="javascript:deleteMe(@item.ID);"></i>
+                    </span>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div id="pagination">
+    @Html.Partial("Pagination", pagination)
+</div>

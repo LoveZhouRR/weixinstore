@@ -1,0 +1,37 @@
+﻿@using DBC.WeChat.UI.Components
+@model ICollection<DBC.WeChat.UI.Store.Models.MemberSaleOrderVM>
+@{
+    var pagination = ViewData["Pagination"] as Pagination;
+}
+
+<div class="order_correlation" >
+    <table class="oc_tab">
+        <thead>
+            <tr>
+                <th class="oc_num">订单号</th>
+                <th class="oc_cost">订单费用</th>
+                <th class="oc_time">订单创建时间</th>
+                <th class="oc_status">状态</th>
+                <th class="oc_logistics">物流信息</th>
+            </tr>
+        </thead>
+        <tbody  id="MemberOrderList">
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td class="oc_num">@item.Code</td>
+                    <td class="oc_cost"><b>@item.Amount</b></td>
+                    <td class="oc_time">@item.CreateTime</td>
+                    <td class="oc_status">@item.StatusName</td>
+                    <td class="oc_logistics"><b>@item.DeliveryMethodName</b><b>@item.DeliveryCode</b></td>
+                </tr> 
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div id="pagination">
+    @Html.Partial("Pagination", pagination)
+</div>

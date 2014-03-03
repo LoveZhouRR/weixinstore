@@ -1,0 +1,29 @@
+﻿@model DBC.WeChat.Models.Infrastructures.FanQuery
+
+<script type="text/javascript">
+    function Query() {
+        $("input[name=Skip]").attr("value", 0);
+        $("input[name=hasQuery]").attr("value", true);
+        $('#queryForm').submit();
+    }
+    function PartlyQuery() {
+        $("#queryForm").submit();
+    }
+</script>
+@*<label style="width:50px;height:27px;line-height:27px;">关联状态</label>
+    <select style="margin-left:5px; line-height:27px; height:27px;">
+        <option>已使用</option>
+        <option>已使用</option>
+    </select>
+<label style="width:60px;margin-left:20px;height:27px;line-height:27px;">线上登录名</label>
+<span style="margin-left: 5px;">
+    @Html.TextBoxFor(m => m.NamePattern)
+    <a onclick="javascript:Query();">搜 索</a>
+</span>*@
+<div class="hide">
+    @Html.TextBoxFor(m => m.Take)
+    @Html.TextBoxFor(m => m.Skip)
+    @Html.TextBoxFor(m => m.OrderField)
+    @Html.TextBoxFor(m => m.OrderDirection)
+    <input id="hasQuery" type="hidden" value="false" name="hasQuery" />
+</div>

@@ -1,0 +1,199 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+/**/
+.pr_list {
+    border: #cdcdcd solid 1px;
+    border-bottom: none;
+    overflow: auto;
+    background: #fff;
+    height: 600px;
+}
+
+.pr_list_tab {
+    width: 100%;
+    font-family: \5b8b\4f53;
+}
+
+.pr_list_tab th {
+    border-right: #dcdcdc solid 1px;
+    border-bottom: #dcdcdc solid 1px;
+    height: 34px;
+    background: url(../images/i/bg_pr_list_tab_th.png) repeat-x;
+}
+
+.pr_list_tab td {
+    border-bottom: #dcdcdc solid 1px;
+    padding: 5px 0;
+}
+
+.pr_list_tab th.prlt_sear {
+    border-right: none;
+}
+
+.prlt_oper {
+    text-align: center;
+}
+
+.pr_list_tab th.prlt_norm {
+    text-align: center;
+}
+
+.prlt_nams {
+    width: 20%;
+}
+
+.prlt_norm {
+    width: 16%;
+}
+
+.prlt_pric {
+    width: 16%;
+}
+
+.prlt_stoc {
+    width: 16%;
+}
+
+.prlt_oper {
+    width: 16%;
+}
+
+.prlt_sear {
+    width: 16%;
+}
+
+.prlt_nps {
+    width: 48%;
+}
+
+.prlt_nps table {
+    width: 100%;
+}
+
+.prlt_nps table td {
+    border: none;
+    padding: 0;
+}
+
+.prlt_nps table td.prlt_norm {
+    width: 34%;
+}
+
+.prlt_nps table td.prlt_pric {
+    width: 33%;
+}
+
+.prlt_pric b {
+    display: block;
+    line-height: 22px;
+    text-align: right;
+    padding-right: 35%;
+}
+
+.prlt_nps table td.prlt_stoc {
+    width: 33%;
+}
+
+.pr_list_tab em, .pr_list_tab i {
+    float: left;
+    display: inline-block;
+}
+
+.pr_list_tab select {
+    float: left;
+    display: inline;
+    margin-top: -1px;
+    margin-right: 2px;
+}
+
+/*.prlt_nams em, .prlt_pric em, .prlt_stoc em {
+	margin-left:35%;
+}*/
+.pr_list_tab th.prlt_nams {
+    padding-left: 5%;
+    width: 15%;
+}
+
+.pr_list_tab th.prlt_pric {
+    padding-left: 5%;
+    width: 15%;
+}
+
+.pr_list_tab th.prlt_stoc {
+    padding-left: 5%;
+    width: 15%;
+}
+
+.pr_list_tab th.prlt_sear {
+    padding-left: 2%;
+    width: 15%;
+}
+
+.pr_list_tab i {
+    width: 7px;
+    height: 8px;
+    background-position: -114px 0;
+    margin-left: 8px;
+    margin-top: 5px;
+    cursor: pointer
+}
+
+.pr_list_tab i.cur {
+    background-position: -122px 0;
+}
+
+.pr_list_tab td.prlt_sear {
+    text-align: center;
+}
+
+.prlt_nams table {
+    width: 100%;
+}
+
+.prlt_nams td {
+    border: none;
+}
+
+.pr_list_tab td.prlt_nams {
+    vertical-align: top;
+}
+
+.prlt_check {
+    width: 20%;
+    text-align: center
+}
+
+.prlt_img {
+    width: 38%;
+}
+
+.prlt_img img {
+    border: #dcdcdc solid 1px;
+    width: 58px;
+    height: 58px;
+}
+
+.prlt_norm b, .prlt_stoc b {
+    display: block;
+    line-height: 22px;
+    text-indent: 32%;
+}
+
+.prlt_norm b {
+    display: block;
+    line-height: 22px;
+}
+
+.prlt_oper a {
+    display: inline-block;
+    width: 33px;
+    height: 23px;
+    line-height: 23px;
+    border: #e5e5e5 solid 1px;
+    text-align: center;
+}
+
+.prlt_oper a.cur {
+    color: #949494;
+}

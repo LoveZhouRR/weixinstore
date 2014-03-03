@@ -1,0 +1,90 @@
+﻿@using DBC.WeChat.Models.Sales
+@using DBC.WeChat.Services.Components
+@using DBC.WeChat.UI.Components
+@model ICollection<DBC.WeChat.Models.Sales.SaleOrder>
+@{
+    var pagination = ViewData["Pagination"] as Pagination;
+}
+<div class="or_list">
+    <table class="or_list_tab">
+        <thead>
+            <tr>
+                <th class="orlt_nums"><em>订单号</em><i class="icon" action="Sort" orderfield="Code"></i></th>
+                <th class="orlt_pric"><em>订单费用</em></th>
+                <th class="orlt_name">收件人</th>
+                <th class="orlt_time"><em>订单创建时间</em><i class="icon" action="Sort" orderfield="CreatedAt"></i></th>
+                <th class="orlt_stat"><em>状态</em><i class="icon" action="Sort" orderfield="State"></i></th>
+                @*<th class="orlt_wxid">卖家微信Open ID</th>*@
+                <th class="orlt_cont">联系方式</th>
+                <th class="orlt_logi">物流信息</th>
+                <th class="orlt_oper">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model != null)
+                {
+                    foreach (var saleorder in Model)
+                    {
+                <tr>
+                    <td class="orlt_nums">
+                        <b>@if (saleorder.Code != null)
+                           {
+                            @Html.ActionLink(saleorder.Code, "Edit", "SaleOrder", new { id = saleorder.ID }, new { })
+                           }
+                        </b>
+                        @if (saleorder.IsCOD != null && saleorder.IsCOD.Value)
+                        {
+                            <em>货</em>
+                        }
+                    </td>
+                    <td class="orlt_pric"><b>&yen;@(saleorder.Amount + saleorder.DeliveryFee)</b></td>
+                    <td class="orlt_name"><b>@saleorder.Name</b></td>
+                    <td class="orlt_time">
+                        <b>@if (saleorder.CreatedAt != null)
+                           {
+                               @saleorder.CreatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss")
+                           }</b>
+                    </td>
+                    <td class="orlt_stat">
+                        <b id="status@(saleorder.ID)">
+                            @if (saleorder.State != null)
+                            {
+                                @(((OrderState)saleorder.State).GetDescription())
+                            }
+                        </b>
+                    </td>
+                    @*<td class="orlt_wxid"><b>@saleorder.Fan.Code</b></td>*@
+                    <td class="orlt_cont"><b>@saleorder.Mobile</b></td>
+                    <td class="orlt_logi">
+                        @if (saleorder.DeliveryMethod != null)
+                        {
+                            <b>@saleorder.DeliveryMethod.Name</b>
+                        }
+                        <b>@saleorder.DeliveryCode</b>
+                    </td>
+                    <td class="orlt_oper" id="orlt_operCell">
+                        @{
+                        var isCOD = (saleorder.IsCOD != null && saleorder.IsCOD.Value).ToString();
+
+                        if (saleorder.State == (int)OrderState.ToBePaid)
+                        {
+                            <a href="javascript:changestate([@saleorder.ID],@((int)OrderState.Canceled),@saleorder.State,'@isCOD');" class="cur">作废</a>
+                        }
+                        else if (saleorder.State == (int)OrderState.ToBeShipped)
+                        {
+                            <a href="javascript:changestate([@saleorder.ID],@((int)OrderState.ToBeAccept),@saleorder.State,'@isCOD');">发货</a>
+                            <a href="javascript:changestate([@saleorder.ID],@((int)OrderState.Canceled),@saleorder.State,'@isCOD');" class="cur">作废</a>
+                        }
+                        }
+                    </td>
+                </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div id="pg_pging">
+    @Html.Partial("Pagination", pagination)
+</div>

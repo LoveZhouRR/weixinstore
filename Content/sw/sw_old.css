@@ -1,0 +1,281 @@
+@charset "utf-8";
+/* 头尾   */
+.wraphd {
+	background:url(bg_wraphd.jpg) center top repeat-x;
+}
+.icon_ap {
+	background:url(bg_icon_ap.png) no-repeat;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='bg_icon_ap.png');
+}
+.icon_cu {
+	background:url(bg_icon_cu.png) no-repeat;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='bg_icon_cu.png');
+}
+.icon_ln {
+	background:url(bg_icon_ln.png) no-repeat;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='bg_icon_ln.png');
+}
+.icon_op {
+	background:url(bg_icon_op.png) no-repeat;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='bg_icon_op.png');
+}
+.icon_zx {
+	background:url(bg_icon_zx.png) no-repeat;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='bg_icon_zx.png');
+}
+/* 左右框架 */
+.pg_left {
+	background:url(bg_pg_left.png) repeat;
+}
+.pg_lu i {
+	background:url(bg_pg_lu_i.png) no-repeat;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='bg_pg_lu_i.png');
+}
+.pg_lu em {
+	background:url(bg_pg_lu_em.png) no-repeat;
+	_background:none;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='bg_pg_lu_em.png');
+}
+.pg_lm dt {
+	background:#0c67a5;
+}
+.pg_lm dd a:hover, .pg_lm dd a.cur {
+	color:#003466;
+}
+/* 登录   */
+.rg_ul li {
+	background:url(bg_rg_li.png) repeat-x;
+}
+.rg_is a {
+	border:#0c65a2 solid 1px;
+	box-shadow: 0 0 1px 1px #999;
+	-moz-box-shadow: 0 0 1px 1px #999;
+	-webkit-box-shadow: 0 0 1px 1px #999;
+}
+.rg_isr {
+	background:#0c67a5;
+	color:#fff;
+}
+.rg_isl {
+	background:#e1e1e1;
+	color:#0b6ba8;
+}
+.rg_label {
+	color:#0b6ba8;
+	background:#d4e1e8;
+}
+.lg_title {
+	background:#0c67a5;
+}
+.lg_reg{background:#0c67a5;}
+.lg_send{background:#0c67a5;}
+.lg_is a {
+	background:#0c67a5;
+	border:#0b6ba8 solid 1px;
+}
+/* 帐号绑定   */
+.ab_as a{
+	background: #0b6ba8;
+}
+.ab_bm a em {
+	background:#7ecef4;
+	border:#0b6ba8 solid 1px;
+	color:#0b6ba8;
+}
+.ab_mu b {
+	background:#0b6ba8;
+}
+.ab_bs a {
+	background:#0b6ba8;
+}
+.ab_mc i{
+	background:url(bg_ab_mc_i.png) no-repeat;
+}
+/* 订单管理 */
+.or_list_tab th {
+	color:#0b6ba8;
+}
+.orlt_nums a {
+	color:#0b6ba8;
+}
+.orlt_oper a {
+	color:#0b6ba8;
+}
+/* 帮助中心  */
+.sicon {
+	background:url(bg_ab_mc_icur.png) no-repeat;
+}
+.hp_su .cur a, .hp_su a:hover {
+	color:#0b6ba8;
+}
+.hp_su .cur a .sicon, .hp_su a:hover .sicon {
+	background:url(bg_ab_mc_i.png) no-repeat;
+}
+/* 添加商品  */
+.pg_cu a.cur, .pg_cu a:hover {
+	color:#0b6ba8;
+	background:url(bg_pg_cu_acur.png) no-repeat
+}
+.ap_upload i {
+	color:#0b6ba8;
+}
+.ap_norms a {
+	color:#0b6ba8;
+}
+.ap_operate a {
+	color:#0b6ba8;
+}
+.ap_add_norms a {
+	color:#0b6ba8
+}
+.ap_delete {
+	background:url(bg_ap_delete.png) no-repeat;
+	_background:none;
+ _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='bg_ap_delete.png');
+}
+.ap_setindex {
+	background:url(bg_ap_setindex.png) no-repeat;
+}
+.ap_sub a,.ap_nsub a {
+	background:#0c67a5;
+}
+/* 商品信息管理 */
+.pr_list_tab th {
+	color:#0b6ba8
+}
+.prlt_oper a {
+	color:#0b6ba8;
+}
+/* 后台首页  */
+.bi_au li{
+	background:url(bg_bi_au_li.png) no-repeat;
+}
+.bi_au li.cur{
+	background:url(bg_bi_au_licur.png) no-repeat;
+}
+.bi_dem a:hover {
+	color:#0b6ba8;
+}
+.bi_rm dd a:hover{
+	color:#0b6ba8;
+}
+/* 支付方式  */
+.pw_sub a{background:#0c67a5;}
+/* 配送  */
+.dg_area_ft a.dg_area_fts {
+	background:#0c67a5;
+}
+.dm_sp_e span a {
+	color:#0b6ba8;
+}
+.dm_sp_a a {
+	color:#0b6ba8;
+}
+.dm_sub a.dm_sub_s {
+	background:#0c67a5;
+}
+.dm_tab th {
+	color:#0b6ba8;
+}
+.dmd_oper a {
+	color:#0b6ba8;
+}
+.dm_add {
+	color:#0b6ba8;
+}
+/* 订单信息  */
+.oi_omain em {
+	color:#0b6ba8;
+}
+.oi_omain a {
+	background:#0c67a5;
+}
+.oi_m a {
+	background:#0c67a5;
+}
+.oi_tab th {
+	color:#0b6ba8;
+}
+/* 自定义菜单  */
+.cm_lm_dl dd a.add {
+	color:#0b6ba8;
+}
+.cm_lm li a.cur {
+	background:url(bg_cm_lm_li_a.png) no-repeat;
+}
+.cm_next_o i {
+	background:url(bg_cm_next_o.png) no-repeat;
+}
+.cm_next_t i {
+	background:url(bg_cm_next_t.png) no-repeat;
+}
+.cm_mtitle {
+	color:#0b6ba8;
+}
+.sar_ul li.cur {
+	background:#0c67a5;
+}
+.sar_bl_sub a {
+	background:#0c67a5;
+}
+.sar_bl_upload {
+	color:#0b6ba8;
+}
+.sar_txt a {
+	background:#0c67a5;
+}
+.sa_add {
+	color:#0b6ba8;
+}
+.cm_right a {
+	background:url(bg_cm_right_a.png) no-repeat;
+}
+.sar_bl {
+	background:url(bg_sar_bl.png) no-repeat;
+}
+.sar_sl {
+	background:url(bg_sar_sl.png) no-repeat;
+}
+.sar_sl_upload {
+	color:#0b6ba8;
+}
+.cm_mmain_choose dd i {
+	background-image:url(bg_cm_mmain_o.png);
+}
+.cm_mmain_choose dd a:hover {
+	color:#0b6ba8;
+}
+.cm_mmain_c a.cm_mmain_ca {
+	border:#0b6ba8 solid 1px;
+	background:#0c67a5;
+}
+/* 关键字回复  */
+.sal_title {
+	color:#0b6ba8;
+}
+.sal_main dd span.cur {
+	border:#0b6ba8 solid 1px;
+}
+.sal_main dd span a {
+	background:#0c67a5;
+}
+.sal_main dd span b {
+	color:#0b6ba8;
+}
+/* 用户地址簿  */
+.av_list_tab th {
+	color:#0b6ba8;
+}
+.av_list_tab td.avlt_time {
+	color:#0b6ba8;
+}
+.ia_upload a{color:#0b6ba8;}
+.ia_sub a {
+	background:#0c67a5;
+}

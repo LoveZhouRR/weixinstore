@@ -1,0 +1,163 @@
+﻿/* =============================================================================
+Note:Reply
+========================================================================== */
+.pg_ru {
+    width: 100%;
+    height: 600px;
+    padding: 25px 35px;
+    background-color: #F7F7F6;
+}
+
+    .pg_ru em {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .pg_ru span a {
+        color: #0c67a5;
+        margin-left: 10px;
+        line-height: 20px;
+    }
+
+    .pg_ru .rp_description p {
+        font-size: 14px;
+        height: 32px;
+        line-height: 32px;
+        overflow: hidden;
+    }
+
+    .pg_ru .rp_description {
+        width: 100%;
+        height: 200px;
+        border: #d5d5d5 solid 1px;
+        padding: 10px;
+        background-color: white;
+    }
+
+        .pg_ru .rp_description textarea {
+            width: 100%;
+            height: 200px;
+            resize: none;
+            line-height: 20px;
+            overflow: hidden;
+            border: none;
+            background-color: white;
+        }
+
+    .pg_ru .top {
+        width: 100%;
+        padding: 0 10px;
+        margin-top: 20px;
+        border-top: #d5d5d5 solid 1px;
+        border-left: #d5d5d5 solid 1px;
+        border-right: #d5d5d5 solid 1px;
+        height: 28px;
+    }
+
+        .pg_ru .top span {
+            line-height: 28px;
+            text-align: center;
+        }
+
+            .pg_ru .top span a {
+                color: black;
+            }
+
+        .pg_ru .top .word {
+            background: url(../images/i/edit.png) no-repeat left center;
+            _background: none;
+            _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='Content/images/i/edit.png');
+            padding-left: 25px;
+        }
+
+    .pg_ru .bottom {
+        width: 100%;
+        padding: 0 10px;
+        height: 25px;
+        border-bottom: #d5d5d5 solid 1px;
+        border-left: #d5d5d5 solid 1px;
+        border-right: #d5d5d5 solid 1px;
+    }
+
+        .pg_ru .bottom em {
+            display: block;
+            text-align: right;
+            font-size: 12px;
+        }
+
+            .pg_ru .bottom em font {
+                font-size: 11px;
+                color: #9e663a;
+                height: 25px;
+                line-height: 25px;
+                overflow: hidden;
+            }
+
+    .pg_ru .rp_sub {
+        width: 622px;
+        height: 29px;
+        overflow: hidden;
+        margin-top: 10px;
+    }
+
+        .pg_ru .rp_sub a {
+            width: 89px;
+            line-height: 27px;
+            font-size: 16px;
+            font-family: \5FAE\8F6F\96C5\9ED1, \5b8b\4f53;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .pg_ru .rp_sub .confirm {
+            background-color: #0c67a5;
+            color: #fff;
+            border: #0c67a5 solid 1px;
+        }
+
+            .pg_ru .rp_sub .confirm:hover {
+                background-color: #d5d5d5;
+                color: #0c67a5;
+                border: #d5d5d5 solid 1px;
+            }
+
+        .pg_ru .rp_sub .cancel {
+            color: #000;
+            background-color: #F6F6F5;
+            border: #d5d5d5 solid 1px;
+        }
+
+            .pg_ru .rp_sub .cancel:hover {
+                color: #0c67a5;
+                background-color: #d5d5d5;
+                border: #d5d5d5 solid 1px;
+            }
+
+
+/* =============================================================================
+Note:Store
+========================================================================== */
+.picPanel {
+    padding: 0px 10px;
+    max-height: 300px;
+    overflow: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.pic {
+    position: relative;
+    height: 200px;
+    width: 500px;
+    background-color: transparent;
+    margin-bottom: 10px;
+}
+
+    .pic img {
+        height: 200px;
+        width: 450px;
+    }
+
+#Announcement {
+    width: 100%;
+}

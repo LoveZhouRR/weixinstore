@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@model IEnumerable<DBC.WeChat.Models.Conversation.Award>
+<link rel="stylesheet" href="~/Content/css/mucenter.css"><script type="text/javascript"
+    src="~/Content/Libraries/jQuery/jquery.unobtrusive-ajax.min.js"></script>
+@using (Ajax.BeginForm("AjaxQuery", "Award", null, new AjaxOptions()
+{
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "List",
+    // OnSuccess = "QuerySuccess",
+}, new { ID = "queryForm" }))
+{
+     <div class="hide">
+        @Html.Partial("Award/AwardQuery", ViewData["Query"])
+    </div>
+    <div id="List" class="prize_list">
+        @Html.Partial("Award/AwardList", Model)
+    </div>
+
+    <div>
+        <input name="activityID" value="@ViewBag.ActivityID"/>
+    </div>
+}

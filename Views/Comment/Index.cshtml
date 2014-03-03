@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@using DBC.WeChat.UI.Components
+@model IEnumerable<DBC.WeChat.Models.Sales.Comment>
+@{
+    var pagination = ViewData["Pagination"] as Pagination;
+}
+<link rel="stylesheet" href="~/Content/css/mucenter.css">
+<div class="eva_list">
+    <table>
+        <thead>
+            <tr>
+                <th class="el_name">商品名称</th>
+                <th class="el_user">评论人</th>
+                <th class="el_main">内容</th>
+                <th class="el_eval">评分</th>
+                <th class="el_stau">状态</th>
+                <th class="el_opea">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+
+                foreach (var comment in Model)
+                {
+                    var isshow = comment.IsShow == null ? false : comment.IsShow.Value;
+                <tr>
+                    <td class="el_name">
+                        @if (comment.Product != null)
+                        {
+                            <b>
+                                @comment.Product.Name
+                            </b>
+                        }
+                    </td>
+                    <td class="el_user">
+                        @comment.FanName
+                    </td>
+                    <td class="el_main"><b>@comment.Remark</b></td>
+                    <td class="el_eval">@comment.Level</td>
+
+                    <td class="el_stau"><b id="Show@(comment.ID)">@(isshow ? "前台显示" : "前台隐藏")</b></td>
+                    <td class="el_opea">
+                        @if (isshow)
+                        {
+                            <a id="ShowOrNot@(comment.ID)" onclick="javascript:ShowOrNot(@comment.ID,false);">隐藏</a>
+                        }
+                        else
+                        {
+                            <a id="ShowOrNot@(comment.ID)" onclick="javascript:ShowOrNot(@comment.ID,true);">显示</a>
+                        }
+                    </td>
+                </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+<div id="pagination">
+    @Html.Partial("Pagination", pagination)
+</div>
+
+<script type="text/javascript" src="~/Content/Scripts/Comment/Comment.js"></script>
+

@@ -1,0 +1,79 @@
+﻿<script type="text/javascript">
+    function EditReply(id) {
+        var content = $("#Content" + id).val();
+        $.ajax({
+            url: '/Conversation/EditTextReply',
+            type: 'post',
+            dataType: "json",
+            data: { ID: id,Content:content},
+            success: function (responstext) {
+                alert("ok");
+            }
+        });
+    }
+    
+    function DeleteReply(id) {
+        $.ajax({
+            url: '/Conversation/DeleteTextReply',
+            type: 'post',
+            dataType: "json",
+            data: { ID: id},
+            success: function (responstext) {
+                alert("ok");
+                $("#li" + id).remove();
+            }
+        });
+    }
+
+    $(function() {
+        $("#AddReplyButton").click(function() {
+            $("#AddReply").css("display", "");
+        });
+
+       
+    });
+    
+</script>
+@model IEnumerable<DBC.WeChat.Models.Conversation.TextReplyItem>
+<div id="TextReplyList">
+        @{
+            int count = 0;
+            long? parentID = 0;
+        }
+        <ul>
+        @foreach (var reply in Model)
+        {
+            parentID = reply.ParentID;
+            <li id="li@(reply.ID)">
+            @Html.Label("ID")
+            @Html.TextBox("ID" + reply.ID, reply.ID.ToString())
+            @Html.Label("内容")
+            @Html.TextBox("Content" + reply.ID, reply.Content);
+       
+            <input type="button" value="保存" onclick="javascript:EditReply(@reply.ID)"/>
+            <input type="button" value="删除" onclick="javascript:DeleteReply(@reply.ID)"/>
+                </li>
+            count++;
+        }
+</ul>
+    <a id="AddReplyButton">添加回复</a>
+    
+    @using (Ajax.BeginForm("AddTextReply", "Conversation", null, new AjaxOptions()
+        {
+            HttpMethod = "POST",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "TextReplyList",
+        }, new {ID = "AddReplyForm"}))
+    {
+        <div class="hide">
+            <input type="text" name="ParentID"  value=@parentID  />
+            <input type="text" name="KeyWordGroupID" value=@ViewBag.RuleID />
+        </div>
+        <div id="AddReply" style="display: none"><input type="text" name="Content" />
+            <a onclick=" javascript:$('#AddReplyForm').submit(); ">保存</a>
+        </div>
+
+    }
+</div>
+
+

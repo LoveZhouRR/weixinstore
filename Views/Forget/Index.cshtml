@@ -1,0 +1,165 @@
+﻿@{
+    ViewBag.Title = "重置密码";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts
+{
+    <script type="text/javascript" src="~/Content/Libraries/jQuery/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/jquery-validator-extend.js"></script>
+    <script type="text/javascript">
+        function doSubmit() {
+            var acc = $.trim($('#Account').val());
+            var code = $.trim($('#ValidateCode').val());
+            if (acc == null) return;
+            $.ajax({
+                url: '/forget',
+                type: 'POST',
+                data: { Account: acc, ValidateCode: code },
+                success: function (msg) {
+                    if (msg.success) {
+                        window.location.href = "/forget/send";
+                    } else {
+                        validatecode();
+                        $('#MsgDiv').show();
+                        $('#MsgDiv').html('<i class="icon"></i>' + msg.msg);
+                        setTimeout('$("#MsgDiv").hide()', 3000);
+                    }
+                }
+            });
+        }
+        function validatecode() {
+            $('#ImgToken').attr('src', '/forget/validatecode');
+        }
+
+        $(document).ready(function () {
+            validatecode();
+            $('input').bind('keypress', function (e) {
+                var key = window.event ? e.keyCode : e.which;
+                if (key == "13") {
+                    $('form').submit();
+                }
+            });
+            $.validator.addMethod('emailOrMobile', function(value, element) {
+                var emailReg = /^([\w\-]+)(\.[\w]+)*@@([\w\-]+\.){1,5}([A-Za-z]){2,4}$/i;
+                var mobileReg = /^(13[0-9]|15[012356789]|18[0123456789]|14[57])[0-9]{8}$/i;
+                if (emailReg.test(value) || mobileReg.test(value)) {
+                    return true;
+                }
+                return false;
+            }, '请输入正确的邮箱或手机号');
+            $('form').validate({
+                rules: {
+                    Account: {
+                        required: true,
+                        emailOrMobile: true
+                    },
+                    ValidateCode: {
+                        required: true,
+                        rangelength: [4, 4]
+                    }
+                },
+                messages: {
+                    Account: {
+                        required: '<i class="icon"></i>请输入帐号',
+                        emailOrMobile: '<i class="icon"></i>请输入正确的帐号'
+                    },
+                    ValidateCode: {
+                        required: '<i class="icon"></i>请输入验证码',
+                        rangelength: '<i class="icon"></i>验证码长度为4，不区分大小写'
+                    }
+                },
+                highlight: function (element) {
+                    $(element).addClass('ipt_err');
+                },
+                unhighlight: function (element) {
+                    $(element).removeClass('ipt_err');
+                },
+                errorElement: 'div',
+                errorClass: 'rtpwd_err',
+                errorPlacement: function (error, element) {
+                    error.insertAfter(element.parent());
+                },
+                submitHandler: function () {
+                    doSubmit();
+                }
+            });
+
+
+        });
+    </script>
+}
+@section Css
+{
+    <link rel="stylesheet" href="~/Content/css/login.css" />
+    <link rel="stylesheet" href="~/Content/css/pass.css">
+}
+
+<div class="page">
+    <div class="lr_header">
+        <div class="layout">
+            <h1 class="logo"><a href="javascript:;">
+                <img src="~/Content/images/i/lr_logo.jpg" /></a></h1>
+            @*<em>手机快速注册：发送DBC到1234567890，根据短信提示完成注册。</em>*@
+        </div>
+    </div>
+    <div class="lr_content">
+        <div class="lr_bgimg">
+            <div class="lr_ul">
+                <ul>
+                    <li>
+                        <img src="~/Content/images/i/lr_li_e.jpg" /></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="lr_layout">
+            <div class="rg_main">
+                <span class="rg_bgmain lr_bgmain"></span>
+
+            </div>
+        </div>
+
+        <div class="lr_bottom">
+        </div>
+    </div>
+
+    <div class="lr_footer">
+        <div class="layout">
+            Copyright 2006-2012 DBC Software , All Right Reserved. 沪ICP备 12020318 号
+        </div>
+    </div>
+</div>
+
+<form>
+
+    <div class="retrieve_password">
+
+        <div class="rp_content">
+            <div class="sp_flow">
+                <p class="cur"><b>1</b><i>填写注册号</i></p>
+                <p><b>2</b><i>选择验证方式</i></p>
+                <p><b>3</b><i>设置新密码</i></p>
+                <p><b>4</b><i>成功</i></p>
+            </div>
+
+            <div class="al_tmain">
+                <div class="al_m al_email">
+                    <span>填写账户名：</span>
+                    <input type="text" id="Account" name="Account" placeholder="请输入您的手机号或邮箱" class="altxt" />
+                </div>
+
+                <div class="al_m al_code">
+                    <span>验证码：</span>
+                    <input type="text" class="altxt"id="ValidateCode" name="ValidateCode" />
+                    <a onclick="javascript:validatecode();"><img id="ImgToken" style="width:70px;height:30px;" />换一换</a>
+
+                </div>
+                <div id="MsgDiv" class="rtpwd_err" style="display: none;"></div>
+                <div class="al_m al_sub">
+                    <a href="javascript:;" onclick="javascript:$('form').submit();">下一步</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,106 @@
+﻿@using Res = DBC.WeChat.UI.Store.Properties.Resources;
+@model IEnumerable<DBC.WeChat.Models.Infrastructures.DeliveryMethod>
+@{
+    ViewBag.Title = Res.UI_DeliveryMethod_Title;
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@section Css
+{
+    <link rel="stylesheet" href="~/Content/css/support.css">
+}
+@section Script
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+        });
+        function setState(id,link) {
+            if (!id) return;
+            var currentState = $('[name=hidden_' + id+']').val();
+            var enable = false;
+            if (currentState == "false") {
+                enable = true;
+            }
+            $.ajax({
+                url: '/deliverymethod/setstate',
+                data: {
+                    id: id,
+                    enable:enable
+                },
+                type: 'POST',
+                success: function (msg) {
+                    if (msg.success) {
+                        if (msg.currentState) {
+                            $('#stat_' + id).html('@Res.UI_Enabled_True');
+                            $('[name=hidden_' + id + ']').val("true");
+                            link.innerHTML = "@Res.UI_Disable";
+                        } else {
+                            $('#stat_' + id).html('@Res.UI_Enabled_False');
+                            $('[name=hidden_' + id + ']').val("false");
+                            link.innerHTML = "@Res.UI_Enable";
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+}
+
+<div class="delivery_method">
+    <div class="dm_main">
+        <table class="dm_tab">
+            <thead>
+                <tr>
+                    <th class="dmd_dway">@Res.UI_DeliveryMethod_Name</th>
+                    <th class="dmd_stat">@Res.UI_DeliveryMethod_Enabled</th>
+                    <th class="dmd_caod">@Res.UI_DeliveryMethod_Type</th>
+                    <th class="dmd_oper">@Res.UI_DeliveryMethod_Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="dmd_dway">@item.Name</td>
+                            <td class="dmd_stat" id="@("stat_" + item.ID)">@((item.Enabled??false)?Res.UI_Enabled_True:Res.UI_Enabled_False)</td>
+                            <td class="dmd_caod">@((item.CODSupported??false)?Res.UI_DeliveryMethod_IsCod:Res.UI_DeliveryMethod_NotCod)</td>
+                            <td class="dmd_oper" >
+                                @if (item.Enabled == true)
+                                {
+                                    <a onclick="javascript:setState(@item.ID, this);">@Res.UI_Disable</a>
+                                    <input type="hidden" name="@("hidden_"+item.ID)" value="true"/>
+                                }
+                                else
+                                {
+                                    <a onclick="javascript:setState(@item.ID, this);">@Res.UI_Enable</a>
+                                    <input type="hidden" name="@("hidden_"+item.ID)" value="false"/>
+                                }
+                                @Html.ActionLink(Res.UI_Edit, "Edit", new {id=item.ID})
+                            
+                            </td>
+                        </tr>
+                    }
+                }
+                
+            </tbody>
+        </table>
+        @{
+            var maxNumber = ViewData["MaxNumber"];
+            int max = 10;
+            if (maxNumber != null)
+            {
+                max = (int) maxNumber;
+            }
+        }
+        @if (max <= Model.Count())
+        {
+            <div class="dm_add dm_add_disable"><a title="达到最大数量，无法继续添加">+ @Res.UI_DeliveryMethod_AddNew</a></div>
+        }
+        else
+        {
+            <div class="dm_add">@Html.ActionLink("+ " + Res.UI_DeliveryMethod_AddNew, "Add", "DeliveryMethod")</div>
+        }
+        
+    </div>
+</div>

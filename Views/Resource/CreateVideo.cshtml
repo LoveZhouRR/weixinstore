@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "CreateVideo";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+@model DBC.WeChat.Models.Conversation.VideoResource
+@section Css{
+
+    <link rel="stylesheet" href="~/Content/sw/sw.css">
+    <link rel="stylesheet" href="~/Content/css/material.css">
+}
+@section Script
+{
+    <script type="text/javascript" src="~/Content/Libraries/jQuery/jquery.form.min.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/Resource/Video.js"></script>
+    <script type="text/javascript"
+        src="~/Content/Libraries/jQuery/jquery.unobtrusive-ajax.min.js"></script>
+}
+
+<div class="pg_cu">
+    @Html.ActionLink("图文", "News", "Resource", null, null)
+    @Html.ActionLink("图片", "Picture", "Resource", null, null)
+    @Html.ActionLink("音频", "Audio", "Resource", null, null)
+    @Html.ActionLink("视频", "Video", "Resource", null, new { @class = "cur" })
+</div>
+<div class="material_management">
+    <div class="text_message">
+        <div>
+            @using (Html.BeginForm("CreateVideo", "Resource", FormMethod.Post, new { id = "filePostForm", enctype = "multipart/form-data" }))
+            {
+                <div class="radio_main">
+                    <p class="tm_rt">视频</p>
+
+                    <div class="rm_upload">
+                        <span class="rm_ul">
+                            <input type="file" name="videoResource" id="videoResource" />本地上传</span>
+                        <b>大小：不超过1M， 格式：mp4</b>
+                    </div>
+                    <p class="tm_rt tm_rtop">标题</p>
+                    <div class="rm_title">
+                        @Html.TextBoxFor(m => m.Title)
+                    </div>
+
+                    <p class="tm_rt tm_rtop">简介<span>（选填）</span></p>
+                    <div class="rm_title">
+                        @Html.TextAreaFor(m => m.Description)
+                    </div>
+                </div>
+                <div class="tm_sub">
+                    <a onclick="javascript:$('#filePostForm').submit();">保存</a>
+                </div>
+               
+            }
+        </div>
+
+    </div>
+</div>
+

@@ -1,0 +1,391 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+.identity_authentication {
+    background: #f7f7f7;
+    overflow: auto;
+    zoom: 1;
+    height: 708px;
+    margin-top: 28px;
+    padding: 20px;
+    color: #535353;
+    font-family: \5b8b\4f53;
+    position: relative;
+}
+
+.identity_authentication b {
+    float: left;
+    display: inline-block;
+    width: 110px;
+    display: inline-block;
+}
+
+.identity_authentication em {
+    line-height: 48px;
+    display: inline-block;
+    float: left;
+    margin-left: 20px;
+}
+
+.ia_type, .ia_realname, .ia_cardnum, .ia_front, .ia_verso, .ia_waist, .ia_license, .ia_sub, .ia_img {
+    overflow: hidden;
+    zoom: 1;
+}
+
+.ia_type, .ia_realname, .ia_cardnum {
+    height: 40px;
+}
+
+.ia_img {
+    width: 358px;
+    height: 248px;
+    border: #d5d5d5 solid 1px;
+    overflow: hidden;
+}
+
+.ia_waist_m {
+    overflow: hidden;
+    zoom: 1;
+}
+
+.ia_waist_mg {
+    float: left;
+    width: 358px;
+    height: 248px;
+    border: #d5d5d5 solid 1px;
+    overflow: hidden;
+}
+
+.ia_img_example {
+    float: left;
+    width: 360px;
+    height: 250px;
+    margin-left: 10px;
+}
+
+.ia_front, .ia_verso, .ia_waist {
+    height: 48px;
+    line-height: 48px;
+}
+
+.ia_type, .ia_realname, .ia_cardnum {
+    line-height: 40px;
+}
+
+.ia_type label {
+    float: left;
+    display: inline-block;
+    margin-right: 25px;
+}
+
+.ia_type input {
+    float: left;
+    margin-right: 10px;
+    margin-top: 12px;
+    *margin-top: 8px;
+}
+
+.ia_realname input, .ia_cardnum input {
+    width: 217px;
+    height: 25px;
+    line-height: 25px;
+    padding: 0 5px;
+    border: #d5d5d5 solid 1px;
+    margin-top: 6px;
+}
+
+.ia_upload, .ia_upload input {
+    width: 94px;
+    height: 27px;
+    display: inline-block
+}
+
+.ia_upload {
+    position: relative;
+    z-index: 1;
+    margin-top: 10px;
+    float: left;
+}
+
+.ia_upload input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    filter: alpha(opacity:0);
+    z-index: 2
+}
+
+.ia_upload a {
+    width: 89px;
+    height: 27px;
+    line-height: 27px;
+    text-align: center;
+    display: inline-block;
+    background-position: -311px 0;
+    font-size: 12px;
+    float: left;
+}
+
+.ia_license label {
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    overflow: hidden
+}
+
+.ia_license input {
+    float: left;
+    margin-top: 13px;
+    margin-right: 5px;
+}
+
+.ia_license textarea {
+    width: 96%;
+    height: 77px;
+    resize: none;
+    border: #d5d5d5 solid 1px;
+    line-height: 20px;
+    padding: 10px;
+}
+
+.ia_sub {
+    height: 30px;
+    overflow: hidden;
+    text-align: center;
+    margin-top: 15px;
+    padding-bottom: 20px;
+}
+
+.ia_sub a {
+    height: 30px;
+    line-height: 30px;
+    width: 314px;
+    color: #fff;
+    font-size: 16px;
+    font-family: \5FAE\8F6F\96C5\9ED1, \5b8b\4f53;
+    text-align: center;
+    display: inline-block
+}
+
+/*帐号绑定*/
+.accounts_bind {
+    background: #f7f7f7;
+    overflow: hidden;
+    zoom: 1;
+    height: 708px;
+    margin-top: 28px;
+    padding: 20px;
+    color: #535353;
+    font-family: \5b8b\4f53;
+    position: relative;
+}
+
+.accounts_bind input, .accounts_bind select {
+    font-family: \5b8b\4f53;
+}
+
+.ab_ma {
+    overflow: hidden;
+    border-bottom: #dcdcdc solid 1px;
+    padding-bottom: 17px;
+}
+
+.ab_mb {
+    overflow: hidden;
+    border-top: #fff solid 1px;
+    border-bottom: #dcdcdc solid 1px;
+    padding: 10px 0 17px;
+}
+
+.ab_mc {
+    overflow: hidden;
+    border-top: #fff solid 1px;
+    padding: 10px 0 17px;
+}
+
+.ab_am {
+    overflow: hidden;
+    margin-bottom: 10px;
+    height: 27px;
+}
+
+.ab_am span, .ab_am em {
+    float: left;
+    display: inline-block;
+    line-height: 27px;
+    height: 27px;
+}
+
+.ab_mi {
+    float: left;
+    display: inline;
+    width: 228px;
+    height: 25px;
+    line-height: 25px;
+    border: #ccc solid 1px;
+    padding: 0 5px;
+}
+
+.ab_am span {
+    width: 108px;
+}
+
+.ab_am em {
+    color: #949494;
+    margin-left: 10px;
+}
+
+.ab_ac {
+    overflow: hidden;
+    margin-bottom: 10px;
+    height: 27px;
+    padding-left: 108px;
+    line-height: 27px;
+}
+
+.ab_ac input {
+    float: left;
+    margin-right: 10px;
+    margin-top: 7px;
+    *margin-top: 3px;
+}
+
+.ab_ac a {
+    color: #949494;
+}
+
+.ab_as {
+    height: 27px;
+    overflow: hidden;
+    padding-left: 108px;
+}
+
+.ab_as a {
+    height: 27px;
+    line-height: 27px;
+    width: 80px;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+    font-family: \5FAE\8F6F\96C5\9ED1, \5b8b\4f53;
+}
+
+.ab_mb h2, .ab_mc h2 {
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+    font-weight: bold
+}
+
+.ab_mb p {
+    height: 27px;
+    line-height: 27px;
+    margin-top: 5px;
+}
+
+.ab_bm {
+    overflow: hidden;
+    height: 27px;
+    margin-top: 10px;
+}
+
+.ab_bm span {
+    width: 108px;
+    float: left;
+    display: inline-block;
+    line-height: 27px;
+    height: 27px;
+}
+
+.ab_bm a {
+    float: left;
+    display: inline-block;
+    margin-left: 10px;
+    line-height: 27px;
+}
+
+.ab_bm a em {
+    width: 73px;
+    line-height: 25px;
+    height: 25px;
+    text-align: center;
+    display: inline-block;
+}
+
+.ab_bm select {
+    float: left;
+    display: inline;
+    width: 240px;
+    height: 27px;
+    height: auto\0;
+    margin-top: 7 px\0;
+    *margin-top: 7px;
+}
+
+.ab_mu {
+    float: left;
+    display: inline;
+    width: 56px;
+    position: relative;
+    margin-left: 10px;
+}
+
+.ab_mu a {
+    margin: 0;
+}
+
+.ab_mu b {
+    width: 56px;
+    color: #fff;
+    line-height: 27px;
+    height: 27px;
+    text-align: center;
+    display: inline-block;
+}
+
+.ab_mu input {
+    position: absolute;
+    width: 56px;
+    height: 27px;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    opacity: 0;
+    filter: alpha(opacity:0)
+}
+
+.ab_mc p {
+    height: 26px;
+    line-height: 26px;
+    overflow: hidden;
+}
+
+.ab_mc i {
+    float: left;
+    width: 10px;
+    height: 10px;
+    margin-top: 8px;
+    margin-right: 10px;
+}
+
+.ab_bs {
+    height: 27px;
+    margin-top: 10px;
+    overflow: hidden;
+    padding-left: 108px;
+}
+
+.ab_bs a {
+    height: 27px;
+    line-height: 27px;
+    width: 80px;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+    font-family: \5FAE\8F6F\96C5\9ED1, \5b8b\4f53;
+}
+
+#Error span{
+    color: red;
+}

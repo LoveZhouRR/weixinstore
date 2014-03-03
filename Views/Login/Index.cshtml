@@ -1,0 +1,281 @@
+﻿@using DBC.WeChat.UI.Store.Properties
+@{
+    Layout = "~/Views/Shared/_GateMaster.cshtml";
+    ViewBag.Title = Resources.UI_Login_Title;
+
+}
+@section Css
+{
+
+
+    <link rel="stylesheet" href="~/Content/css/bootstrap-part.min.css" />
+}
+@section Scripts
+{
+    <!--TODO Change This To minified when publish-->
+    <script type="text/javascript" src="~/Content/Scripts/bootstrap-part.min.js"></script>
+    <script type="text/javascript">
+        var currentType = 'email';
+        var emailVal = {};
+        var mobileVal = {};
+
+        function switchRegisterType(type) {
+            if (currentType === type) return;
+
+
+            currentType = type;
+            var sibling = $('li.cur').siblings('li');
+            $('li.cur').removeClass('cur');
+            sibling.addClass('cur');
+            $('#Account').focus();
+            if (type === 'email') {
+                //记录下当前手机号的值
+                mobileVal.Account = $('#Account').val();
+                mobileVal.Password = $('#Password').val();
+                //变更为邮箱的值
+                $('#Account').val(emailVal.Account);
+                $('#Password').val(emailVal.Password);
+                $('#Account').attr('placeholder', '邮箱');
+            }
+            if (type === 'mobile') {
+                //记录下当前邮箱的值
+                emailVal.Account = $('#Account').val();
+                emailVal.Password = $('#Password').val();
+                //变更为手机号的值
+                $('#Account').val(mobileVal.Account);
+                $('#Password').val(mobileVal.Password);
+                $('#Account').attr('placeholder', '手机号');
+            }
+
+        }
+
+        var logging = false;
+        var validateObj = [{
+            name: 'Account',
+            required: true,
+            emptyError: {
+                title: '@Resources.UI_Account_NotNull',
+                    content: null
+                },
+            regError: {
+                title: '@Resources.UI_Account_ErrorEmail',
+                    content: '例如：hello@dbcsoft.com'
+                },
+            validator: function (value) {
+                var emailReg = /^([\w\-]+)(\.[\w]+)*@@([\w\-]+\.){1,5}([A-Za-z]){2,4}$/i;
+                var mobileReg = /^(13[0-9]|15[012356789]|18[0123456789]|14[57])[0-9]{8}$/i;
+                if (currentType === 'mobile') {
+                    if (!value.match(mobileReg)) {
+                        return {
+                            title: '手机号错误',
+                            content: '例如：156xxxxxxxx'
+                        };
+                    }
+                    return true;
+                }
+                else if (currentType === 'email') {
+                    if (!value.match(emailReg)) {
+                        return {
+                            title: '@Resources.UI_Account_ErrorEmail',
+                            content: '例如：hello@dbcsoft.com'
+                        };
+                    }
+                    return true;
+                }
+            }
+        }, {
+            name: 'Password',
+            required: true,
+            emptyError: {
+                title: '@Resources.UI_Password_NotNull',
+                    content: null
+                }
+            }];
+
+        function ToggleSubmit(disable) {
+            logging = disable;
+            btnSetDisabled('.rg_isr', disable);
+        }
+
+        //content can be null
+
+        function pop(selector, title, content) {
+            $(selector).popover('destroy');
+            if (!content || content == "") {
+                title = "<i class='icon popover-icon'></i>" + title;
+                $(selector).popover({
+                    title: title,
+                    html: true,
+                    trigger: 'manual',
+                    template: '<div class="popover"><div class="arrow"></div><h3 class="popover-title"></h3></div>',
+                    placement: 'left'
+                });
+                $(selector).popover('show');
+            } else {
+                title = "<i class='icon popover-icon'></i>" + title;
+                $(selector).popover({
+                    title: title,
+                    html: true,
+                    content: content,
+                    trigger: 'manual',
+                    placement: 'left'
+                }).popover('show');
+                $(selector).popover('show');
+            }
+        }
+
+        function validate(field) {
+            if (!field.name) return;
+            var obj = $('#' + field.name);
+            var val = obj.val();
+            if (field.required && !val) {
+                pop('#' + field.name, field.emptyError.title, field.emptyError.content);
+                obj.focus();
+                return false;
+            }
+            if (field.reg) {
+                if (!val.match(field.reg)) {
+                    pop('#' + field.name, field.regError.title, field.regError.content);
+                    obj.focus();
+                    return false;
+                }
+            }
+            if (field.validator) {
+                var result = field.validator(val);
+                if (result === true) {
+
+                } else {
+                    pop('#' + field.name, result.title, result.content);
+                    obj.focus();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function LoginSubmit() {
+            if (logging) return;
+            $('.popover').remove();
+            logging = true;
+            var accountObj = $("#Account");
+            var pwdObj = $("#Password");
+            var name = $.trim(accountObj.val());
+            var pwd = $.trim(pwdObj.val());
+
+            for (var i = 0; i < validateObj.length; i++) {
+                if (!validate(validateObj[i])) {
+                    logging = false;
+                    return;
+                }
+            }
+
+            var datas = {};
+            datas['Code'] = name;
+            datas['Password'] = pwd;
+            datas['returnUrl'] = "@ViewBag.returnUrl";
+            datas['LoginType'] = currentType;
+            ToggleSubmit(true);
+            $.ajax({
+                type: 'POST',
+                url: '/login',
+                data: datas,
+                success: function (msg) {
+                    if (msg.success) {
+                        if (msg.msg) {
+                            window.location.href = msg.msg;
+                        } else {
+                            window.location.href = "/";
+                        }
+                    } else {
+                        ToggleSubmit(false);
+                        $('#Account').focus();
+                        pop('#Account', msg.title, msg.content);
+                    }
+                },
+                error: function () {
+                    ToggleSubmit(false);
+
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $('#Account').focus();
+            $('#Account').bind('keypress', function (e) {
+                var key = window.event ? e.keyCode : e.which;
+                if (key == "13") {
+                    LoginSubmit();
+                }
+            });
+
+            $('#Password').bind('keypress', function (e) {
+                var key = window.event ? e.keyCode : e.which;
+                if (key == "13") {
+                    LoginSubmit();
+                }
+            });
+            //$('#Password').bind('keyup', function (e) {
+            //    var key = window.event ? e.keyCode : e.which;
+            //    if (key >= 48 && key <= 90) {
+            //        validate(validateObj[1]);
+            //    }
+
+            //});
+            $(document).on('click', function (e) {
+                if ($(e.target).is('button')) return;
+                $('.popover').remove();
+            });
+            $('.rg_ul li a').mouseenter(function (e) {
+                var type = $(e.target).attr('log-type');
+                switchRegisterType(type);
+            });
+        });
+    </script>
+}
+
+
+<div class="lr_layout">
+    <div class="rg_main">
+        <div class="rg_register">
+            <div class="rg_ul">
+                <ul>
+                    <li class="cur"><a href="javascript:;" log-type="email">邮箱帐号登录</a></li>
+                    <li><a href="javascript:;" log-type="mobile">手机号登陆</a></li>
+                </ul>
+            </div>
+            <div class="rg_input">
+                <div class="rg_im rg_email">
+                    <input type="text" maxlength="300" id="Account" tabindex="1" name="Account" class="rg_it" placeholder="邮箱" />
+                    <i class="icon email_icon"></i>
+                    @*<i class="cm_triangle tri_r"></i>
+                            <div class="rg_imm">
+                                <dl>
+                                    <dt><i class="icon"></i>此帐号不存在！</dt>
+                                    <dd>
+                                        <p>提示：</p>
+                                        <p>请检查账号拼写。若有相当一段一日没有来过，此账号有可能已被注销，请<a href="javascript:;">重新注册</a></p>
+                                    </dd>
+                                </dl>
+                            </div>*@
+                </div>
+                <div class="rg_im rg_pass">
+                    <input type="password" maxlength="300" tabindex="2" id="Password" name="Password" class="rg_it" placeholder="密码" />
+                    <i class="icon pass_icon"></i>
+                </div>
+                <div class="rg_ic">
+                    <label>
+                        @*<input type="checkbox" />记住帐号*@</label>
+                    <a href="/forget" title="找回密码">忘记密码？</a>
+                </div>
+                <div class="rg_is">
+                    <button data-loading-text="登陆中..." tabindex="3" onclick="javascript:LoginSubmit();" class="rg_isr">登 录</button>
+                    <button onclick="javascript:window.open('/register');" type="button" tabindex="4" class="rg_isl">注 册</button>
+                </div>
+            </div>
+            <div class="rg_label">
+            </div>
+        </div>
+    </div>
+</div>
+
+

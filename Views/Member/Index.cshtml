@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "用户信息管理";
+    Layout = "~/Views/Shared/_Master.cshtml";
+    ViewBag.CurrentMenu = "MemberMenu";
+}
+@using DBC.WeChat.Models.Infrastructures
+@using DBC.WeChat.UI.Store.Models
+@model ICollection<MemberMasterVM>
+
+<link rel="stylesheet" href="~/Content/css/g.css">
+<link rel="stylesheet" href="~/Content/sw/sw.css">
+<link rel="stylesheet" href="~/Content/css/mucenter.css">
+<script type="text/javascript"
+    src="~/Content/Libraries/jQuery/jquery.unobtrusive-ajax.min.js"></script>
+
+@using (Ajax.BeginForm("AjaxQuery", "Member", null, new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "MemberList",
+    }, new { ID = "queryForm" }))
+{
+    <div class="pg_mu" style="display: none;">
+        @Html.Partial("Member/MemberQuery", new FanQuery())
+    </div>
+
+    <div class="pg_mm">
+        <div id="MemberList">
+            @Html.Partial("Member/MemberList", Model)
+        </div>
+    </div>
+}
+

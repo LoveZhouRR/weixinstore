@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "~/Views/Shared/_GateMaster.cshtml";
+    ViewBag.Title = "邮箱验证";
+}
+@model DBC.WeChat.Models.Infrastructures.Tenant
+@{
+    var emailAddress = Model.Account.Substring(Model.Account.IndexOf('@') + 1);
+    emailAddress = "mail." + emailAddress;
+    var url = new UriBuilder("http", emailAddress);
+}
+@section Css
+{
+}
+
+
+
+<div class="lr_layout">
+    <div class="lg_smain">
+        <span class="lg_sbgmain lr_bgmain"></span>
+        <div class="lg_scontent">
+            <div class="lg_title"><a href="javascript:;">第二步：验证账户信息</a></div>
+            <div class="lg_sm">
+                <i class="icon"></i>验证邮件已发送！
+            </div>
+            <div class="lg_reg"><a href="@url">点击这里登录注册邮箱</a></div>
+
+        </div>
+    </div>
+</div>

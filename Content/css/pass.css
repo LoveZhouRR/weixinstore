@@ -1,0 +1,379 @@
+@charset "utf-8";
+/* CSS Document */
+
+.sp_flow {
+    overflow: hidden;
+    height: 56px;
+    margin-top: 20px;
+}
+
+.sp_flow p {
+    float: left;
+    width: 242px;
+    color: #a4a4a4;
+    text-align: center;
+}
+
+.sp_flow p b {
+    color: #fff;
+    background: url(../images/i/sprite_pass.png) 0px -241px no-repeat;
+    height: 28px;
+    width: 242px;
+    display: block;
+    line-height: 28px;
+}
+
+.sp_flow p i {
+    margin-top: 10px;
+    display: block;
+}
+
+.sp_flow p.cur {
+    color: #e60011;
+}
+
+.sp_flow p.cur b {
+    background: url(../images/i/sprite_pass.png) 0px -269px no-repeat;
+}
+
+/**/
+.al_tmain {
+    overflow: hidden;
+    padding: 39px 0 40px 300px;
+    zoom: 1;
+    margin-top: 10px;
+}
+
+.al_m {
+    overflow: hidden;
+    zoom: 1;
+    margin-bottom: 7px;
+}
+
+.al_m span {
+    float: left;
+    width: 114px;
+    line-height: 29px;
+}
+
+.al_m input {
+    float: left;
+    padding: 0 5px;
+    height: 27px;
+    line-height: 27px;
+    color: #535353;
+    border: #d9d9d9 solid 1px;
+    font-family: \5b8b\4f53;
+}
+
+.al_email input {
+    width: 246px;
+}
+
+.al_code input {
+    width: 77px;
+}
+
+.al_code a {
+    float: left;
+    display: inline-block;
+    margin-left: 10px;
+    height: 29px;
+    line-height: 29px;
+}
+
+.al_txt {
+    text-decoration: underline;
+    color: #949494
+}
+
+.al_sub {
+    padding-left: 114px;
+}
+
+.al_sub a {
+    width: 86px;
+    height: 29px;
+    line-height: 29px;
+    background: #a80a0a;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    display: inline-block;
+}
+
+/**/
+.mem_main {
+    width: 480px;
+    padding: 20px 0 40px 260px;
+    overflow: hidden;
+    zoom: 1;
+}
+
+.ms_title {
+    height: 30px;
+    line-height: 30px;
+    color: #000;
+    font-size: 14px;
+    text-align: center;
+    overflow: hidden;
+    padding: 0 50px;
+}
+
+.ms_title b {
+    margin-right: 10px;
+    color: #8d592e;
+}
+
+.mem_click {
+    margin-top: 10px;
+}
+
+.mem {
+    width: 222px;
+    height: 310px;
+    border: #eaeaea solid 1px;
+    padding: 0 4px;
+}
+
+.ei_img {
+    height: 90px;
+    overflow: hidden;
+    border-bottom: #f0f0f0 dashed 1px;
+    text-align: center
+}
+
+.ei_verify {
+    padding: 5px 17px;
+    height: 48px;
+    overflow: hidden;
+}
+
+.ei_verify span, .ei_verify b {
+    display: block;
+    font-size: 14px;
+    line-height: 24px;
+    height: 24px;
+}
+
+.ei_verify span {
+    color: #000;
+}
+
+.ei_verify b {
+    color: #a80a0a;
+}
+
+.ei_txt {
+    color: #535353;
+    line-height: 24px;
+    padding: 0 14px;
+    height: 100px;
+    overflow: hidden;
+}
+
+.ei_sub {
+    height: 32px;
+    overflow: hidden;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.ei_sub a {
+    width: 175px;
+    text-align: center;
+    color: #fff;
+    height: 32px;
+    line-height: 32px;
+    font-size: 16px;
+    background: #b9b9b9;
+    display: inline-block;
+}
+
+.mc_email {
+    float: left;
+}
+
+.ei_img i {
+    background-image: url(../images/i/sprite_pass.png);
+    background-repeat: no-repeat;
+}
+
+.me_email i {
+    width: 84px;
+    height: 57px;
+    background-position: -312px -242px;
+    margin-top: 18px;
+}
+
+.me_iphone i {
+    width: 50px;
+    height: 74px;
+    background-position: -400px -242px;
+    margin-top: 8px;
+}
+
+.mem_iphone {
+    float: right;
+}
+
+.me_cur .me_email i {
+    background-position: -312px -300px;
+}
+
+.me_cur .me_iphone i {
+    background-position: -450px -242px;
+}
+
+.me_cur .ei_sub a {
+    background: #a80a0a;
+}
+
+/**/
+.al_fmain {
+    overflow: hidden;
+    padding: 39px 0 40px 380px;
+    color: #000;
+    zoom: 1;
+}
+
+.al_fdl {
+    float: left;
+    margin-left: 10px;
+    display: inline;
+}
+
+.al_fdl dt {
+    height: 32px;
+    line-height: 32px;
+    font-family: \5FAE\8F6F\96C5\9ED1;
+    font-size: 18px;
+    overflow: hidden;
+}
+
+.al_fdl dt i {
+    width: 32px;
+    height: 32px;
+    float: left;
+    margin-right: 10px;
+    background-position: -164px -146px;
+}
+
+.al_fdl dd {
+    overflow: hidden;
+    height: 24px;
+    line-height: 24px;
+}
+
+.al_fdl dd a {
+    color: #a80a0a;
+}
+
+/*daliog*/
+.dg_fd_pw {
+    height: 243px;
+    width: 495px;
+    margin-left: -248px;
+    margin-top: -122px;
+    top: 50%;
+    left: 50%;
+    background: #fff;
+    font-family: \5b8b\4f53;
+}
+
+.dg_fd_pw .ht {
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+    padding: 0 10px;
+    background: #eee;
+}
+
+.dg_fd_pw .ht h2 {
+    font-size: 14px;
+    color: #a80a0a;
+    width: 390px;
+    float: left;
+}
+
+.dg_fd_pw .ht .pub_cls {
+    float: right;
+}
+
+.dg_fd_pw .mt {
+    overflow: hidden;
+    height: auto;
+    line-height: normal;
+    padding: 0 10px;
+}
+
+.dg_fd_pw .ft {
+    margin-top: 15px;
+    overflow: hidden;
+    padding: 0 10px;
+}
+
+.mt_main {
+    width: 431px;
+    height: 68px;
+    border: #eee solid 1px;
+    background: #f6f6f6;
+    padding: 10px 20px;
+    font-size: 12px;
+    line-height: 18px;
+    margin-top: 5px;
+}
+
+.mt_main a {
+    background: url(../images/i/bg_send_code.jpg) repeat-x;
+    height: 22px;
+    line-height: 22px;
+    color: #000;
+    padding: 0 10px;
+    font-size: 12px;
+    border: #c9c9c9 solid 1px;
+    margin-top: 5px;
+    display: inline-block
+}
+
+.mt_main a.cur {
+    background: none;
+    color: #999;
+}
+
+.ft_code {
+    height: 37px;
+    color: #434343;
+}
+
+.ft_code span {
+    float: left;
+    line-height: 37px;
+    margin-right: 10px;
+}
+
+.ft_code input {
+    float: left;
+    width: 133px;
+    padding: 0 5px;
+    height: 35px;
+    line-height: 35px;
+    border: #bfbfbf solid 1px;
+}
+
+.ft_sub {
+    height: 32px;
+    overflow: hidden;
+    padding-left: 66px;
+    margin-top: 10px;
+}
+
+.ft_sub a {
+    width: 79px;
+    height: 32px;
+    background: #a80a0a;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    line-height: 32px;
+}
